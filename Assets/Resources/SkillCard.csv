@@ -1,0 +1,16 @@
+_cardIndex,_cardTier,_cardAbility,_cardName,_cardToolTip
+0,Legendary,Shield,Legend_BombShield,방어막 사용 시 폭탄이 터집니다.
+1,Legendary,Shield,Legend_Supernova,별이 폭발하여 강력한 에너지를 방출합니다.
+2,Legendary,BulletShoot,Legend_Mayhem,"총알이 튕기는 횟수 +3회 증가, 총알은 커지고 강한 데미지를 줍니다."
+3,Epic,BulletShoot,Epic_Bounce,총알이 튕기는 횟수가 1회 증가합니다.
+4,Epic,BulletShoot,Epic_BulletStrom,총알 개수가 2개 증가합니다.
+5,Epic,Shield,Epic_BloodSiphon,범위 내 적들을 흡혈합니다. 
+6,Rare,BulletExplosion,Rare_PoisionBullet,적이 독 데미지를 입습니다.
+7,Rare,PlayerState,Rare_RapidBarier,쉴드 쿨타임이 감소합니다.
+8,Rare,BulletExplosion,Rare_IceBullet,적을 일정시간 얼립니다.
+9,Common,BulletShoot,Common_BigBullet,총알크기가 30% 커집니다.
+10,Common,BulletShoot,Common_DamageUp,총알 데미지가 20% 증가합니다.
+11,Common,PlayerState,Common_RapidReload,총알 재장전 속도가 감소합니다.
+12,Basic,PlayerState,Basic_Tanker,Hp 최대치가 30% 증가합니다.
+13,Basic,PlayerState,Basic_Speeder,이동속도가 20% 증가합니다.
+14,Basic,BulletShoot,Basic_Homing,총알이 적을 추격합니다.
