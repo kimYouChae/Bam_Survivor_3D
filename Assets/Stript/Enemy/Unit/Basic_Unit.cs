@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Apple.ReplayKit;
 
-public class Bug_Basic :  Unit 
+public class Basic_Unit :  Unit 
 {
     private void Awake()
     {

@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum UNIT_STATE 
-{ 
-    Idle,
-    Tracking,
-    Attack,
-    Die
-}
-
 public class Unit : MonoBehaviour
 {
     /// <summary>
@@ -38,11 +30,6 @@ public class Unit : MonoBehaviour
 
     [Header("===LayerMask===")]
     public LayerMask _hitWallLayerMask;
-
-    // ##TODO 수정예정
-    [Header("===Ect Object===")]
-    [SerializeField] protected GameObject _dangerLine;
-    [SerializeField] protected LineRenderer _dangerBounceLine;
 
     // 프로퍼티
     public float unitSpeed      => _unitSpeed;
