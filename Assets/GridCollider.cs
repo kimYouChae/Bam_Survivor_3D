@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GridCollider : MonoBehaviour
 {
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == GameManager.instance.mapPropsLayer) 
@@ -13,4 +14,5 @@ public class GridCollider : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 }

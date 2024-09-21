@@ -4,6 +4,8 @@ using UnityEngine;
 using System.IO;
 using JetBrains.Annotations;
 
+#region Map Grid Wrapper
+/*
 [System.Serializable]
 public class GridMapWrapper
 {
@@ -29,31 +31,26 @@ public class GridMapWrapper
     
 
 }
+*/
+#endregion
 
 public class SaveManager : MonoBehaviour
 {
     [Header("===저장경로===")]
     private string _savePath;
-    private string _mapGridFileName = "mapGridSaveFile";
+    private string _mapGridFileName = "/mapGridSaveFile.txt";
 
     private void Start()
     {
         // 경로지정 (경로 : C:\Users\[user name]\AppData\LocalLow\[company name]\[product name])
-        _savePath = Application.persistentDataPath + "/save/";
-
-        StartCoroutine(F_DelayMapGridSave());
-    }
-
-    IEnumerator F_DelayMapGridSave() 
-    {
-        yield return new WaitForSeconds(1f);
-
-        // map Grid 저장 
-        F_MapGridSave();
+        _savePath = Application.persistentDataPath + "/save";
 
     }
 
-    private void F_MapGridSave() 
+
+    #region Map Grid 저장
+    /*
+    private void F_MapGridSave()
     {
         // 파일이 있으면 ? return
         if (File.Exists(_savePath + _mapGridFileName))
@@ -63,7 +60,7 @@ public class SaveManager : MonoBehaviour
         }
 
         // 디렉토리(파일)가 없으면 -> 만들기 
-        if (!Directory.Exists(_savePath)) 
+        if (!Directory.Exists(_savePath))
         {
             Debug.Log(_savePath + " 디렉토리를 생성합니다 ");
             Directory.CreateDirectory(_savePath);
@@ -82,4 +79,8 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(_savePath + _mapGridFileName, mapGridJson);
 
     }
+    */
+
+    #endregion
+
 }

@@ -19,9 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("===LayerMask===")]
     [SerializeField] private int _mapPropsLayer;
 
-    [Header("===GridMap===")]
-    [SerializeField] private bool[ , ] _mapGrid;
-    private int _mapSize = 140;
+
     
     //프로퍼티
     public float BasicRatio => _basicRatio;
@@ -31,8 +29,6 @@ public class GameManager : MonoBehaviour
     public float LegaryRatio => _legendaryRatio;
     public float unitGenerateTime => _unitGenerateTime;
     public int mapPropsLayer => _mapPropsLayer;
-    public bool[,] mapGrid => _mapGrid;
-    public int mapSize => _mapSize;
 
     private void Awake()
     {
@@ -40,13 +36,13 @@ public class GameManager : MonoBehaviour
 
         _mapPropsLayer = LayerMask.NameToLayer("MapProps");
 
-        // 기본값 false , 방문 시 true 
-        _mapGrid = new bool[_mapSize + 1 ,_mapSize + 1];
+
     }
 
+    /*
     public void F_SetGridMap(int v_x , int v_z , bool v_flag) 
     {
         _mapGrid[v_x , v_z] = v_flag;
     }
-    
+    */
 }
