@@ -14,8 +14,6 @@ public class MapManager : MonoBehaviour
     private bool[,] _mapGrid;
     [SerializeField] private int _mapSize = 140;
     [SerializeField] private string _mapGridFileName = "mapGridSaveFile";
-    [SerializeField] private GameObject _object;
-    [SerializeField] private Transform _parent;
 
     private void Start()
     {
@@ -55,17 +53,6 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        /*
-        // 잘들어갔는지 테스트 
-        for (int i = 0; i < _mapSize; i++)
-        {
-            for (int j = 0; j < _mapSize; j++)
-            {
-                if (_mapGrid[i, j] == true)
-                    Instantiate(_object, new Vector3(i, 0, j), Quaternion.identity, _parent);
-            }
-        }
-        */
     }
 
 }

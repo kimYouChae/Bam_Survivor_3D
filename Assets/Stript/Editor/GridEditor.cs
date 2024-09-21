@@ -6,7 +6,10 @@ using UnityEditor;
 [CustomEditor(typeof(GridGenerator))]
 public class GridEditor : Editor
 {
-    
+    /// <summary>
+    /// Map Grid 2차원배열을 만들기 위한 Editor
+    /// </summary>
+
     public override void OnInspectorGUI()
     {
         GridGenerator gene = (GridGenerator)target;
