@@ -16,16 +16,33 @@ public class GameManager : MonoBehaviour
     [Header("===Eenemy Generator Time===")]
     [SerializeField] private float _unitGenerateTime;
 
-    // ÇÁ·ÎÆÛÆ¼
+    [Header("===LayerMask===")]
+    [SerializeField] private int _mapPropsLayer;
+
+
+    
+    //프로퍼티
     public float BasicRatio => _basicRatio;
     public float CommonRatio => _commonRatio;
     public float RareRatio => _rareRatio;
     public float EpicRatio => _epicRatio;
     public float LegaryRatio => _legendaryRatio;
     public float unitGenerateTime => _unitGenerateTime;
+    public int mapPropsLayer => _mapPropsLayer;
 
     private void Awake()
     {
         instance = this;
+
+        _mapPropsLayer = LayerMask.NameToLayer("MapProps");
+
+
     }
+
+    /*
+    public void F_SetGridMap(int v_x , int v_z , bool v_flag) 
+    {
+        _mapGrid[v_x , v_z] = v_flag;
+    }
+    */
 }

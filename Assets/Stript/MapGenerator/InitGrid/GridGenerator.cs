@@ -1,12 +1,9 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private int _size;
     [SerializeField]
     private GameObject _gridObject;
     [SerializeField]
@@ -16,9 +13,11 @@ public class GridGenerator : MonoBehaviour
     {
         Debug.Log("¸Ê »ý¼º");
 
-        for(int i = _size * - 1; i< _size; i++) 
+        int _size = 140;
+
+        for(int i = 0; i< _size; i++) 
         {
-            for (int j = _size * -1; j < _size; j++)
+            for (int j = 0; j < _size; j++)
             {
                 Instantiate(_gridObject , new Vector3(i , -0.5f , j) , Quaternion.identity , _gridParent.transform);
 
