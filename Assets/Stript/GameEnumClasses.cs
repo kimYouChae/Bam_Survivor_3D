@@ -47,3 +47,35 @@ public class UnitState
         this._searchRadious = r;
     }
 }
+
+
+[System.Serializable]
+public class MarkerState
+{
+    [SerializeField] private float _markerHp;                     // marker Hp
+    [SerializeField] private float _markerMaxHp;                  // marker max hp
+    [SerializeField] private float _markerMoveSpeed;            // marker speed
+    [SerializeField] private float _markerShieldCoolTime;       // marker ½¯µå ÄðÅ¸ÀÓ 
+    [SerializeField] private float _markerShootCoolTime;        // ÃÑ¾Ë ¹ß»ç ÄðÅ¸ÀÓ 
+    [SerializeField] private float _markerSearchRadious;        // unit Å½»ö ¹üÀ§
+
+    // ÇÁ·ÎÆÛÆ¼
+    public float markerHp => _markerHp;
+    public float markerMaxHp { get => _markerMaxHp; set { _markerMaxHp = value; } }
+    public float markerMoveSpeed { get => _markerMoveSpeed; set { _markerMoveSpeed = value; } }
+    public float markerShieldCoolTime { get => _markerShieldCoolTime; set { _markerShieldCoolTime = value; } }
+    public float markerShootCoolTime { get => _markerShootCoolTime; set { _markerShootCoolTime = value; } }
+    public float markerSearchRadious { get => _markerSearchRadious; set { _markerSearchRadious = value; } }
+
+
+    // »ý¼ºÀÚ 
+    public void F_SetMarkerState(float v_hp, float v_maxHp, float v_speed, float v_sCoolTime, float v_bCoolTime, float v_search)
+    {
+        this._markerHp = v_hp;
+        this._markerMaxHp = v_maxHp;
+        this._markerMoveSpeed = v_speed;
+        this._markerShieldCoolTime = v_sCoolTime;
+        this._markerShootCoolTime = v_bCoolTime;
+        this._markerSearchRadious = v_search;
+    }
+}
