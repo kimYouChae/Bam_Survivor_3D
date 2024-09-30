@@ -18,6 +18,8 @@ public enum Unt_Type
     BOSS
 }
 
+#region Unit
+
 public class UnitState 
 {
     [SerializeField] private float _unitHp;           // hp
@@ -47,7 +49,9 @@ public class UnitState
         this._searchRadious = r;
     }
 }
+#endregion
 
+#region Player
 
 [System.Serializable]
 public class MarkerState
@@ -79,3 +83,34 @@ public class MarkerState
         this._markerSearchRadious = v_search;
     }
 }
+#endregion
+
+#region A * 
+
+public class Node
+{
+    public int x;
+    public int y;
+    public int distance;    // 현재까지의 거리
+    public int heuristic;   // compare위한 휴리스틱
+
+    public Node(int v_x, int v_y, int v_dis, int heuristic)
+    {
+        this.x = v_x;
+        this.y = v_y;
+        this.distance = v_dis;
+        this.heuristic = heuristic;
+    }
+}
+
+public class Pos
+{
+    public int x, y;
+
+    public Pos(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+#endregion

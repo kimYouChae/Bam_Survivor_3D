@@ -10,10 +10,21 @@ public class MapGridData
 
 public class MapManager : MonoBehaviour
 {
+    public static MapManager instance;
+
     [Header("===Grid===")]
     private bool[,] _mapGrid;
     [SerializeField] private int _mapSize = 140;
     [SerializeField] private string _mapGridFileName = "mapGridSaveFile";
+
+    // 프로퍼티 
+    public int mapSize => _mapSize;
+    public bool[,] mapGrid => _mapGrid;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
