@@ -92,14 +92,14 @@ public class Node
     public int x;
     public int y;
     public int distance;    // 현재까지의 거리
-    public int heuristic;   // compare위한 휴리스틱
+    public int weight;    // compare위한 가중치 d(거리) +  h (휴리스틱 )
 
-    public Node(int v_x, int v_y, int v_dis, int heuristic)
+    public Node(int v_x, int v_y, int v_dis, int v_we)
     {
-        this.x = v_x;
-        this.y = v_y;
-        this.distance = v_dis;
-        this.heuristic = heuristic;
+        this.x          = v_x;
+        this.y          = v_y;
+        this.distance   = v_dis;
+        this.weight     = v_we;
     }
 }
 

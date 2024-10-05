@@ -51,12 +51,5 @@ public class Basic_Unit :  Unit
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(gameObject.transform.position, this._searchRadious);
-    }
-
-
 
 }

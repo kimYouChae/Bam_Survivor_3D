@@ -9,6 +9,7 @@ public class UnitManager : MonoBehaviour
 
     [Header("===LayerMask===")]
     [SerializeField] private LayerMask _unitLayer;
+    [SerializeField] private LayerMask _chunckBoundary;
 
     [Header("===Trasform===")]
     [SerializeField] private Transform[] _unitGenerator;
@@ -16,6 +17,7 @@ public class UnitManager : MonoBehaviour
 
     // 프로퍼티
     public LayerMask unitLayer => _unitLayer;
+    public LayerMask chunckBoundary => _chunckBoundary; 
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class UnitManager : MonoBehaviour
     void Start()
     {
         _unitLayer = LayerMask.GetMask("Unit");
+        _chunckBoundary = LayerMask.GetMask("ChunckBoundary");
     }
 
     // Update is called once per frame
