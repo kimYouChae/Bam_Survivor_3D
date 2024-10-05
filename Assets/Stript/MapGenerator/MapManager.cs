@@ -24,10 +24,7 @@ public class MapManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
 
-    private void Start()
-    {
         // 기본값 false , 방문 시 true 
         _mapGrid = new bool[_mapSize + 1, _mapSize + 1];
 
