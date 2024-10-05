@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7426415078084480648}
   - component: {fileID: 7091111452368344433}
   - component: {fileID: 3846174436819411887}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1869192166083330872}
   - component: {fileID: 140544638252451862}
   - component: {fileID: 779550198966978663}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,6 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6104181877533544845}
+  - component: {fileID: 2409730894446807447}
   m_Layer: 0
   m_Name: Unit_Bee
   m_TagString: Untagged
@@ -278,6 +279,30 @@ Transform:
   - {fileID: 7600414863317113386}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2409730894446807447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4127645645952543733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitHp: 0
+  _unitSpeed: 0
+  _unitAttackTime: 0
+  _unitTimeStamp: 0
+  _searchRadious: 0
+  _UnitHeadMachine:
+    _unit: {fileID: 0}
+  _curr_UNITS_TATE: 0
+  _pre_UNITS_TATE: 0
+  _hitWallLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &6073074337054154489
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +315,6 @@ GameObject:
   - component: {fileID: 7873845785658532361}
   - component: {fileID: 6115612612914523485}
   - component: {fileID: 2926144778527290102}
-  - component: {fileID: 2990349998877915245}
   - component: {fileID: 3137204956236802242}
   m_Layer: 8
   m_Name: Bee
@@ -391,30 +415,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2990349998877915245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6073074337054154489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitHp: 0
-  _unitSpeed: 0
-  _unitAttackTime: 0
-  _unitTimeStamp: 0
-  _searchRadious: 0
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  _curr_UNITS_TATE: 0
-  _pre_UNITS_TATE: 0
-  _hitWallLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!65 &3137204956236802242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 7049212279097881397}
   - component: {fileID: 1137260582775263118}
   - component: {fileID: 169710756447280813}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 3245773045058723225}
   - component: {fileID: 5734580580490803293}
   - component: {fileID: 5987212362097097093}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

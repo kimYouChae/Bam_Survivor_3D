@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using TMPro;
 using Unity.Jobs;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Color = UnityEngine.Color;
 
 // 다른클래스에서 비교할 땐 IComparer<T>
 // 해당 클래스에서 비교할 땐 IComparable<T>
@@ -67,30 +69,32 @@ public class AStar : MonoBehaviour
         path = new List<Pos>();
 
         Debug.Log("테스트 유닛 위치 " +_testUnit.transform.position.x + " / " + _testUnit.transform.position.z);
-        
+
         // ##TODO
         // 임시 unit으로 해보기 
-        F_SearchPath((int)_testUnit.transform.position.x , (int)_testUnit.transform.position.z
-            , 2,3);
+        F_SearchPath(_testUnit.transform.position, new Vector3(2, 1, 3));
 
     }
 
-    public void F_SearchPath(int startX, int startY , int goalX, int goalY) 
+    private void Update()
     {
+        Debug.DrawRay(new Vector3(20, 1, 45), (new Vector3(2, 1, 3) - new Vector3(20, 1, 45)).normalized * 100f , Color.blue);
+    }
+
+    public void F_SearchPath(Vector3 _start, Vector3 _goal) 
+    {
+
         // 청크(20x20)만큼 배열들 초기화
-        F_InitContainer(startX , startY);
+        F_InitContainer( (int)_start.x, (int)_start.z);
 
         // 청크 내 도착지 정하기 
-        var desti = F_FindChunckDestination(startX, startY, goalX, goalY);
-
-        Debug.Log("unit 시작 : " + startX + " / " + startY);
-        Debug.Log("청크 내 도착지" + desti.Item1 + " / " + desti.Item2);
+        Vector3 desti = F_FindChunckDestination( _start , _goal );
 
         // A*로 길찾기 
-        F_FindAStarPath(startX, startY, (int)desti.Item1 , (int)desti.Item2);
+        F_FindAStarPath( (int)_start.x , (int)_start.z , (int)desti.x , (int)desti.z);
 
         // 이동경로 정하기 
-        F_CheckPath(startX , startY , goalX, goalY);
+        //F_CheckPath((int)_start.x, (int)_start.y, (int)desti.x, (int)desti.y);
     }
 
     private void F_FindAStarPath( int startX, int startY, int goalX, int goalY) 
@@ -111,6 +115,8 @@ public class AStar : MonoBehaviour
         int MinY = Math.Max(startY - _chunk, 0);
         int MaxY = Math.Min(startY + _chunk, _mapSize);
 
+        Debug.Log(MinX + " , " + MinY + " / " + MaxX + " , " + MaxY);
+
         while (true) 
         {
             if (_nodes.Count == 0)
@@ -126,6 +132,8 @@ public class AStar : MonoBehaviour
             int _dis = _curr.distance; 
             int _heuri = _curr.weight;
 
+            Debug.Log("현재노드 " + _currX + " , " + _currY);
+             
             //도착하면?
             if (_currX == goalX && _currY == goalY)
                 break;
@@ -138,19 +146,28 @@ public class AStar : MonoBehaviour
 
                 // 올바른 좌표에 있는지 
                 if (nx < MinX || ny < MinY || nx >= MaxX || ny >= MaxY)
+                {
+                    Debug.Log("1에서 continew");
                     continue;
+                }
 
                 // 방문했는지 (장애물도 true)
                 int norX = nx - (startX - _chunk);
                 int norY = ny - (startY - _chunk);
                 if (visit[norX, norY])
+                {
+                    Debug.Log("2에서 continue");
                     continue;
+                }
 
                 //  g + h가 저장된 휴리스틱보다 크면?
                 int nowDis = _dis + 1;
                 int nowHeuri = F_Heuristic( nx , ny , goalX , goalY);
                 if (nowDis + nowHeuri > heuristic[norX, norY])
+                {
+                    Debug.Log("3에서 continue"); 
                     continue;
+                }
 
                 // 조건충족하면
                 // List에 넣기 
@@ -255,6 +272,22 @@ public class AStar : MonoBehaviour
             // i 증가 
             indexI++;
         }
+
+        // ##TODO : 임시로 출력해보기
+        // 청크 시작 , 끝 
+        int _cXS = startX - _chunk;
+        int _cYS = startY - _chunk;
+
+        for (int i = 0; i < 20; i++) 
+        {
+            for(int j = 0; j < 20; j++) 
+            {
+                if (visit[j, i] == true)
+                    continue;
+
+                Instantiate(_testObject , new Vector3(_cYS + j, 1 , _cXS + i) , Quaternion.identity);
+            }
+        }
     }
 
     private bool F_ValidePosition( int x , int y ) 
@@ -265,59 +298,25 @@ public class AStar : MonoBehaviour
         return true;
     }
 
-    private (int,int) F_FindChunckDestination(int startX, int startY, int goalX, int goalY) 
+    private Vector3 F_FindChunckDestination(Vector3 _start, Vector3 _goal) 
     {
-        // 임의의 값 넣어놓기
-        int chunkDestiX = Int32.MaxValue;
-        int chunkDestiY = Int32.MaxValue;
+        // 시작점에서 raycast
+        RaycastHit _hit;
 
-        // start와 goal을 지나는 직선의 방정식 구하기
-        // y = mx + a 
-        // 두점사이의 기울기 
-        double maininClination = Math.Round( ((double)goalY - (double)startY) / ((double)goalX - (double)startX) , 2);
-        double mainA = Math.Round( ( -1.0 * (maininClination * (double)startX)) + (double)startY , 2);
+        bool _flag = Physics.Raycast( _start, (_goal - _start).normalized , out _hit , 200f , UnitManager.Instance.chunckBoundary);
 
-        Debug.Log("기울기 + " + maininClination);
-        Debug.Log("A : " + mainA);
+        Debug.Log(_flag);
 
-        // 모든 청크 line에 대한 직선의 방정식 구하기
-        // -> 그 후 start-goal 직선이랑 교점이 있는지 검사 ?
-
-        int chunckMinX = Math.Max(startX - 10, 0);
-        int chunckMaxX = Math.Min(startX + 10, _mapSize);
-        int chunckMinY = Math.Max(startY - 10, 0);
-        int chunckMaxY = Math.Min(startY + 10, _mapSize);
-
-        Debug.Log("( " + chunckMinX + " , " + chunckMinY + ") 부터 ( " + chunckMaxX + " , " + chunckMaxY + " ) ");
-
-        // goal이 위쪽에 있으면 
-        if (goalY > startY && goalX >= chunckMinX && goalX <=  chunckMaxX)
+        // 충돌이 감지되면
+        if (_flag)
         {
-            chunkDestiX = chunckMaxY; 
-            chunkDestiY = (int)mainA;     
-        }
-        // 아래쪽
-        else if (goalY < startY && goalX >= chunckMinX && goalX <= chunckMaxX)
-        {
-            chunkDestiX = chunckMinY; 
-            chunkDestiY = (int)mainA;
-        }
-        // 오른쪽
-        else if (goalX > startX)
-        {
-            chunkDestiX = chunckMaxX;
-            chunkDestiY = (int)(maininClination * startX * -1) * chunkDestiX + startY;
-        }
-        // 왼쪽 
-        else if(goalX < startX)
-        {
-            Debug.Log("!!!!!!!!!!!!!!!현재왼");
-            chunkDestiX = chunckMinX;
-            chunkDestiY = (int)(maininClination * chunkDestiX + mainA);
+            //Debug.Log(_hit.transform.position.x + " / " + _hit.transform.position.z);
+            //GameObject _obj = Instantiate(_testObject, new Vector3(_hit.transform.position.x, 0, _hit.transform.position.z), Quaternion.identity);
+
+            return _hit.transform.position; 
         }
 
-        return (chunkDestiX, chunkDestiY);
-
+        return Vector3.zero;
     }
 
 
