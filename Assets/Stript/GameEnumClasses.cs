@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -107,10 +108,12 @@ public class Pos
 {
     public int x, y;
 
-    public Pos(int x, int y)
+    public Pos() { }
+
+    public Pos(int y, int x)
     {
-        this.x = x;
         this.y = y;
+        this.x = x;
     }
 }
 #endregion

@@ -53,11 +53,11 @@ public class MapManager : MonoBehaviour
         temp = mapGridData._visited;
 
         // 2채원배열로 변환
-        for (int i = 0; i < _mapSize; i++) 
+        for (int y = 0; y < _mapSize; y++) 
         {
-            for (int j = 0; j < _mapSize; j++)
+            for (int x = 0; x < _mapSize; x++)
             {
-                _mapGrid[i, j] = temp[ _mapSize * i + j ];
+                _mapGrid[y,x] = temp[ _mapSize * x + y ];
             }
         }
 
