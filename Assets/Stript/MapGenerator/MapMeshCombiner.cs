@@ -7,9 +7,7 @@ using UnityEngine.UIElements;
 
 enum CombineType 
 {
-    Tree ,
     Water,
-    Bridge,
     Soil
 }
 
@@ -28,11 +26,7 @@ public class MapMeshCombiner : MonoBehaviour
 
     [Header("=== TODO Combine ===")]
     [SerializeField]
-    private List<GameObject> _treeParent;
-    [SerializeField]
     private List<GameObject> _waterParent;
-    [SerializeField]
-    private List<GameObject> _brigeParent;
     [SerializeField]
     private List<GameObject> _soilParent;
 
@@ -48,10 +42,8 @@ public class MapMeshCombiner : MonoBehaviour
     {
          _combineList = new List<CombineInstance>();
 
-        // 1. 다 Conbine 하기 
-        F_CombineMesh(_treeParent, CombineType.Tree);
+        // 1.Conbine 하기 
         F_CombineMesh(_waterParent, CombineType.Water);
-        F_CombineMesh(_brigeParent, CombineType.Bridge);
         F_CombineMesh(_soilParent , CombineType.Soil);
     }
 
@@ -66,31 +58,12 @@ public class MapMeshCombiner : MonoBehaviour
             {
                 Transform _child = v_list[i].transform.GetChild(j);
 
-                // child 밑에 하위가 없으면 ? (tree를 제외한 오브젝트 )
-                if (v_type != CombineType.Tree)
-                {
-                    F_CreateComIns(_child);
+                F_CreateComIns(_child);
 
-                    if (_material != null)
-                        continue;
+                if (_material != null)
+                    continue;
 
-                    _material = _child.GetComponent<MeshRenderer>().material;
-
-                }
-
-                // tree일 때는 child 밑에 오브젝트가 있음
-                else 
-                {
-                    for (int p = 0; p < _child.childCount; p++) 
-                    {
-                        F_CreateComIns(_child.GetChild(p));
-
-                        if (_material != null)
-                            continue;
-
-                        _material = _child.GetChild(p).GetComponent<MeshRenderer>().material;
-                    }
-                }
+                _material = _child.GetComponent<MeshRenderer>().material;
             }
 
             // Combine 한 오브젝트는 다 끄기 
