@@ -17,9 +17,17 @@ public class MapManager : MonoBehaviour
     [SerializeField] private int _mapSize = 140;
     [SerializeField] private string _mapGridFileName = "mapGridSaveFile";
 
+    [Header("===Script===")]
+    [SerializeField]
+    private MapMeshCombiner _combiner;
+    [SerializeField]
+    private MapNavMeshBake _mapNavMeshBake;
+    
     // 프로퍼티 
     public int mapSize => _mapSize;
     public bool[,] mapGrid => _mapGrid;
+    public MapMeshCombiner mapCombiner => _combiner;
+    public MapNavMeshBake mapNavMeshBake => _mapNavMeshBake;
 
     private void Awake()
     {
@@ -62,5 +70,6 @@ public class MapManager : MonoBehaviour
         }
 
     }
+
 
 }
