@@ -22,9 +22,6 @@ public class Basic_Unit :  Unit
     {
         // FSM excute 
         F_CurrStateExcute();
-
-        // Ray ±×¸®±â 
-        F_DrawLine();
     }
 
     protected override void F_InitUnitUnitState()
@@ -32,7 +29,7 @@ public class Basic_Unit :  Unit
         this._unitHp = 10;
         this._unitSpeed = 3f;
         this._unitAttackTime = 2f;
-        this._searchRadious = 1.5f;
+        this._searchRadious = 5f;
         this._unitTimeStamp = 0;
     }
 

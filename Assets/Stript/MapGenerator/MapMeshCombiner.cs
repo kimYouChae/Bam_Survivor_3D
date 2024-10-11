@@ -56,6 +56,8 @@ public class MapMeshCombiner : MonoBehaviour
 
     private void Start()
     {
+        // 사전 작업 : Water, Soil Combine 한 후 Asset/Mesh 에 저장 
+        /*
         _meshCount = 0;
         _overMaxCountMesh = 0;
         _combineList = new List<CombineInstance>();
@@ -74,7 +76,7 @@ public class MapMeshCombiner : MonoBehaviour
             _combineFinishObjectList[i].SetActive(false);
 
         }
-
+        */
     }
 
 
@@ -172,7 +174,7 @@ public class MapMeshCombiner : MonoBehaviour
         Mesh _combineMesh = new Mesh();
         _combineMesh.CombineMeshes(_combineList.ToArray(), true);
 
-        Debug.Log(v_type + " : " + _combineList.Count);
+        //Debug.Log(v_type + " : " + _combineList.Count);
 
         // 시각적으로 보기 
         _combineFinishObjectList[(int)v_type + v_blank].GetComponent<MeshFilter>().sharedMesh = _combineMesh;
