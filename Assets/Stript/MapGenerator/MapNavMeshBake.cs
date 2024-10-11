@@ -7,6 +7,13 @@ using UnityEngine.AI;
 
 public class MapNavMeshBake : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// 원래는 동적 bake를 하려고했지만 정적bake를 하게되어서
+    /// 동적 bake를 하기위한 코드를 남겨놓음 !  
+    /// 
+    /// </summary>
+
     [Header("===Object===")]
     [SerializeField]
     private GameObject _tempObject;                 // tree에 대응하는 오브젝트 
@@ -48,28 +55,33 @@ public class MapNavMeshBake : MonoBehaviour
         
     }
 
-    private void F_InstanceTreeObjec() 
-    {
-        // mapGrid의 true (장애물)인 부분에 오브젝트 생성
+    #region 사전작업
 
-        for(int y = 8; y < MapManager.instance.mapSize - 8; y++) 
+    /*
+        private void F_InstanceTreeObjec() 
         {
-            for (int x = 8; x < MapManager.instance.mapSize - 8; x++)
+            // mapGrid의 true (장애물)인 부분에 오브젝트 생성
+
+            for(int y = 8; y < MapManager.instance.mapSize - 8; y++) 
             {
-                if (MapManager.instance.mapGrid[y, x] == true)
-                { 
-                    GameObject _temp = Instantiate(_tempObject , new Vector3( x, 0 , y) , Quaternion.identity);
-                    _tempTreeObject.Add(_temp); 
+                for (int x = 8; x < MapManager.instance.mapSize - 8; x++)
+                {
+                    if (MapManager.instance.mapGrid[y, x] == true)
+                    { 
+                        GameObject _temp = Instantiate(_tempObject , new Vector3( x, 0 , y) , Quaternion.identity);
+                        _tempTreeObject.Add(_temp); 
+
+                    }
 
                 }
-                
             }
+
         }
 
-    }
-
-    public void F_AddObstacle(GameObject v_obj) 
-    {
-        _obstacleList.Add(v_obj);
-    }
+        public void F_AddObstacle(GameObject v_obj) 
+        {
+            _obstacleList.Add(v_obj);
+        }
+    */
+    #endregion
 }
