@@ -85,7 +85,7 @@ public class BasicBullet : MonoBehaviour
         // wall이랑 충돌 시 
         if (collision.gameObject.CompareTag("Wall"))
         {
-            Debug.LogError("벽이랑 충돌 ");
+            //Debug.LogError("벽이랑 충돌 ");
 
             _iscollisionToWall = false;
 
