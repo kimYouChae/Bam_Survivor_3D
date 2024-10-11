@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class Unit : MonoBehaviour
     [SerializeField] protected float _unitAttackTime;   // 공격 지속시간
     [SerializeField] protected float _unitTimeStamp;   // 공격 시 0으로 초기화                                                 
     [SerializeField] protected float _searchRadious;       // 플레이어 감지 범위 
+
+    [SerializeField] const float _navActionCoolDown = 1f;
 
     [Header("===FSM===")]
     public HeadMachine _UnitHeadMachine;
@@ -102,8 +106,16 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // 모든 상태 시작하면 현재 돌고 있는 코루틴은 멈춰야함
+    public void F_StopColoutine() 
+    { 
+        StopAllCoroutines();
+    }
+
+    // Unit 일정시간동안 Traking
     public void F_UniTracking(Unit v_unit) 
     {
+        /*
         // 1. 플레이어 추적
         v_unit.gameObject.transform.position
             = Vector3.MoveTowards(v_unit.gameObject.transform.position,
@@ -118,12 +130,52 @@ public class Unit : MonoBehaviour
             // 상태전이
             v_unit.F_ChangeState( UNIT_STATE.Attack );
         }
-       
+        */
+
+        StartCoroutine(IE_UnitTracking(v_unit));
     }
 
-    public void F_DrawLine() 
+    private IEnumerator IE_UnitTracking(Unit v_unit) 
     {
-        Debug.DrawRay(gameObject.transform.position , transform.up * 30f , Color.red);
+        Vector3 _destiPosition;
+        NavMeshAgent _unitAgent = null;
+
+        if (v_unit.gameObject.GetComponent<NavMeshAgent>() == null)
+        {
+            Debug.LogError("Unit의 agane가 null");
+            yield return null;
+        }
+        else 
+        {
+            _unitAgent = v_unit.gameObject.GetComponent<NavMeshAgent>();
+        }
+
+        // update문 효과 
+        while (true) 
+        {
+            // marker의 첫번째 위치를 목적지고
+            _destiPosition = PlayerManager.instance.markers[0].transform.position;
+
+            // agent의 도착지 잡아주기 
+            _unitAgent.SetDestination( _destiPosition );
+
+            yield return new WaitForSeconds(_navActionCoolDown);
+        }
+    }
+
+    // marker(플레이어)가 범위안에 들어오면 changeState
+    public void F_UpdateSateByDistance(Unit v_unit) 
+    {
+        Vector2 _playerPos2D = new Vector2(PlayerManager.instance.markers[0].transform.position.x, PlayerManager.instance.markers[0].transform.position.z);
+        Vector2 _unitPos2D = new Vector2(v_unit.gameObject.transform.position.x, v_unit.gameObject.transform.position.z);
+
+        //Debug.Log(Vector2.Distance(_playerPos2D, _unitPos2D));
+
+        // 거리가 searchRadious보다 작으면 
+        if (Vector2.Distance(_playerPos2D, _unitPos2D) <= v_unit.searchRadious) 
+        {
+            F_ChangeState(UNIT_STATE.Attack);
+        }
     }
 
     public void F_GetDamage(float v_damage) 
@@ -145,6 +197,5 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("총알이랑 충돌");
         }                   
-
     }
 }

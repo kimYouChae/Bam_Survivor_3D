@@ -15,6 +15,12 @@ public class Unit_Tracking : FSM
     {
         Debug.Log("Tracking Enter");
         _unit._curr_UNITS_TATE = UNIT_STATE.Tracking;
+
+        // 현재 돌고있는 코루틴 스탑
+        _unit.F_StopColoutine();
+
+        // Tracking 동작 
+        _unit.F_UniTracking(_unit);
     }   
 
     public override void FSM_Excute()
@@ -22,8 +28,8 @@ public class Unit_Tracking : FSM
         // Unit hp 검사, 0 이하 시 Die로 상태변화
         _unit.F_ChekchUnitHp();
 
-        // Tracking 동작 
-        _unit.F_UniTracking(_unit);
+        // marker(player)와 가까워지면 상태변화
+        _unit.F_UpdateSateByDistance(_unit);
     }
 
     public override void FSM_Exit()
