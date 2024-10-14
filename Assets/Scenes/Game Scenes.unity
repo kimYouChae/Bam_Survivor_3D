@@ -1408,7 +1408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0
   _isReadToMove: 0
-  _betweenMarkerTime: 0
+  _betweenMarkerDistnace: 0
 --- !u!114 &52772252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5872,10 +5872,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Beaver (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 2684471731561820872, guid: f8abce5ce97019641869b72b88f40835, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalPosition.x
       value: 59
@@ -5886,7 +5882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 86
+      value: 83
       objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6211,10 +6207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Beaver (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 2684471731561820872, guid: f8abce5ce97019641869b72b88f40835, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalPosition.x
       value: 59
@@ -6225,7 +6217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 88
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 7036496003290705142, guid: f8abce5ce97019641869b72b88f40835, type: 3}
       propertyPath: m_LocalRotation.w
