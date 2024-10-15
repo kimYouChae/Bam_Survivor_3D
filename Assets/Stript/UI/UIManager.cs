@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("card select Ui")]
+    [Header("===Card select Ui===")]
     [SerializeField]
     private CardSelectUI _cardSelectUI;
 
-    [Header("Marker State Ui")]
+    [Header("===Marker State Ui===")]
     [SerializeField] private TextMeshProUGUI _stateText;
+
+    [Header("===EXP BAR===")]
+    [SerializeField] private Slider _expSliderBar;
+    [SerializeField] private TextMeshProUGUI _playerLevel;
+    [SerializeField] private Button _GetExpButton;
 
     // 프로퍼티
     public CardSelectUI cardSelectUi => _cardSelectUI;
@@ -21,11 +27,39 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        _GetExpButton.onClick.AddListener(F_TEST);
     }
 
     private void Start()
     {
+        // 플레이어 state 출력 
         F_UpdateMarkerStateText();
+
+    }
+
+    // ##TODO : 임시 경험치 획득 버튼 만들기 
+    private void F_TEST() 
+    {
+        PlayerManager.instance.F_AddEXP(0.7f);
+    }
+
+    // EXP Slider Bar 적용
+    public void F_UpdateInGameUI(float v_value , int v_level) 
+    {
+        // Slider bar 업데이트 
+        _expSliderBar.value     = v_value;
+        _playerLevel.text       = v_level.ToString();
+    }
+
+    // Card Ui On
+    public void F_ReadyToOpenCardUi() 
+    {
+        // 시간 멈추기 
+        Time.timeScale = 0;
+
+        // Card select ui 켜기
+        _cardSelectUI.F_ShowCard();
     }
 
     // 상태변화가 있을 때 적용
