@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+
+    [Header("===Player Level===")]
+    [SerializeField] private int _PLAYERLEVEL;        // 현재 레벨
+    [SerializeField] private float _CURREXP;        // 현재 경험치
+    [SerializeField] private float _MAXEXP;        // max 경험치
 
     [Header("===Script===")]
     [SerializeField] private MarkerMovement _markerMovement;                    // marker 움직임
@@ -44,9 +50,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        // Boundary 생성 
-        F_CreateBoundaryByScreen();
     }
 
     private void Start()
@@ -57,6 +60,49 @@ public class PlayerManager : MonoBehaviour
         _markerLayer = LayerMask.GetMask("Marker");
 
         _markerHeadTrasform = _markers[0].transform;
+
+        // exp 
+        _PLAYERLEVEL    = 1;
+        _CURREXP        = 0;
+        _MAXEXP         = F_EXPAccorLevel(_PLAYERLEVEL);
+
+        // 시작 시 ui 업데이트 
+        UIManager.Instance.F_UpdateInGameUI(0, _PLAYERLEVEL);
+    }
+
+    // level에 따른 경험치 return
+    private float F_EXPAccorLevel(int v_level) 
+    {
+        float a = Mathf.Floor((0.5f * Mathf.Pow(v_level, 2)) * 10f) / 10f;
+
+        return a + (float)v_level + 1.0f;
+    }
+
+    // HP 획득
+    public void F_AddEXP(float v_exp) 
+    {
+        _CURREXP += v_exp;
+
+        // 만약 최대 exp 넘으면
+        if (_CURREXP >= _MAXEXP)
+        {
+            Debug.Log( "현재 level : " + _PLAYERLEVEL + " / 현재 MAX" + _MAXEXP + " / 현재 Curr" + _CURREXP );
+
+            // 현재 exp 초기화
+            _CURREXP = _CURREXP - _MAXEXP;
+
+            // 플레이어 레벨 ++
+            _PLAYERLEVEL++;
+
+            // max 다시계산 
+            _MAXEXP = F_EXPAccorLevel(_PLAYERLEVEL);
+
+            // card Ui On
+            UIManager.Instance.F_ReadyToOpenCardUi();
+        }
+
+        // ui 업데이트 ( curr - MAX 값으로 해야함)
+        UIManager.Instance.F_UpdateInGameUI(_CURREXP / _MAXEXP , _PLAYERLEVEL);
 
     }
 
@@ -84,11 +130,5 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    // 해상도 따라서 bullet이 bounce할 경계선 생성 
-    public void F_CreateBoundaryByScreen() 
-    { 
-        // 해상도는 16 : 9로 고정 (가로)
 
-
-    }
 }

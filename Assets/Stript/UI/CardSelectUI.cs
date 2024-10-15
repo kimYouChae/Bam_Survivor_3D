@@ -28,17 +28,8 @@ public class CardSelectUI : MonoBehaviour
     [SerializeField]
     private List<Tuple<CardTier, SkillCard>> _finalSelectCard; // 랜덤으로 선택 된 카드 
 
-    void Update()
-    {
-        //  ##TODO : 임시로 L 누르면 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            F_ShowCard();
-        }
-    }
-
     // 카드 ui On  
-    private void F_ShowCard()
+    public void F_ShowCard()
     {
         // idx 초기화
         _currCardIndex = -1;
@@ -102,6 +93,10 @@ public class CardSelectUI : MonoBehaviour
 
             // index에 맞는 skillcard 클래스를 return할 수 있음 
             SkillCardManager.instance.F_applyEffectBySkillcard(_finalSelectCard[_currCardIndex]);
+
+            // pause 되어있다면 시간 돌아가게
+            if( Time.timeScale == 0 )
+                Time.timeScale = 1;
         }
     }
 
