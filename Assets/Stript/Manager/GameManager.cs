@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
 
     [Header("===LayerMask===")]
     [SerializeField] private int _mapPropsLayer;
-
-
     
     //프로퍼티
     public float BasicRatio => _basicRatio;

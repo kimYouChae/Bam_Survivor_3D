@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+
+    [Header("===Player Level===")]
+    [SerializeField] private int _PLAYERLEVEL = 0;        // 현재 레벨
+    [SerializeField] private float _CURREXP     = 0;        // 현재 경험치
+    [SerializeField] private float _MAXEXP      = 0;        // max 경험치
 
     [Header("===Script===")]
     [SerializeField] private MarkerMovement _markerMovement;                    // marker 움직임
@@ -44,9 +50,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        // Boundary 생성 
-        F_CreateBoundaryByScreen();
     }
 
     private void Start()
@@ -58,6 +61,46 @@ public class PlayerManager : MonoBehaviour
 
         _markerHeadTrasform = _markers[0].transform;
 
+        // MAXHP
+        _MAXEXP = F_EXPAccorLevel(_PLAYERLEVEL);
+
+    }
+
+    // level에 따른 경험치 return
+    private float F_EXPAccorLevel(int v_level) 
+    {
+        float a = Mathf.Floor((0.5f * Mathf.Pow(v_level, 2)) * 10f) / 10f;
+
+        return a + (float)v_level + 1.0f;
+    }
+
+    // HP 획득
+    public void F_AddEXP(float v_exp) 
+    {
+        _CURREXP += v_exp;
+
+        // 만약 최대 exp 넘으면
+        if (_CURREXP >= _MAXEXP)
+        {
+            Debug.Log( "현재 level : " + _PLAYERLEVEL + " / 현재 MAX" + _MAXEXP + " / 현재 Curr" + _CURREXP );
+
+            // 현재 exp 초기화
+            _CURREXP = _CURREXP - _MAXEXP;
+
+            // 플레이어 레벨 ++
+            _PLAYERLEVEL++;
+
+            // max 다시계산 
+            _MAXEXP = F_EXPAccorLevel(_PLAYERLEVEL);
+
+            // ##TODO : ui 업데이트 ( curr - MAX 값으로 해야함)
+
+        }
+        else 
+        {
+            // ##TODO : ui 업데이트 ( Max / Curr 값으로)
+
+        }
     }
 
     // marker State 초기화 
@@ -84,11 +127,5 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    // 해상도 따라서 bullet이 bounce할 경계선 생성 
-    public void F_CreateBoundaryByScreen() 
-    { 
-        // 해상도는 16 : 9로 고정 (가로)
 
-
-    }
 }
