@@ -59,7 +59,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
 
         // Card select ui 켜기
-        _cardSelectUI.F_ShowCard();
     }
 
     // 상태변화가 있을 때 적용
