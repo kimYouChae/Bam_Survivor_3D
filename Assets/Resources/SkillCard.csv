@@ -1,16 +1,24 @@
-_cardIndex,_cardTier,_cardAbility,_cardName,_cardToolTip
-0,Legendary,Shield,Legend_BombShield,방어막 사용 시 폭탄이 터집니다.
-1,Legendary,Shield,Legend_Supernova,별이 폭발하여 강력한 에너지를 방출합니다.
-2,Legendary,BulletShoot,Legend_Mayhem,"총알이 튕기는 횟수 +3회 증가, 총알은 커지고 강한 데미지를 줍니다."
-3,Epic,BulletShoot,Epic_Bounce,총알이 튕기는 횟수가 1회 증가합니다.
-4,Epic,BulletShoot,Epic_BulletStrom,총알 개수가 2개 증가합니다.
-5,Epic,Shield,Epic_BloodSiphon,범위 내 적들을 흡혈합니다. 
-6,Rare,BulletExplosion,Rare_PoisionBullet,적이 독 데미지를 입습니다.
-7,Rare,PlayerState,Rare_RapidBarier,쉴드 쿨타임이 감소합니다.
-8,Rare,BulletExplosion,Rare_IceBullet,적을 일정시간 얼립니다.
-9,Common,BulletShoot,Common_BigBullet,총알크기가 30% 커집니다.
-10,Common,BulletShoot,Common_DamageUp,총알 데미지가 20% 증가합니다.
-11,Common,PlayerState,Common_RapidReload,총알 재장전 속도가 감소합니다.
-12,Basic,PlayerState,Basic_Tanker,Hp 최대치가 30% 증가합니다.
-13,Basic,PlayerState,Basic_Speeder,이동속도가 20% 증가합니다.
-14,Basic,BulletShoot,Basic_Homing,총알이 적을 추격합니다.
+_cardTier,_cardAbility,_scriptName,_skillName,_cardToolTip
+Legendary,Shield,Legend_BombShield,인페르노,방어막 사용 시 폭탄이 터집니다.
+Legendary,Shield,Legend_Supernova,초신성,별이 폭발하여 강력한 에너지를 방출합니다.
+Legendary,BulletShoot,Legend_Mayhem,총알_난장판,"총알이 튕기는 횟수 +3회 증가, 총알은 10% 커지고 30% 추가 데미지를 줍니다."
+Epic,BulletShoot,Epic_Bounce,총알_바운스_증가,총알이 튕기는 횟수가 1회 증가합니다.
+Epic,BulletShoot,Epic_BulletStrom,총알_비,총알 개수가 2개 증가합니다.
+Epic,Shield,Epic_BloodSiphon,피의_갈증,범위 내 적들을 흡혈합니다. 
+Rare,BulletExplosion,Rare_PoisionBullet,독성_탄환,적이 독 데미지를 입습니다.
+Rare,PlayerState,Rare_RapidBarier,빠른_쉴드,쉴드 쿨타임이 10% 감소합니다.
+Rare,BulletExplosion,Rare_IceBullet,얼어붙은_사격,적을 일정시간 얼립니다.
+Common,BulletShoot,Common_BigBullet,확장_탄약,총알크기가 30% 커집니다.
+Common,BulletShoot,Common_DamageUp,임펙트_샷,총알 데미지가 20% 증가합니다.
+Common,PlayerState,Common_RapidReload,신속한_재장전,총알 재장전 속도가 10% 감소합니다.
+Basic,PlayerState,Basic_Tanker,최대_HP_증가,Hp 최대치가 30% 증가합니다.
+Basic,PlayerState,Basic_Speeder,신속한_움직임,이동속도가 20% 증가합니다.
+Basic,PlayerState,Basic_NaturalRecovery,회복_부스트,자연회복량이 10 증가합니다.
+Basic,PlayerState,Basic_QuickRecovery,치유_가속,자연회복량 쿨타임이 5% 감소합니다.
+Basic,BulletShoot,Basic_RapidBullet,속사,총알속도가 10% 증가합니다.
+Legendary,PlayerState,Legend_ExtraLife,최후의_저항,부활횟수가 1회 증가합니다.
+Common,PlayerState,Common_DefenceUP,방어력_증가,방어력이 10% 증가합니다.
+Rare,Shield,Rare_ShieldExpention,쉴드_범위_확장,쉴드 범위가 10% 증가합니다.
+Rare,PlayerState,Rare_MagneticUP,확장된_자기장,자석 범위가 10% 증가합니다.
+Epic,PlayerState,Epic_ExperienceBoost,학자의_선물,경험치 획득량이 5% 증가합니다.
+Epic,PlayerState,Epic_TouchOfLuck,행운의 _손길,행운이 5% 증가합니다.

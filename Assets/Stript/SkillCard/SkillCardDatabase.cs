@@ -80,26 +80,39 @@ public class SkillCardDatabase : MonoBehaviour
             // 1. 행을 단어별로 자르기 
             string[] values = Regex.Split(lines[i], SPLIT_RE);
 
-            // 2. Skillcard 생성 
-            // 2-1. name을 이용해서 클래스 생성 ( Acticator 사용 )
-            SkillCard _card = (SkillCard)Activator.CreateInstance(Type.GetType(values[_nameIdx]));
-
-            // 2-2. skillcard에 값 넣기 
-            _card.F_InitField(values);
-
-            // 3. dictonary에 넣기
-            tierBySkillCard[_card.cardTier].Add(_card);
-
-            // 4. card의 effect를 검사해서 , 각 스크립트의 딕셔너리에 저장해두기 
-            switch (_card.cardAbility) 
+            try
             {
-                case CardAbility.BulletExplosion:
-                    PlayerManager.instance.markerExplosionConteroller.F_DictionaryInt(_card);
-                    break;
-                case CardAbility.Shield:
-                    PlayerManager.instance.markerShieldController.F_DictionaryInt(_card);
-                    break;
+                // 2. Skillcard 생성 
+                // 2-1. name을 이용해서 클래스 생성 ( Acticator 사용 )
+                SkillCard _card = (SkillCard)Activator.CreateInstance(Type.GetType(values[_nameIdx]));
+
+                // 2-2. skillcard에 값 넣기 
+                _card.F_InitField(values);
+
+                // 3. dictonary에 넣기
+                tierBySkillCard[_card.cardTier].Add(_card);
+
+                // ##TODO : 4. card의 effect를 검사해서 , 각 스크립트의 딕셔너리에 저장해두기 
+                /*
+                switch (_card.cardAbility)
+                {
+                    case CardAbility.BulletExplosion:
+                        PlayerManager.instance.markerExplosionConteroller.F_DictionaryInt(_card);
+                        break;
+                    case CardAbility.Shield:
+                        PlayerManager.instance.markerShieldController.F_DictionaryInt(_card);
+                        break;
+                }
+                */
             }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+                continue;
+            } 
+
+
+           
 
         }
 

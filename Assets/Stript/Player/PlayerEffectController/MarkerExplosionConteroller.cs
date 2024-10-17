@@ -49,7 +49,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
         try
         {
             _bulletExplosionEffectDuplication[v_card] += 1;
-            Debug.Log(v_card.cardName + "의 count는" + _bulletExplosionEffectDuplication[v_card]);
+            Debug.Log(v_card.classSpriteName + "의 count는" + _bulletExplosionEffectDuplication[v_card]);
         }
         catch (Exception ex)
         {
@@ -57,11 +57,11 @@ public class MarkerExplosionConteroller : MonoBehaviour
         }
 
         // 이름으로 비교해야하나 ? 흠 
-        if (v_card.cardName == "Rare_PoisionBullet")
+        if (v_card.classSpriteName == "Rare_PoisionBullet")
         {
             del_bulletExplosion += F_PositionBullet;
         }
-        else if (v_card.cardName == "Rare_IceBullet") 
+        else if (v_card.classSpriteName == "Rare_IceBullet") 
         {
             del_bulletExplosion += F_IceBullet;
         }
