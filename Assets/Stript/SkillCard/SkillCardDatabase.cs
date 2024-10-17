@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;   // regex 사용
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class SkillCardDatabase : MonoBehaviour
     string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
     string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
 
-    // cvs에서 '_cardName'인 열 이름 
-    const string _skillcardColunm = "_cardName";
+    // cvs에서 '_classSpritName'인 열 이름 
+    const string _skillcardColunm = "_classSpritName";
 
     [Header("===Container===")]
     [SerializeField]
@@ -73,7 +74,7 @@ public class SkillCardDatabase : MonoBehaviour
         string[] header = Regex.Split(lines[0] , SPLIT_RE);
 
         // _cardName이 몇번째 인덱스인지 찾기
-        int _nameIdx = Array.IndexOf(header, _skillcardColunm); // 3
+        int _nameIdx = Array.IndexOf(header, _skillcardColunm);     // 2
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -110,11 +111,20 @@ public class SkillCardDatabase : MonoBehaviour
                 Debug.LogError(ex);
                 continue;
             } 
-
-
-           
-
         }
+
+        // 딕셔너리 출력해보기
+        /*
+        for (int i = 0; i < _tierBySkillCard.Count; i++) 
+        {
+            var temp = _tierBySkillCard.ElementAt(i);
+            Debug.Log(temp.Key + " ");
+            for (int j = 0; j < temp.Value.Count; j++) 
+            {
+                Debug.Log(temp.Value[j].skillCardName);
+            }
+        }
+        */
 
     }
 

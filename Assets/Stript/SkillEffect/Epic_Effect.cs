@@ -32,3 +32,19 @@ public class Epic_BloodSiphon : SkillCard
         // ½¯µå »ç¿ë½Ã ¹üÀ§ ³» unit ÈíÇ÷ 
     }
 }
+
+public class Epic_ExperienceBoost : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
+    }
+}
+
+public class Epic_TouchOfLuck : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
+    }
+}

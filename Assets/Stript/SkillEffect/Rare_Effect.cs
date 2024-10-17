@@ -36,3 +36,19 @@ public class Rare_IceBullet : SkillCard
         // 총알 폭발 시 사거리 안에 있는 unit에게 얼음효과 
     }
 }
+
+public class Rare_ShieldExpention : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}
+
+public class Rare_MagneticUP : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
+    }
+}

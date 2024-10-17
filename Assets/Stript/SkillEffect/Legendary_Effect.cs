@@ -39,3 +39,11 @@ public class Legend_Mayhem : SkillCard
             PlayerManager.instance.markerBulletController.bulletSate.bulletDamage % 0.3f;
     }
 }
+
+public class Legend_ExtraLife : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
+    }
+}

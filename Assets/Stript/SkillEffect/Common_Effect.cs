@@ -40,3 +40,11 @@ public class Common_RapidReload : SkillCard
         }
     }
 }
+
+public class Common_DefenceUP : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}

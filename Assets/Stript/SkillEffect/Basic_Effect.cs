@@ -32,3 +32,27 @@ public class Basic_Speeder : SkillCard
         }
     }
 }
+
+public class Basic_NaturalRecovery : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}
+
+public class Basic_QuickRecovery : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}
+
+public class Basic_RapidBullet : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}

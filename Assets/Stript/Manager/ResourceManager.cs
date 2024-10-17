@@ -37,7 +37,7 @@ public class ResourceManager : MonoBehaviour
 
         for (int i = 0; i < sprite.Length; i++) 
         {
-            Debug.Log(sprite[i].name);
+            //Debug.Log(sprite[i].name);
             if (!_skillCardSprite.ContainsKey(sprite[i].name)) 
             {
                 _skillCardSprite.Add(sprite[i].name , sprite[i]) ;
