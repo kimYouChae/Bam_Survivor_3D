@@ -3,6 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardTier // 카드 티어
+{
+    Legendary,      // 빨강색
+    Epic,           // 노랑색
+    Rare,           // 보라색
+    Common,         // 초록색
+    Basic           // 회색
+}
+public enum CardAbility // 카드 능력치 
+{
+    Shield,         // 쉴드형
+    PlayerState,    // 플레이어 스탯 형
+    BulletShoot,    // 총알 발사
+    BulletExplosion // 총알 폭발 (unit에게 닿였을 때)
+}
+
 public enum UNIT_STATE
 {
     Idle,

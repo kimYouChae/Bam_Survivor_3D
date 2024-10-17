@@ -6,7 +6,7 @@ public class Common_BigBullet : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 총알크기 30% 증가 (PlayerManager의 markerbulletController에 접근)
         PlayerManager.instance.markerBulletController.bulletSate.bulletSize
@@ -18,7 +18,7 @@ public class Common_DamageUp : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 총알 데미지 20% 증가 (PlayerManager의 markerbulletController에 접근)
         PlayerManager.instance.markerBulletController.bulletSate.bulletDamage
@@ -29,7 +29,7 @@ public class Common_RapidReload : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 총알 재장전 속도가 10% 감소 (PlayerManager의 markerState 접근)
 
@@ -38,5 +38,13 @@ public class Common_RapidReload : SkillCard
             PlayerManager.instance.markers[i].markerState.markerShootCoolTime
                 += PlayerManager.instance.markers[i].markerState.markerShootCoolTime * 0.1f;
         }
+    }
+}
+
+public class Common_DefenceUP : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
     }
 }

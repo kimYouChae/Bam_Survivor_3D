@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;   // regex 사용
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class SkillCardDatabase : MonoBehaviour
     string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
     string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
 
-    // cvs에서 '_cardName'인 열 이름 
-    const string _skillcardColunm = "_cardName";
+    // cvs에서 '_classSpritName'인 열 이름 
+    const string _skillcardColunm = "_classSpritName";
 
     [Header("===Container===")]
     [SerializeField]
@@ -73,35 +74,57 @@ public class SkillCardDatabase : MonoBehaviour
         string[] header = Regex.Split(lines[0] , SPLIT_RE);
 
         // _cardName이 몇번째 인덱스인지 찾기
-        int _nameIdx = Array.IndexOf(header, _skillcardColunm); // 3
+        int _nameIdx = Array.IndexOf(header, _skillcardColunm);     // 2
 
         for (int i = 1; i < lines.Length; i++)
         {
             // 1. 행을 단어별로 자르기 
             string[] values = Regex.Split(lines[i], SPLIT_RE);
 
-            // 2. Skillcard 생성 
-            // 2-1. name을 이용해서 클래스 생성 ( Acticator 사용 )
-            SkillCard _card = (SkillCard)Activator.CreateInstance(Type.GetType(values[_nameIdx]));
-
-            // 2-2. skillcard에 값 넣기 
-            _card.F_InitField(values);
-
-            // 3. dictonary에 넣기
-            tierBySkillCard[_card.cardTier].Add(_card);
-
-            // 4. card의 effect를 검사해서 , 각 스크립트의 딕셔너리에 저장해두기 
-            switch (_card.cardAbility) 
+            try
             {
-                case CardAbility.BulletExplosion:
-                    PlayerManager.instance.markerExplosionConteroller.F_DictionaryInt(_card);
-                    break;
-                case CardAbility.Shield:
-                    PlayerManager.instance.markerShieldController.F_DictionaryInt(_card);
-                    break;
-            }
+                // 2. Skillcard 생성 
+                // 2-1. name을 이용해서 클래스 생성 ( Acticator 사용 )
+                SkillCard _card = (SkillCard)Activator.CreateInstance(Type.GetType(values[_nameIdx]));
 
+                // 2-2. skillcard에 값 넣기 
+                _card.F_InitField(values);
+
+                // 3. dictonary에 넣기
+                tierBySkillCard[_card.cardTier].Add(_card);
+
+                // ##TODO : 4. card의 effect를 검사해서 , 각 스크립트의 딕셔너리에 저장해두기 
+                /*
+                switch (_card.cardAbility)
+                {
+                    case CardAbility.BulletExplosion:
+                        PlayerManager.instance.markerExplosionConteroller.F_DictionaryInt(_card);
+                        break;
+                    case CardAbility.Shield:
+                        PlayerManager.instance.markerShieldController.F_DictionaryInt(_card);
+                        break;
+                }
+                */
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+                continue;
+            } 
         }
+
+        // 딕셔너리 출력해보기
+        /*
+        for (int i = 0; i < _tierBySkillCard.Count; i++) 
+        {
+            var temp = _tierBySkillCard.ElementAt(i);
+            Debug.Log(temp.Key + " ");
+            for (int j = 0; j < temp.Value.Count; j++) 
+            {
+                Debug.Log(temp.Value[j].skillCardName);
+            }
+        }
+        */
 
     }
 

@@ -1,19 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager instance;
 
     [SerializeField]
-    private List<Sprite> _skillCardSprite;  // 스킬 카드 스프라이트
+    private string _skillCardFolderName = "SkillCardName";
+    [SerializeField]
+    private Dictionary<string, Sprite> _skillCardSprite;
+    [SerializeField]
+    private Sprite _defaultSprite;
 
     // 프로퍼티 
-    public List<Sprite> skillCardSprites => _skillCardSprite;
+    public Dictionary<string, Sprite> skillCardSprite => _skillCardSprite;
 
     private void Awake()
     {
         instance = this;
     }
+
+    private void Start()
+    {
+        // skill card 딕셔너리 초기화
+        F_InitSkillCardSprite();
+    }
+
+    // skill card 딕셔너리 초기화
+    private void F_InitSkillCardSprite() 
+    {
+        _skillCardSprite = new Dictionary<string, Sprite>();
+
+        Sprite[] sprite = Resources.LoadAll<Sprite>(_skillCardFolderName);
+
+        for (int i = 0; i < sprite.Length; i++) 
+        {
+            //Debug.Log(sprite[i].name);
+            if (!_skillCardSprite.ContainsKey(sprite[i].name)) 
+            {
+                _skillCardSprite.Add(sprite[i].name , sprite[i]) ;
+            }
+        
+        }
+    }
+
+    // string에 따른 sprite return
+    public Sprite F_ReturnSkillNameToSprite(string v_name) 
+    {
+        if( _skillCardSprite.ContainsKey(v_name))
+            return _skillCardSprite[v_name];
+
+        return _defaultSprite;
+    }
+    
 }

@@ -6,7 +6,7 @@ public class Rare_PoisionBullet : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 총알 폭발 시 사거리 안에 있는 unit에게 독 효과 
         // markerExplosion 의 함수를 호출하면 편할듯? 여기서 굳이 작성안해도 ?
@@ -16,7 +16,7 @@ public class Rare_RapidBarier : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 쉴드 사용시간 10% 감소 (PlayerManager의 markerState 접근)
         for (int i = 0; i < PlayerManager.instance.F_MarkerListCount(); i++)
@@ -31,8 +31,24 @@ public class Rare_IceBullet : SkillCard
 
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // 총알 폭발 시 사거리 안에 있는 unit에게 얼음효과 
+    }
+}
+
+public class Rare_ShieldExpention : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+        
+    }
+}
+
+public class Rare_MagneticUP : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
     }
 }

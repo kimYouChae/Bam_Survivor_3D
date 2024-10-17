@@ -53,10 +53,10 @@ public class CardSelectUI : MonoBehaviour
             Debug.Log(_finalSelectCard[i].Item1);
 
             // 카드이름
-            _cardNameList[i].text = _currCard.cardName;
+            _cardNameList[i].text = _currCard.skillCardName;
 
             // 카드 idx에 맞는 sprite
-            _cardImageList[i].sprite = ResourceManager.instance.skillCardSprites[_currCard.cardIndex];
+            _cardImageList[i].sprite = ResourceManager.instance.F_ReturnSkillNameToSprite(_currCard.classSpriteName);
 
             // 카드 툴팁
             _cardToopTipList[i].text = _currCard.cardToolTip;

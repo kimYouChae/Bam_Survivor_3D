@@ -6,7 +6,7 @@ public class Epic_Bounce : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // ÃÑ¾Ë bounce °¹¼ö 1°³ Áõ°¡ (PlayerManagerÀÇ markerBulletController¿¡ Á¢±Ù)
         PlayerManager.instance.markerBulletController.bulletSate.bulletCount += 1;
@@ -16,7 +16,7 @@ public class Epic_BulletStrom : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // ÃÑ¾Ë°¹¼ö 2°³ Áõ°¡ (PlayerManagerÀÇ markerBulletController¿¡ Á¢±Ù)
         PlayerManager.instance.markerBulletController.bulletSate.bulletBounceCount += 2;
@@ -27,8 +27,24 @@ public class Epic_BloodSiphon : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.cardName);
+        Debug.Log(this.classSpriteName);
 
         // ½¯µå »ç¿ë½Ã ¹üÀ§ ³» unit ÈíÇ÷ 
+    }
+}
+
+public class Epic_ExperienceBoost : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
+    }
+}
+
+public class Epic_TouchOfLuck : SkillCard
+{
+    public override void F_SkillcardEffect()
+    {
+
     }
 }
