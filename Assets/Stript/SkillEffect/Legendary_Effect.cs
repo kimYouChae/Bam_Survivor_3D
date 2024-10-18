@@ -44,6 +44,7 @@ public class Legend_ExtraLife : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-
+        // 부활횟수 1회 증가 
+        PlayerManager.instance.F_UpdateMarkerSubState(RevivalCount : 1);
     }
 }

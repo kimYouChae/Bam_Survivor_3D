@@ -10,28 +10,33 @@ public class PlayerManager : MonoBehaviour
 
     [Header("===Player Level===")]
     [SerializeField] private int _PLAYERLEVEL;        // 현재 레벨
-    [SerializeField] private float _CURREXP;        // 현재 경험치
-    [SerializeField] private float _MAXEXP;        // max 경험치
+    [SerializeField] private float _CURREXP;          // 현재 경험치
+    [SerializeField] private float _MAXEXP;           // max 경험치
+
+    [Header("===Sub State===")]
+    [SerializeField] private int    _revivalCount;              // 부활횟수
+    [SerializeField] private float  _experience;                // 추가 경험치
+    [SerializeField] private float  _luck;                      // 행운
 
     [Header("===Script===")]
-    [SerializeField] private MarkerMovement _markerMovement;                    // marker 움직임
-    [SerializeField] private MarkerShieldController _markerShieldController;    // 쉴드 컨트롤러
-    [SerializeField] private MarkerBulletController _markerBulletController;    // 총알 컨트롤러
-    [SerializeField] private MarkerExplosionConteroller _markerExplosionConteroller;    // 총알 폭발시 컨트롤러
+    [SerializeField] private MarkerMovement             _markerMovement;                    // marker 움직임
+    [SerializeField] private MarkerShieldController     _markerShieldController;            // 쉴드 컨트롤러
+    [SerializeField] private MarkerBulletController     _markerBulletController;            // 총알 컨트롤러
+    [SerializeField] private MarkerExplosionConteroller _markerExplosionConteroller;        // 총알 폭발시 컨트롤러
 
     [Header("===Marker===")]
-    [SerializeField] List<Marker> _markers;             // Marker 클래스 리스트에 저장
-    [SerializeField] List<Slider> _markerHpBar;         // Marker의 hp바 
+    [SerializeField] List<Marker> _markers;                         // Marker 클래스 리스트에 저장
+    [SerializeField] List<Slider> _markerHpBar;                     // Marker의 hp바 
 
     [Header("===Layer===")]
-    [SerializeField] private LayerMask _markerLayer;             // marker의 layer int 
+    [SerializeField] private LayerMask _markerLayer;                // marker의 layer int 
 
     [Header("===Transform===")]
-    [SerializeField] private Transform _markerHeadTrasform;      // marker head의 transform
+    [SerializeField] private Transform _markerHeadTrasform;         // marker head의 transform
 
     [Header("===Prefab===")]
-    [SerializeField] private GameObject _boundaryToScreenObj;      // 스크린 기준 boundary
-    [SerializeField] private Transform _boudaryParent;            // boundary 부모 
+    [SerializeField] private GameObject _boundaryToScreenObj;       // 스크린 기준 boundary
+    [SerializeField] private Transform  _boudaryParent;             // boundary 부모 
 
     // 프로퍼티
     public MarkerMovement markerMovement => _markerMovement;
@@ -65,6 +70,11 @@ public class PlayerManager : MonoBehaviour
         _PLAYERLEVEL    = 1;
         _CURREXP        = 0;
         _MAXEXP         = F_EXPAccorLevel(_PLAYERLEVEL);
+
+        // ##TODO : 캐릭터 따라 달라져야함 임시로 초기화
+        _revivalCount = 0;
+        _experience = 1;
+        _luck = 1;
 
         // 시작 시 ui 업데이트 
         UIManager.Instance.F_UpdateInGameUI(0, _PLAYERLEVEL);
@@ -113,9 +123,20 @@ public class PlayerManager : MonoBehaviour
 
         for(int i = 0; i < _markers.Count; i++) 
         {
-            _markers[i].markerState.F_SetMarkerState(10f, 10f, 3f, 2f, 2f, 7f);
+            _markers[i].markerState.F_SetMarkerState(
+                _name       : "귀여운비버" , 
+                _hp         : 10f , 
+                _maxHp      : 10f ,
+                _speed      : 3f , 
+                _defence    : 0f , 
+                _search     : 5f , 
+                _magnet     : 2f, 
+                _sCoolTime  : 5f, 
+                _bCoolTime  : 2f, 
+                _recovery   : 1f, 
+                _rCoolTime  : 10f );
 
-            // hp , maxHp, speed , 쉴드 쿨타임, 총 쿨타임, unit 감지 범위 
+            // hp , maxhp , speed , 방어력  , 탐색범위 , 자석 범위 , 쉴드쿨타임 , 총알 쿨타임 , 회복량 , 회복쿨타임
         }
     }
 
@@ -129,6 +150,39 @@ public class PlayerManager : MonoBehaviour
         UIManager.Instance.F_UpdateMarkerStateText();
 
     }
+
+    // 기본 state 업데이트 
+    public void F_UpdateMarkerState(float MaxHpPercent = 0 , float SpeedPercent = 0 , float DefencePercent = 0 ,
+        float SearchRadiousPercent = 0 , float MagnetPercent = 0 , float ShieldCoolTimePercent = 0 , float BulletCoolTimePercent = 0,
+        float RecoveryIncrease = 0 , float RecoveryCoolTimeDecrease = 0 ) 
+    {
+        for(int i = 0; i < _markers.Count; i++) 
+        {
+            MarkerState state = _markers[i].markerState;
+
+            state.markerMaxHp               += state.markerMaxHp * MaxHpPercent;
+            state.markerMoveSpeed           += state.markerMoveSpeed * SpeedPercent;
+            state.defence                   += state.defence * DefencePercent;
+            state.markerSearchRadious       += state.markerSearchRadious * SearchRadiousPercent;
+            state.magnetSearchRadious       += state.magnetSearchRadious * MagnetPercent;
+            state.markerShieldCoolTime      -= state.markerShieldCoolTime * ShieldCoolTimePercent;
+            state.markerBulletShootCoolTime -= state.markerBulletShootCoolTime * BulletCoolTimePercent;
+            state.naturalRecoery            += RecoveryIncrease;
+            state.recoveryCoolTime          -= RecoveryCoolTimeDecrease;
+
+        }
+    }
+
+    // 추가 state 업데이트 
+    public void F_UpdateMarkerSubState(int RevivalCount = 0, float ExperiencePercent = 0, float LuckPercent = 0)
+    {
+        this._revivalCount  += RevivalCount;
+        this._experience    += _experience * ExperiencePercent;
+        this._luck          += _luck * LuckPercent;
+    }
+
+
+
 
 
 }

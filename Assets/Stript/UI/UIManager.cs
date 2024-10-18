@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
             = "max hp : " + PlayerManager.instance.markers[0].markerState.markerMaxHp + '\n'
             + "move speed: " + PlayerManager.instance.markers[0].markerState.markerMoveSpeed + '\n'
             + "shield cool Time: " + PlayerManager.instance.markers[0].markerState.markerShieldCoolTime + '\n'
-            + "shoot cool Time:" + PlayerManager.instance.markers[0].markerState.markerShootCoolTime + '\n'
+            + "shoot cool Time:" + PlayerManager.instance.markers[0].markerState.markerBulletShootCoolTime + '\n'
             + "searRadious" + PlayerManager.instance.markers[0].markerState.markerSearchRadious;
     }
 

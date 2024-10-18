@@ -18,12 +18,8 @@ public class Rare_RapidBarier : SkillCard
     {
         Debug.Log(this.classSpriteName);
 
-        // 쉴드 사용시간 10% 감소 (PlayerManager의 markerState 접근)
-        for (int i = 0; i < PlayerManager.instance.F_MarkerListCount(); i++)
-        {
-            PlayerManager.instance.markers[i].markerState.markerShieldCoolTime
-                += PlayerManager.instance.markers[i].markerState.markerShieldCoolTime * 0.1f;
-        }
+        // 쉴드 쿨타임 10% 감소
+        PlayerManager.instance.F_UpdateMarkerState(ShieldCoolTimePercent : 0.1f);
     }
 }
 public class Rare_IceBullet : SkillCard
@@ -41,6 +37,7 @@ public class Rare_ShieldExpention : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        // 쉴드 범위 10% 증가   
         
     }
 }
@@ -49,6 +46,8 @@ public class Rare_MagneticUP : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        // 자석 범위 10% 증가
+        PlayerManager.instance.F_UpdateMarkerState(MagnetPercent: 0.1f);
 
     }
 }

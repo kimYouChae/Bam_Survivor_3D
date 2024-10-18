@@ -73,31 +73,49 @@ public class UnitState
 [System.Serializable]
 public class MarkerState
 {
-    [SerializeField] private float _markerHp;                     // marker Hp
-    [SerializeField] private float _markerMaxHp;                  // marker max hp
+    // ½ºÅÈ
+    [SerializeField] private string _markerName;                // name
+    [SerializeField] private float _markerHp;                   // marker Hp
+    [SerializeField] private float _markerMaxHp;                // marker max hp
     [SerializeField] private float _markerMoveSpeed;            // marker speed
-    [SerializeField] private float _markerShieldCoolTime;       // marker ½¯µå ÄðÅ¸ÀÓ 
-    [SerializeField] private float _markerShootCoolTime;        // ÃÑ¾Ë ¹ß»ç ÄðÅ¸ÀÓ 
+    [SerializeField] private float _defence;                    // ¹æ¾î·Â
+    [SerializeField] private float _naturalRecovery;            // ÀÚ¿¬ È¸º¹·®
+
+    // ¹üÀ§
     [SerializeField] private float _markerSearchRadious;        // unit Å½»ö ¹üÀ§
+    [SerializeField] private float _magnetSearchRadious;        // ÀÚ¼® ¹üÀ§ 
+    
+    // ÄðÅ¸ÀÓ
+    [SerializeField] private float _markerShieldCoolTime;       // marker ½¯µå ÄðÅ¸ÀÓ 
+    [SerializeField] private float _markerBulletShootCoolTime;        // ÃÑ¾Ë ¹ß»ç ÄðÅ¸ÀÓ 
+    [SerializeField] private float _recoveryCoolTime;           // ÀÚ¿¬ È¸º¹·® ÄðÅ¸ÀÓ
 
     // ÇÁ·ÎÆÛÆ¼
-    public float markerHp => _markerHp;
+    public float markerHp { get => _markerHp; set { _markerHp = value; } }
     public float markerMaxHp { get => _markerMaxHp; set { _markerMaxHp = value; } }
     public float markerMoveSpeed { get => _markerMoveSpeed; set { _markerMoveSpeed = value; } }
+    public float defence { get => _defence; set { _defence = value; } }
     public float markerShieldCoolTime { get => _markerShieldCoolTime; set { _markerShieldCoolTime = value; } }
-    public float markerShootCoolTime { get => _markerShootCoolTime; set { _markerShootCoolTime = value; } }
+    public float markerBulletShootCoolTime { get => _markerBulletShootCoolTime; set { _markerBulletShootCoolTime = value; } }
     public float markerSearchRadious { get => _markerSearchRadious; set { _markerSearchRadious = value; } }
-
+    public float naturalRecoery { get => _naturalRecovery; set { _naturalRecovery = value; } }
+    public float recoveryCoolTime { get => _recoveryCoolTime; set { _recoveryCoolTime = value; } }
+    public float magnetSearchRadious { get => _magnetSearchRadious; set { _magnetSearchRadious = value; } }
 
     // »ý¼ºÀÚ 
-    public void F_SetMarkerState(float v_hp, float v_maxHp, float v_speed, float v_sCoolTime, float v_bCoolTime, float v_search)
+    public void F_SetMarkerState(string _name, float _hp, float _maxHp, float _speed, float _defence , float _search , float _magnet
+        , float _sCoolTime, float _bCoolTime, float _recovery , float _rCoolTime)
     {
-        this._markerHp = v_hp;
-        this._markerMaxHp = v_maxHp;
-        this._markerMoveSpeed = v_speed;
-        this._markerShieldCoolTime = v_sCoolTime;
-        this._markerShootCoolTime = v_bCoolTime;
-        this._markerSearchRadious = v_search;
+        this._markerName            = _name;
+        this._markerHp              = _hp;
+        this._markerMaxHp           = _maxHp;
+        this._markerMoveSpeed       = _speed;
+        this._defence               = _defence;
+        this._markerSearchRadious   = _search;
+        this._markerShieldCoolTime  = _sCoolTime;
+        this._markerBulletShootCoolTime   = _bCoolTime;
+        this._naturalRecovery       = _recovery;
+        this._recoveryCoolTime      = _rCoolTime;
     }
 }
 #endregion
