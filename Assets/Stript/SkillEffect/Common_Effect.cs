@@ -33,11 +33,6 @@ public class Common_RapidReload : SkillCard
 
         // 총알 재장전 속도가 10% 감소 (PlayerManager의 markerState 접근)
 
-        for (int i = 0; i < PlayerManager.instance.F_MarkerListCount(); i++)
-        {
-            PlayerManager.instance.markers[i].markerState.markerShootCoolTime
-                += PlayerManager.instance.markers[i].markerState.markerShootCoolTime * 0.1f;
-        }
     }
 }
 
@@ -45,6 +40,7 @@ public class Common_DefenceUP : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        
+        // 방어력 10% 증가 
+        PlayerManager.instance.F_UpdateMarkerState(DefencePercent : 0.2f);
     }
 }
