@@ -54,7 +54,7 @@ public class Marker : MonoBehaviour
         {
             // shoot 쿨타임동안 기다리기
             yield return new WaitForSeconds
-                (_markerState.markerShootCoolTime);
+                (_markerState.markerBulletShootCoolTime);
 
             // 총알 발사 함수 실행
             PlayerManager.instance.markerBulletController.F_BasicBulletShoot(_markerMuzzleTrs);
