@@ -35,6 +35,46 @@ public enum Unt_Type
     BOSS
 }
 
+#region Bullet
+
+// bullet state
+[System.Serializable]
+public class BulletSate
+{
+    [SerializeField] int _bulletCount;          // ÇÑ¹ø¿¡ »ý¼ºÇÏ´Â ÃÑ¾Ë °¹¼ö
+    [SerializeField] float _bulletSpeed;        // ÃÑ¾Ë ¼Óµµ
+    [SerializeField] float _bulletDamage;       // ÃÑ¾Ë µ¥¹ÌÁö 
+    [SerializeField] float _bulletSize;         // ÃÑ¾Ë Å©±â 
+    [SerializeField] int _bulletBounceCount;    // ÃÑ¾Ë Æ¨±â´Â È½¼ö 
+
+    // ÇÁ·ÎÆÛÆ¼ 
+    public int bulletCount { get => _bulletCount; set { _bulletCount = value; } }
+    public float bulletSpeed { get => _bulletSpeed; set { _bulletSpeed = value; } }
+    public float bulletDamage { get => _bulletDamage; set { _bulletDamage = value; } }
+    public float bulletSize { get => _bulletSize; set { _bulletSize = value; } }
+    public int bulletBounceCount { get => _bulletBounceCount; set { _bulletBounceCount = value; } }
+
+    // »ý¼ºÀÚ
+    public BulletSate(int _bulletCnt, float _bulletSpeed, float _bulletDamage, float _bulletSize, int _bulletBounceCnt)
+    {
+        this._bulletCount       = _bulletCnt;
+        this._bulletSpeed       = _bulletSpeed;
+        this._bulletDamage      = _bulletDamage;
+        this._bulletSize        = _bulletSize;
+        this._bulletBounceCount = _bulletBounceCnt;
+    }
+
+    public void F_SetField(BulletSate v_state)
+    {
+        this._bulletCount = v_state._bulletCount;
+        this._bulletSpeed = v_state._bulletSpeed;
+        this._bulletDamage = v_state._bulletDamage;
+        this._bulletSize = v_state._bulletSize;
+        this._bulletBounceCount = v_state._bulletBounceCount;
+    }
+}
+#endregion
+
 #region Unit
 
 public class UnitState 

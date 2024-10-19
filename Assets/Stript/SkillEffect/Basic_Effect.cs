@@ -48,5 +48,6 @@ public class Basic_RapidBullet : SkillCard
     public override void F_SkillcardEffect()
     {
         // 종알속도가 10% 증가합니다
+        PlayerManager.instance.markerBulletController.F_UpdateBulletState( BulletSpeedPercent : 0.1f );
     }
 }
