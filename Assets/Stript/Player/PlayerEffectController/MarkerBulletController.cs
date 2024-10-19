@@ -1,44 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
-// bullet state
-[System.Serializable]
-public class BulletSate
-{
-    [SerializeField] int _bulletCount;    // 한번에 생성하는 총알 갯수
-    [SerializeField] float _bulletSpeed;    // 총알 속도
-    [SerializeField] float _bulletDamage;   // 총알 데미지 
-    [SerializeField] float _bulletSize;     // 총알 크기 
-    [SerializeField] int _bulletBounceCount;  // 총알 튕기는 횟수 
-
-    // 프로퍼티 
-    public int bulletCount { get => _bulletCount; set { _bulletCount = value; } }
-    public float bulletSpeed { get => _bulletSpeed; set { _bulletSpeed = value; } }
-    public float bulletDamage { get => _bulletDamage; set { _bulletDamage = value; } }
-    public float bulletSize { get => _bulletSize; set { _bulletSize = value; } }
-    public int bulletBounceCount { get => _bulletBounceCount; set { _bulletBounceCount = value; } }
-
-    // 생성자
-    public BulletSate(int v_cnt, float v_speed, float v_damage, float v_size, int _cnt)
-    {
-        this._bulletCount = v_cnt;
-        this._bulletSpeed = v_speed;
-        this._bulletDamage = v_damage;
-        this._bulletSize = v_size;
-        this._bulletBounceCount = _cnt;
-    }
-
-    public void F_SetField(BulletSate v_state) 
-    {
-        this._bulletCount = v_state._bulletCount;
-        this._bulletSpeed = v_state._bulletSpeed;
-        this._bulletDamage = v_state._bulletDamage;
-        this._bulletSize = v_state._bulletSize;
-        this._bulletBounceCount = v_state._bulletBounceCount;
-    }
-}
 
 public class MarkerBulletController : MonoBehaviour
 {
@@ -64,7 +29,12 @@ public class MarkerBulletController : MonoBehaviour
     private void Start()
     {
         // 총알 state 초기화 
-        _bulletSate = new BulletSate(1, 3f, 1f, 1f, 1);
+        _bulletSate = new BulletSate(
+            _bulletCnt          : 1, 
+            _bulletSpeed        : 3f, 
+            _bulletDamage       : 1f, 
+            _bulletSize         : 1f, 
+            _bulletBounceCnt    : 1);
 
         // 갯수 , 속도, 데미지, 크기 , 튕기는 횟수 
 
@@ -106,6 +76,20 @@ public class MarkerBulletController : MonoBehaviour
 
     public void F_ApplyBulletEffect(SkillCard v_card) 
     {
-        // ##TODO : 효과적용 코드 짜기 
+        // skill card의 effect 추가 
+        v_card.F_SkillcardEffect();
+
+        // ##TODO : Ui 변경 
     }
+
+    // Bullet State 업데이트 
+    public void F_UpdateBulletState(int BulletCnt = 0 , float BulletSpeedPercent = 0 , float BulletDamagePercent = 0 , float BulletSizePercent = 0 , int BulletBounceCount = 0 ) 
+    {
+        bulletSate.bulletCount  += BulletCnt;
+        bulletSate.bulletSpeed  += bulletSate.bulletSpeed * BulletSpeedPercent;
+        bulletSate.bulletDamage += bulletSate.bulletDamage * BulletDamagePercent;
+        bulletSate.bulletSize   += bulletSate.bulletSize * BulletSizePercent;
+        bulletSate.bulletCount  += BulletBounceCount;
+    }
+
 }

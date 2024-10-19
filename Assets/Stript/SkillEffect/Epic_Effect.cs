@@ -9,7 +9,7 @@ public class Epic_Bounce : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 총알 bounce 갯수 1개 증가 (PlayerManager의 markerBulletController에 접근)
-        PlayerManager.instance.markerBulletController.bulletSate.bulletCount += 1;
+        PlayerManager.instance.markerBulletController.F_UpdateBulletState(BulletCnt : 1);
     }
 }
 public class Epic_BulletStrom : SkillCard
@@ -19,7 +19,7 @@ public class Epic_BulletStrom : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 총알갯수 2개 증가 (PlayerManager의 markerBulletController에 접근)
-        PlayerManager.instance.markerBulletController.bulletSate.bulletBounceCount += 2;
+        PlayerManager.instance.markerBulletController.F_UpdateBulletState(BulletBounceCount: 2);
     }
 }
 

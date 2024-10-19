@@ -31,12 +31,7 @@ public class Legend_Mayhem : SkillCard
 
         // 총알 튕기는 갯수 +3 , 총알 크기 10% 증가, 총알 데미지 30% 증가
         // (PlayerManager의 markerBulletController에 접근)
-
-        PlayerManager.instance.markerBulletController.bulletSate.bulletBounceCount += 3;
-        PlayerManager.instance.markerBulletController.bulletSate.bulletSize +=
-            PlayerManager.instance.markerBulletController.bulletSate.bulletSize % 0.1f;
-        PlayerManager.instance.markerBulletController.bulletSate.bulletDamage +=
-            PlayerManager.instance.markerBulletController.bulletSate.bulletDamage % 0.3f;
+        PlayerManager.instance.markerBulletController.F_UpdateBulletState(  BulletDamagePercent : 0.3f , BulletSizePercent : 0.1f, BulletBounceCount : 3 );
     }
 }
 
