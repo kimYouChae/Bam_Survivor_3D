@@ -37,14 +37,22 @@ public class Marker : MonoBehaviour
 
     IEnumerator IE_MarkerUseShield()
     {
+        // 0.02f만큼 wait, 업데이트 효과 
+        // 쉴드가 0.5f 시간 간격을 두고 커져야함
+        // -> 이 시간간격마다 쉴드 사용 델리게이트를 실행해야함 ( 쉴드 효과 중첩 )
+
         while (true) 
         {
+        
             // shield 쿨타임동안 기다리기
             yield return new WaitForSeconds
                 (_markerState.markerShieldCoolTime);
 
             //  쉴드 델리게이트 실행 
-            PlayerManager.instance.markerShieldController.del_markerShieldUse(this.gameObject.transform);
+            //PlayerManager.instance.markerShieldController.del_markerShieldUse(this.gameObject.transform);
+
+            // 업데이트 문 효과
+            //yield return new WaitForSeconds(0.02f);
         }
     }
 

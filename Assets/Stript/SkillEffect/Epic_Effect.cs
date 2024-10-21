@@ -37,6 +37,8 @@ public class Epic_ExperienceBoost : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        Debug.Log(this.classSpriteName);
+
         // 경험치 획득량 5% 증가
         PlayerManager.instance.F_UpdateMarkerSubState(ExperiencePercent : 0.05f);
     }
@@ -46,6 +48,8 @@ public class Epic_TouchOfLuck : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        Debug.Log(this.classSpriteName);
+
         // 행운 5% 증가
         PlayerManager.instance.F_UpdateMarkerSubState(LuckPercent : 0.05f);
     }
