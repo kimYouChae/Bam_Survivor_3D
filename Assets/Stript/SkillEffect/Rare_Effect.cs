@@ -37,8 +37,10 @@ public class Rare_ShieldExpention : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        Debug.Log(this.classSpriteName);
+
         // 쉴드 범위 10% 증가   
-        
+        PlayerManager.instance.markerShieldController.F_UpdateShieldState(ShieldSizePercent : 0.1f);
     }
 }
 
@@ -46,8 +48,9 @@ public class Rare_MagneticUP : SkillCard
 {
     public override void F_SkillcardEffect()
     {
+        Debug.Log(this.classSpriteName);
+
         // 자석 범위 10% 증가
         PlayerManager.instance.F_UpdateMarkerState(MagnetPercent: 0.1f);
-
     }
 }

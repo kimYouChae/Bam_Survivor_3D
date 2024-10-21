@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardTier // Ä«µå Æ¼¾î
+// Ä«µå Æ¼¾î
+public enum CardTier 
 {
     Legendary,      // »¡°­»ö
     Epic,           // ³ë¶û»ö
@@ -11,22 +12,26 @@ public enum CardTier // Ä«µå Æ¼¾î
     Common,         // ÃÊ·Ï»ö
     Basic           // È¸»ö
 }
-public enum CardAbility // Ä«µå ´É·ÂÄ¡ 
+
+// Ä«µå ´É·ÂÄ¡ 
+public enum CardAbility 
 {
-    Shield,         // ½¯µåÇü
-    PlayerState,    // ÇÃ·¹ÀÌ¾î ½ºÅÈ Çü
-    BulletShoot,    // ÃÑ¾Ë ¹ß»ç
-    BulletExplosion // ÃÑ¾Ë Æø¹ß (unit¿¡°Ô ´ê¿´À» ¶§)
+    Shield,             // ½¯µåÇü
+    PlayerState,        // ÇÃ·¹ÀÌ¾î ½ºÅÈ Çü
+    BulletShoot,        // ÃÑ¾Ë ¹ß»ç
+    BulletExplosion     // ÃÑ¾Ë Æø¹ß (unit¿¡°Ô ´ê¿´À» ¶§)
 }
 
+// Unit FSM
 public enum UNIT_STATE
 {
-    Idle,
-    Tracking,
-    Attack,
-    Die
+    Idle,               // ±âº»
+    Tracking,           // ÃßÀû
+    Attack,             // °ø°Ý
+    Die                 // »ç¸Á 
 }
 
+// Unit Type
 public enum Unt_Type
 {
     MELLE,
@@ -35,17 +40,48 @@ public enum Unt_Type
     BOSS
 }
 
+// ½¯µå È¿°ú ( csvÀÇ _classSpritName°ú °°¾Æ¾ßÇÔ )
+public enum Shield_Effect 
+{
+    Default,
+    Rare_ShieldExpention,
+    Epic_BloodSiphon,
+    Legend_Supernova,
+    Legend_BombShield
+}
+
+#region Shield State
+[System.Serializable]
+public class ShieldState 
+{
+    [SerializeField] private float _shieldSize;         // ½¯µå Å©±â
+
+    // ÇÁ·ÎÆÛÆ¼ 
+    public float shieldSize { get => _shieldSize; set { _shieldSize = value; } }
+
+    // »ý¼ºÀÚ
+    public ShieldState(float v_size) 
+    {
+        this._shieldSize = v_size;
+    }
+
+}
+
+
+#endregion
+
+
 #region Bullet
 
 // bullet state
 [System.Serializable]
 public class BulletSate
 {
-    [SerializeField] int _bulletCount;          // ÇÑ¹ø¿¡ »ý¼ºÇÏ´Â ÃÑ¾Ë °¹¼ö
-    [SerializeField] float _bulletSpeed;        // ÃÑ¾Ë ¼Óµµ
-    [SerializeField] float _bulletDamage;       // ÃÑ¾Ë µ¥¹ÌÁö 
-    [SerializeField] float _bulletSize;         // ÃÑ¾Ë Å©±â 
-    [SerializeField] int _bulletBounceCount;    // ÃÑ¾Ë Æ¨±â´Â È½¼ö 
+    [SerializeField] private int _bulletCount;          // ÇÑ¹ø¿¡ »ý¼ºÇÏ´Â ÃÑ¾Ë °¹¼ö
+    [SerializeField] private float _bulletSpeed;        // ÃÑ¾Ë ¼Óµµ
+    [SerializeField] private float _bulletDamage;       // ÃÑ¾Ë µ¥¹ÌÁö 
+    [SerializeField] private float _bulletSize;         // ÃÑ¾Ë Å©±â 
+    [SerializeField] private int _bulletBounceCount;    // ÃÑ¾Ë Æ¨±â´Â È½¼ö 
 
     // ÇÁ·ÎÆÛÆ¼ 
     public int bulletCount { get => _bulletCount; set { _bulletCount = value; } }
