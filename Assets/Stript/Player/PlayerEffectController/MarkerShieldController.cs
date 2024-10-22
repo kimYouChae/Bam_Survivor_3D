@@ -19,7 +19,7 @@ public class MarkerShieldController : MonoBehaviour
     private Dictionary< Shield_Effect, int> _markerShieldDuplication;
     // Shield Enum (key)에 맞는 갯수 int (value) 
 
-    public delegate void del_MarkerShield(Transform _unitTrs, float _size);
+    public delegate void del_MarkerShield(Marker _unitTrs, float _size);
 
     // deligate 선언
     public del_MarkerShield del_markerShieldUse;
@@ -58,7 +58,21 @@ public class MarkerShieldController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         Destroy(_shieldIns);
     }
- 
+
+    private void F_AddToEffectDeligate(del_MarkerShield _effect) 
+    {
+        del_markerShieldUse += _effect;
+    }
+
+    private void F_RemoveFromEffectDeligate(del_MarkerShield _effect) 
+    {
+        del_markerShieldUse -= _effect;
+    }
+
+    private void F_UseEffectDeligate(Marker _marker, float _shieldSize) 
+    {
+        del_markerShieldUse.Invoke(_marker, _shieldSize);
+    }
 
     public void F_ApplyShieldEffect( SkillCard v_card ) 
     {
@@ -69,11 +83,12 @@ public class MarkerShieldController : MonoBehaviour
         // ex) dictionary[ 쉴드 enum.흡혈] == 1 && dictionary[쉴드 enum.ex] == 1
         if (_markerShieldDuplication[Shield_Effect.Epic_BloodSiphon] == 1) 
         {
-            
+            // Blood : 초기 1회만 델리게이트에 추가
+            // 1~3회까지는 F_BloodShiponEffect()내에서 count로 데미지 추가
+            // 4회에는 처형추가
+            del_markerShieldUse += v_card.F_SkillcardEffect;
         }
- 
-        // Skill effect 효과 적용
-        v_card.F_SkillcardEffect();
+
 
     }
 
@@ -123,12 +138,12 @@ public class MarkerShieldController : MonoBehaviour
     }
 
     // Epic_BloodShiphon Effect : 범위내 unit 적 흡혈
-    public void F_BloodShiponEffect(Transform v_unitTrs , float v_size) 
+    public void F_BloodShiponEffect(Marker v_marker , float v_size) 
     {
         // ##TODO : 여러개 먹으면 적 unit 일정 피 이하 처형 + 피 흡혈 (이러면 적 검사할 때 linq 쓰기 좋을듯?)
         // ##TODO : 쉴드가 유지되는 시간도 생각 ?
 
-        Collider[] _unitColliderList = Physics.OverlapSphere( v_unitTrs.position , v_size , UnitManager.Instance.unitLayerInt);
+        Collider[] _unitColliderList = Physics.OverlapSphere( v_marker.gameObject.transform.position , v_size , UnitManager.Instance.unitLayerInt);
 
         // 범위안에 유닛이 x 
         if (_unitColliderList.Length < 0)
@@ -138,11 +153,13 @@ public class MarkerShieldController : MonoBehaviour
         else 
         { 
             foreach(Collider _coll in _unitColliderList) 
-            { 
+            {
                 // marker State hp 증가 
+                
+
+                // Shield_Effect.Epic_BloodSiphon의 count만큼 흡혈 / 피해량 증가 
 
 
-                //
             }
         }
     }

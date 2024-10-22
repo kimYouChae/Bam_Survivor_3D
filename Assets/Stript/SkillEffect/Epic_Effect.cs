@@ -25,11 +25,13 @@ public class Epic_BulletStrom : SkillCard
 
 public class Epic_BloodSiphon : SkillCard
 {
-    public override void F_SkillcardEffect()
+    public override void F_SkillcardEffect( Marker _marker, float _size )
     {
         Debug.Log(this.classSpriteName);
 
         // 쉴드 사용시 범위 내 unit 흡혈 
+        // Player State의 markerShield내 메서드 실행 
+        PlayerManager.instance.markerShieldController.F_BloodShiponEffect(_marker, _size);
     }
 }
 

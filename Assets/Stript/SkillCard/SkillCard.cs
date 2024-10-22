@@ -43,5 +43,7 @@ public abstract class SkillCard
     }
 
     // 각 skillcard에서 공격효과
-    public abstract void F_SkillcardEffect();
+    public virtual void F_SkillcardEffect() { }
+    public virtual void F_SkillcardEffect(Marker _marker, float _size) { }
+
 }
