@@ -36,6 +36,7 @@ public class Unit : MonoBehaviour
     public LayerMask _hitWallLayerMask;
 
     // 프로퍼티
+    public float unitHp => _unitHp;
     public float unitSpeed      => _unitSpeed;
     public float searchRadious  => _searchRadious;
     public float unitTimeStamp { get => _unitTimeStamp; set{ _unitTimeStamp = value;} }

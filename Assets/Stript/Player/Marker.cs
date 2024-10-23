@@ -76,4 +76,5 @@ public class Marker : MonoBehaviour
         Gizmos.DrawWireSphere( gameObject.transform.position
             , 7f);
     }
+
 }

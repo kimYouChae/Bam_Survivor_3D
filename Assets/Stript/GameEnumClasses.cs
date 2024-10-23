@@ -163,7 +163,7 @@ public class MarkerState
     
     // 쿨타임
     [SerializeField] private float _markerShieldCoolTime;       // marker 쉴드 쿨타임 
-    [SerializeField] private float _markerBulletShootCoolTime;        // 총알 발사 쿨타임 
+    [SerializeField] private float _markerBulletShootCoolTime;  // 총알 발사 쿨타임 
     [SerializeField] private float _recoveryCoolTime;           // 자연 회복량 쿨타임
 
     // 프로퍼티

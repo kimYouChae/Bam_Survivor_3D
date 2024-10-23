@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    // 기본 state 업데이트 
+    // 기본 state 업데이트 ( Marker 전체의 state 변화 ) 
     public void F_UpdateMarkerState(float MaxHpPercent = 0 , float SpeedPercent = 0 , float DefencePercent = 0 ,
         float SearchRadiousPercent = 0 , float MagnetPercent = 0 , float ShieldCoolTimePercent = 0 , float BulletCoolTimePercent = 0,
         float RecoveryIncrease = 0 , float RecoveryCoolTimeDecrease = 0 ) 
@@ -181,7 +181,11 @@ public class PlayerManager : MonoBehaviour
         this._luck          += _luck * LuckPercent;
     }
 
-
+    // 개별 hp 증가 
+    public void F_UpdateIndiMarkerHP(Marker _marker , float _addHP) 
+    {
+        _marker.markerState.markerHp += _addHP;
+    }
 
 
 
