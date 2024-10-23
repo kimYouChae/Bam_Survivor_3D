@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEditorInternal;
-
+using Unity.VisualScripting;
+using System.Linq;
 
 public class MarkerShieldController : MonoBehaviour
 {
@@ -16,8 +16,13 @@ public class MarkerShieldController : MonoBehaviour
     [SerializeField] private ShieldState _shieldState;
 
     [Header("===중복 검사 Dictionary===")]
-    private Dictionary< Shield_Effect, int> _markerShieldDuplication;
+    private Dictionary< Shield_Effect, int> DICT_ShieldTOCount;
     // Shield Enum (key)에 맞는 갯수 int (value) 
+
+    [Header("===Skill Effect Ratio===")]
+    [SerializeField] const  float   BLOOD_SHIPON_RATIO      = 0.7f;
+    [SerializeField] const  float   BLOOD_EXCUTION_RATIO    = 5f;       // ##TODO 임시 : 적이 5f이하면 처형
+    [SerializeField] const  int     BOMB_GENERATE_RATIO     = 2;
 
     public delegate void del_MarkerShield(Marker _unitTrs, float _size);
 
@@ -59,36 +64,30 @@ public class MarkerShieldController : MonoBehaviour
         Destroy(_shieldIns);
     }
 
-    private void F_AddToEffectDeligate(del_MarkerShield _effect) 
-    {
-        del_markerShieldUse += _effect;
-    }
-
-    private void F_RemoveFromEffectDeligate(del_MarkerShield _effect) 
-    {
-        del_markerShieldUse -= _effect;
-    }
-
-    private void F_UseEffectDeligate(Marker _marker, float _shieldSize) 
-    {
-        del_markerShieldUse.Invoke(_marker, _shieldSize);
-    }
-
+    // 쉴드 카드 획득 시 실행
     public void F_ApplyShieldEffect( SkillCard v_card ) 
     {
         // 딕셔너리에 skillcard 검사 
         F_DictionaryInt(v_card);
 
-        // ##TODO : 추가된 효과에 맞게 추가 효과 넣어야함
-        // ex) dictionary[ 쉴드 enum.흡혈] == 1 && dictionary[쉴드 enum.ex] == 1
-        if (_markerShieldDuplication[Shield_Effect.Epic_BloodSiphon] == 1) 
+        // 추가된 SkillCard에 맞게 델리게이트에 메서드 추가 
+        // Blood Shipon : 초기 1회 획득
+        if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 1) 
         {
             // Blood : 초기 1회만 델리게이트에 추가
             // 1~3회까지는 F_BloodShiponEffect()내에서 count로 데미지 추가
             // 4회에는 처형추가
             del_markerShieldUse += v_card.F_SkillcardEffect;
         }
-
+        // Blood Shipon : 4회 획득
+        if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 4) 
+        {
+            // TODO : blood 관련 코드 수정해야함 
+            // 기존 삭제
+            del_markerShieldUse -= F_BloodShiponEffect;
+            // 처형효과 추가
+            del_markerShieldUse += F_Test;
+        }
 
     }
 
@@ -96,8 +95,8 @@ public class MarkerShieldController : MonoBehaviour
     public void F_DictionaryInt(SkillCard v_card)
     {
         // 초기화 안되어있으면 초기화
-        if (_markerShieldDuplication == null)
-            _markerShieldDuplication = new Dictionary<Shield_Effect, int>();
+        if (DICT_ShieldTOCount == null)
+            DICT_ShieldTOCount = new Dictionary<Shield_Effect, int>();
 
         // v_card의 _className변수와 같은 enum을 찾기 
         Shield_Effect _myEffect = default;
@@ -119,14 +118,14 @@ public class MarkerShieldController : MonoBehaviour
         }
 
         // card가 포함이 안되어있으면 ?
-        if (!_markerShieldDuplication.ContainsKey(_myEffect))
+        if (!DICT_ShieldTOCount.ContainsKey(_myEffect))
         {
-            _markerShieldDuplication.Add(_myEffect, 0);
+            DICT_ShieldTOCount.Add(_myEffect, 0);
         }
         // 포함이 되어있으면 ?
         else
         {
-            _markerShieldDuplication[_myEffect] += 1;
+            DICT_ShieldTOCount[_myEffect] += 1;
         }
 
     }
@@ -138,30 +137,72 @@ public class MarkerShieldController : MonoBehaviour
     }
 
     // Epic_BloodShiphon Effect : 범위내 unit 적 흡혈
-    public void F_BloodShiponEffect(Marker v_marker , float v_size) 
+    public void F_BloodShiponEffect(Marker _marker , float _size) 
     {
-        // ##TODO : 여러개 먹으면 적 unit 일정 피 이하 처형 + 피 흡혈 (이러면 적 검사할 때 linq 쓰기 좋을듯?)
-        // ##TODO : 쉴드가 유지되는 시간도 생각 ?
-
-        Collider[] _unitColliderList = Physics.OverlapSphere( v_marker.gameObject.transform.position , v_size , UnitManager.Instance.unitLayerInt);
+        // Unit 검사 
+        Collider[] _unitColliderList = Physics.OverlapSphere( _marker.gameObject.transform.position , _size , UnitManager.Instance.unitLayerInt);
 
         // 범위안에 유닛이 x 
-        if (_unitColliderList.Length < 0)
+        if (_unitColliderList.Length <= 0)
             return;
 
         // 범위안에 유닛이 감지되면
-        else 
-        { 
-            foreach(Collider _coll in _unitColliderList) 
-            {
-                // marker State hp 증가 
+        foreach(Collider _coll in _unitColliderList) 
+        {
+            // 비울 * 획득 count 만큼 
+            float _bloodAmount = BLOOD_SHIPON_RATIO * DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon];
                 
+            // marker State hp 증가 
+            PlayerManager.instance.F_UpdateIndiMarkerHP(_marker , _bloodAmount);
 
-                // Shield_Effect.Epic_BloodSiphon의 count만큼 흡혈 / 피해량 증가 
-
-
+            // unit의 hp 감소 
+            try 
+            {
+                _coll.GetComponent<Unit>().F_GetDamage(_bloodAmount);
             }
+            catch (Exception e) 
+            {
+                Debug.LogError(e);
+            }
+
         }
+        
     }
 
+    // ##TODO : 임시 Blood를 4개 이상 먹었을 때 적 처형 효과 추가 
+    private void F_Test( Marker _marker , float _size ) 
+    {
+        // Unit 검사 
+        Collider[] _unitColliderList = Physics.OverlapSphere(_marker.gameObject.transform.position, _size, UnitManager.Instance.unitLayerInt);
+
+        // 범위안에 유닛이 x 
+        if (_unitColliderList.Length <= 0)
+            return;
+
+        // 처형할 unit 추출 ( Linq :  적의 hp가 ratio 밑이면 temp에 저장 )
+        var temp = from coll in _unitColliderList
+                   where coll.GetComponent<Unit>() != null && coll.GetComponent<Unit>().unitHp <= BLOOD_EXCUTION_RATIO
+                   select coll.GetComponent<Unit>();
+
+        // 그 외 나머지 ?
+        var temp2 = from coll in _unitColliderList
+                    where coll.GetComponent<Unit>() != null && coll.GetComponent<Unit>().unitHp > BLOOD_EXCUTION_RATIO
+                    select coll.GetComponent<Unit>();
+
+        foreach (Unit unit in temp) 
+        {
+            // ##TODO : unit 의 적 처형
+        }
+        foreach (Unit unit in temp2) 
+        {
+            // ##TODO : 임시 코드 바꾸면 수정해야함 (데미지만 주기)
+            unit.F_GetDamage(2f);
+        }
+
+    }
+
+    public void F_SupernovaEffect( Marker _marker, float _size ) 
+    {
+    
+    }
 }
