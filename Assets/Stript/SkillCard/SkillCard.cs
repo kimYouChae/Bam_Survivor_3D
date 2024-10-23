@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -45,5 +46,6 @@ public abstract class SkillCard
     // 각 skillcard에서 공격효과
     public virtual void F_SkillcardEffect() { }
     public virtual void F_SkillcardEffect(Marker _marker, float _size) { }
+    public virtual void F_SkillcardEffect(Transform _trs , float _size) { }
 
 }

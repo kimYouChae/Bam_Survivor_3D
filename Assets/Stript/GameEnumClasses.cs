@@ -50,6 +50,14 @@ public enum Shield_Effect
     Legend_BombShield
 }
 
+// 총알 폭발 효과 ( csv의 _classSpriteName과 같아야함 )
+public enum Explosion_Effect
+{
+    Default,
+    Rare_PoisionBullet,
+    Rare_IceBullet
+}
+
 #region Shield State
 [System.Serializable]
 public class ShieldState 
@@ -70,6 +78,23 @@ public class ShieldState
 
 #endregion
 
+#region Explosion State
+[System.Serializable]
+public class ExplosionState
+{
+    [SerializeField] private float _explosionRadious;       // 폭발 검출 범위
+
+    // 프로퍼티
+    public float explosionRadious => _explosionRadious;
+
+    // 생성자
+    public ExplosionState(float v_radious) 
+    { 
+        this._explosionRadious = v_radious;
+    }
+}
+
+#endregion
 
 #region Bullet
 

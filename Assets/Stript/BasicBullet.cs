@@ -77,7 +77,7 @@ public class BasicBullet : MonoBehaviour
             //Debug.Log("Unit이랑 충돌함");
 
             // ##TODO : markerBulletExplosion의 함수실행 
-            PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(collision.gameObject);
+            PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
 
             Destroy(gameObject, 0.1f);
         }

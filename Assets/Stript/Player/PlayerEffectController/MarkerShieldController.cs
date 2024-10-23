@@ -64,13 +64,14 @@ public class MarkerShieldController : MonoBehaviour
         Destroy(_shieldIns);
     }
 
+    // 쉴드 카드 획득 시 실행
     public void F_ApplyShieldEffect( SkillCard v_card ) 
     {
         // 딕셔너리에 skillcard 검사 
         F_DictionaryInt(v_card);
 
-        // ##TODO : 추가된 효과에 맞게 추가 효과 넣어야함
-        // ex) dictionary[ 쉴드 enum.흡혈] == 1 && dictionary[쉴드 enum.ex] == 1
+        // 추가된 SkillCard에 맞게 델리게이트에 메서드 추가 
+        // Blood Shipon : 초기 1회 획득
         if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 1) 
         {
             // Blood : 초기 1회만 델리게이트에 추가
@@ -78,6 +79,7 @@ public class MarkerShieldController : MonoBehaviour
             // 4회에는 처형추가
             del_markerShieldUse += v_card.F_SkillcardEffect;
         }
+        // Blood Shipon : 4회 획득
         if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 4) 
         {
             // TODO : blood 관련 코드 수정해야함 
