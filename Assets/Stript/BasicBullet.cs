@@ -76,9 +76,10 @@ public class BasicBullet : MonoBehaviour
         {
             //Debug.Log("Unit이랑 충돌함");
 
-            // ##TODO : markerBulletExplosion의 함수실행 
+            // markerBulletExplosion의 함수실행 
             PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
 
+            // ##TODO : 총알 pooling으로 return 하기 
             Destroy(gameObject, 0.1f);
         }
 
@@ -92,7 +93,10 @@ public class BasicBullet : MonoBehaviour
             // max랑 횟수가 같아지면 -> destory
             if (_currBounceCount == _bulletState.bulletBounceCount)
             {
-                // ##TODO : markerBulletExplosion의 함수실행 
+                // markerBulletExplosion의 함수실행 
+                PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
+
+                // ##TODO : 총알 pooling으로 return 하기 
                 Destroy(gameObject, 0.1f);
                 return;
             }

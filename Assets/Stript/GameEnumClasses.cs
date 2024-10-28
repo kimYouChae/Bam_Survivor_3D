@@ -58,6 +58,17 @@ public enum Explosion_Effect
     Rare_IceBullet
 }
 
+// 총알 폭발 시 Particle System 실행
+public enum ParticleState
+{
+    BasicExposionVFX,           // 기본 폭발 vfx
+    BasicPoisonVFX,             // 기본 독 vfx
+    BasicIceVFX,                // 기본 ice vfx
+    ReinPosionVFX,              // 강화 독 vfx
+    ReinIceVFX                  // 강화 ice vfx
+
+}
+
 #region Shield State
 [System.Serializable]
 public class ShieldState 
