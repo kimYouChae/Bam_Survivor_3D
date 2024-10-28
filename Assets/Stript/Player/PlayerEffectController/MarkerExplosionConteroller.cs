@@ -32,6 +32,24 @@ public class MarkerExplosionConteroller : MonoBehaviour
         // 델리게이트 실행
         _size = _explosionState.explosionRadious;
         del_bulletExplosion(_bulletTrs , _size );
+
+        // particle 실행
+        F_ActiveExplisionEffect(_bulletTrs);
+    }
+
+    // explotionEffect에 맞는 파티클 실행
+    private void F_ActiveExplisionEffect(Transform _exposionTrs)
+    {
+        // 기본 폭발 particle
+        ParticleManager.instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs);
+
+        // ##TODO : effect에 맞는 파티클 실행 
+        /*
+        if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] == 1) 
+        {
+            ParticleManager.instance.F_PlayerParticle( ParticleState.BasicPoisonParticle , _exposionTrs);
+        }
+        */
     }
 
     // 기본 총알 폭발
