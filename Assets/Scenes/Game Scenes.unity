@@ -1360,6 +1360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89696884f93dd1c40ac6915226baabac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionState:
+    _explosionRadious: 0
 --- !u!114 &52772249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,8 +1394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicShieldObject: {fileID: 3314130714575852333, guid: f990e267340d9b8449607530218ae996, type: 3}
-  _minShieldSize: 0
-  _maxShieldSize: 0
+  _shieldState:
+    _shieldSize: 0
 --- !u!114 &52772251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1403,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52772246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be87805d83b141240b8af8f9920e1f1c, type: 3}
   m_Name: 
@@ -1424,6 +1426,9 @@ MonoBehaviour:
   _PLAYERLEVEL: 0
   _CURREXP: 0
   _MAXEXP: 0
+  _revivalCount: 0
+  _experience: 0
+  _luck: 0
   _markerMovement: {fileID: 52772251}
   _markerShieldController: {fileID: 52772250}
   _markerBulletController: {fileID: 52772249}
@@ -15661,6 +15666,7 @@ GameObject:
   - component: {fileID: 654742007}
   - component: {fileID: 654742006}
   - component: {fileID: 654742005}
+  - component: {fileID: 654742008}
   - component: {fileID: 654742004}
   - component: {fileID: 654742003}
   m_Layer: 0
@@ -15758,6 +15764,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281642e9fb430684ca9fd017ae99c10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &654742008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654742001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce27b1f37f7eb4d89e68df658d490f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectList:
+  - {fileID: 5014226832899050115, guid: 1c25c44d893421448946d3ef49276c8a, type: 3}
+  _effectPool: []
 --- !u!1 &657653234
 GameObject:
   m_ObjectHideFlags: 0
@@ -33581,9 +33602,10 @@ MonoBehaviour:
   _unitLayer:
     serializedVersion: 2
     m_Bits: 0
-  _chunckBoundary:
+  _chunckBoundaryLayer:
     serializedVersion: 2
     m_Bits: 0
+  _unitLayerInt: 0
   _unitGenerator: []
 --- !u!1001 &1400385047
 PrefabInstance:
