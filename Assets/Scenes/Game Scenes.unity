@@ -15828,6 +15828,7 @@ GameObject:
   - component: {fileID: 654742008}
   - component: {fileID: 654742004}
   - component: {fileID: 654742003}
+  - component: {fileID: 654742009}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -15945,6 +15946,42 @@ MonoBehaviour:
   - {fileID: 307487018}
   - {fileID: 286233760}
   - {fileID: 612682013}
+--- !u!114 &654742009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654742001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac5ec07f7664d44dae5121ae4360b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _markerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _unitLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _bulletLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _shieldLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _mapPropsLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _markerLayerNum: 0
+  _wallLayerNum: 0
+  _unitLayerNum: 0
+  _bulletLayerNum: 0
+  _shieldLayerNum: 0
+  _mapPropsLayerNum: 0
 --- !u!1 &657653234
 GameObject:
   m_ObjectHideFlags: 0
