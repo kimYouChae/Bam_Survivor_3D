@@ -15940,7 +15940,11 @@ MonoBehaviour:
   - {fileID: 8167042963671044437, guid: f3c27caf7017ff14691e3ce5f0f7579b, type: 3}
   - {fileID: 3056487683543795355, guid: 554d177cfee0bca4c96f5ec5b8db89c7, type: 3}
   - {fileID: 7745238464927379800, guid: 977625e61587d85448d392803def8298, type: 3}
-  _effectPool: []
+  _effectPool:
+  - {fileID: 112700782}
+  - {fileID: 307487018}
+  - {fileID: 286233760}
+  - {fileID: 612682013}
 --- !u!1 &657653234
 GameObject:
   m_ObjectHideFlags: 0
