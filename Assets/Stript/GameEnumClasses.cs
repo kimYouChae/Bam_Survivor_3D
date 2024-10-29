@@ -66,6 +66,7 @@ public enum ParticleState
     BasicIceVFX,                // 기본 ice vfx
     ReinPosionVFX,              // 강화 독 vfx
     //ReinIceVFX                  // 강화 ice vfx
+    ShieldEndVFX                // 쉴드 끝날 때 vfx
 
 }
 

@@ -49,10 +49,8 @@ public class Marker : MonoBehaviour
                 (_markerState.markerShieldCoolTime);
 
             //  쉴드 델리게이트 실행 
-            //PlayerManager.instance.markerShieldController.del_markerShieldUse(this.gameObject.transform);
+            PlayerManager.instance.markerShieldController.F_StartShieldAction(this);
 
-            // 업데이트 문 효과
-            //yield return new WaitForSeconds(0.02f);
         }
     }
 
