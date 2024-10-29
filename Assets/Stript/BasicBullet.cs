@@ -72,7 +72,7 @@ public class BasicBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // unit이랑 충돌시
-        if (collision.gameObject.CompareTag("Unit"))
+        if (collision.gameObject.layer == LayerManager.instance.unitLayerNum)
         {
             //Debug.Log("Unit이랑 충돌함");
 
@@ -83,10 +83,11 @@ public class BasicBullet : MonoBehaviour
             Destroy(gameObject, 0.1f);
         }
 
-        // wall이랑 충돌 시 
-        if (collision.gameObject.CompareTag("Wall"))
+        // wall + mapProps
+        if (collision.gameObject.layer == LayerManager.instance.wallLayerNum
+            || collision.gameObject.layer == LayerManager.instance.mapPropsLayerNum )
         {
-            //Debug.LogError("벽이랑 충돌 ");
+            //Debug.LogError("벽 / map proprs 랑 충돌 ");
 
             _iscollisionToWall = false;
 

@@ -17,13 +17,37 @@ public class MarkerExplosionConteroller : MonoBehaviour
     // deligate 선언
     public del_BulletExplosion del_bulletExplosion;
 
+    [Header("===Skill Effect Ratio===")]
+    [SerializeField] const int REIN_POISION_COUNT   = 4;
+    [SerializeField] const int REIN_ICE_COUNT       = 0;
+
     private void Start()
     {
         // ##TODO : 임시 (3f) : explosion State 초기화
         _explosionState = new ExplosionState(3f);
-        
+
+        // 초기 1회 Dic 초기화
+        F_InitDictionary();
+
         // 델리게이트에 기본 
         del_bulletExplosion += F_BasicExplosionUse;    
+    }
+
+    private void F_InitDictionary() 
+    {
+        DICT_ExplotionToCount = new Dictionary<Explosion_Effect, int>();
+
+        Explosion_Effect[] _effect = (Explosion_Effect[])System.Enum.GetValues(typeof(Explosion_Effect));
+
+        for (int i = 0; i < _effect.Length; i++) 
+        {
+            if (_effect[i] == Explosion_Effect.Default)
+                continue;
+
+            // key를 가지고 있지 않으면 
+            if (!DICT_ExplotionToCount.ContainsKey(_effect[i]))
+                DICT_ExplotionToCount.Add(_effect[i], 0);
+        }
     }
 
     // 충돌 시 시작
@@ -40,16 +64,36 @@ public class MarkerExplosionConteroller : MonoBehaviour
     // explotionEffect에 맞는 파티클 실행
     private void F_ActiveExplisionEffect(Transform _exposionTrs)
     {
-        // 기본 폭발 particle
+        if (_exposionTrs == null)
+        { 
+            Debug.LogError(" Bullet Exploison Transform cant be Null");
+            return;
+        }
+
+        // 강화 독 (REIN_POISION_COUNT 이상 먹었을 때)
+        if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= REIN_POISION_COUNT)
+        {
+            ParticleManager.instance.F_PlayerParticle(ParticleState.ReinPosionVFX, _exposionTrs);
+            return;
+        }
+
+        // 기본 독 + 기본 폭발 particle 
+        if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= 1
+            && DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] < REIN_POISION_COUNT)
+        {
+            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicPoisonVFX, _exposionTrs);
+        }
+
+        // 기본 얼음 + 기본 폭발 particle
+        if (DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] >= 1)
+        {
+            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicIceVFX, _exposionTrs);
+        }
+        
+
+        // 기본 폭발 particle 실행 
         ParticleManager.instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs);
 
-        // ##TODO : effect에 맞는 파티클 실행 
-        /*
-        if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] == 1) 
-        {
-            ParticleManager.instance.F_PlayerParticle( ParticleState.BasicPoisonParticle , _exposionTrs);
-        }
-        */
     }
 
     // 기본 총알 폭발
@@ -99,9 +143,6 @@ public class MarkerExplosionConteroller : MonoBehaviour
     // skill effect 중복 체크 
     public void F_DictionaryInt(SkillCard v_card)
     {
-        // 초기화 안되어있으면 초기화
-        if (DICT_ExplotionToCount == null)
-            DICT_ExplotionToCount = new Dictionary<Explosion_Effect, int>();
 
         // v_card의 _className변수와 같은 enum을 찾기 
         Explosion_Effect _myEffect = default;
