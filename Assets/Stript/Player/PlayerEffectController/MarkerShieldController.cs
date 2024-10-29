@@ -10,7 +10,7 @@ public class MarkerShieldController : MonoBehaviour
 
     [Header("===basic Shield Object===")]
     [SerializeField]
-    private GameObject _basicShieldObject;          // 기본 쉴드 오브젝트
+    private GameObject _basicShieldObject;                              // 기본 쉴드 오브젝트
 
     [Header("===Shield State===")]
     [SerializeField] private ShieldState _shieldState;
@@ -20,9 +20,9 @@ public class MarkerShieldController : MonoBehaviour
     // Shield Enum (key)에 맞는 갯수 int (value) 
 
     [Header("===Skill Effect Ratio===")]
-    [SerializeField] const  float   BLOOD_SHIPON_RATIO      = 0.7f;
+    [SerializeField] const  float   BLOOD_SHIPON_RATIO      = 0.7f;     // 피흡 비율 
     [SerializeField] const  float   BLOOD_EXCUTION_RATIO    = 5f;       // ##TODO 임시 : 적이 5f이하면 처형
-    [SerializeField] const  int     BOMB_GENERATE_RATIO     = 2;
+    [SerializeField] const  int     BOMB_GENERATE_RATIO     = 2;        // 폭탄 생성 비율 
 
     public delegate void del_MarkerShield(Marker _unitTrs, float _size);
 
@@ -33,35 +33,80 @@ public class MarkerShieldController : MonoBehaviour
     {
         // ##TODO : 임시 쉴드state 생성 , 나중에 쉴드 범위는 캐릭터 따라 달리지는 ?  
         _shieldState = new ShieldState(3f);
+
+        // 딕셔너리 초기화
+        F_InitDictionary();
+
     }
 
-    // ## Test : 쉴드 돌아가는 로직 
-    private IEnumerator IE_Test( GameObject v_marker ) 
+    private void F_InitDictionary() 
     {
-        GameObject _shieldIns = Instantiate(_basicShieldObject, v_marker.transform);
-        _shieldIns.transform.localPosition = Vector3.zero;
+        DICT_ShieldTOCount = new Dictionary<Shield_Effect, int>();
+
+        Shield_Effect[] _effect = (Shield_Effect[])System.Enum.GetValues(typeof(Shield_Effect));
+
+        for (int i = 0; i < _effect.Length; i++)
+        {
+            if (_effect[i] == Shield_Effect.Default)
+                continue;
+
+            // key를 가지고 있지 않으면 
+            if (!DICT_ShieldTOCount.ContainsKey(_effect[i]))
+                DICT_ShieldTOCount.Add(_effect[i], 0);
+        }
+    }
+
+    // marker에서 실행
+    public void F_StartShieldAction(Marker _marker) 
+    {
+        // 코루틴 멈춘 후 실행하면 마지막 marker만 코루틴 실행함  
+        // StopAllCoroutines();
+        StartCoroutine(IE_Test(_marker));
+    }
+
+
+    // ## Test : 쉴드 돌아가는 로직 
+    private IEnumerator IE_Test( Marker _marker ) 
+    {
+        // ##TODO : 쉴드 pool에서 가져오기 
+        GameObject _shieldIns               = Instantiate(_basicShieldObject, _marker.gameObject.transform);
+        _shieldIns.transform.localPosition  = Vector3.zero;
+        _shieldIns.transform.localScale     = new Vector3(0.1f, 0.1f, 0.1f);
 
         while (true) 
         {
             // 크기 키우기 
-            _shieldIns.transform.localScale += new Vector3(0.2f, 0.2f, 0);
+            _shieldIns.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f);
+            _shieldIns.transform.position   = _marker.gameObject.transform.position;
 
             // 크기가 max가 되면 중지 
             if (_shieldIns.transform.localScale.x >= _shieldState.shieldSize
                 && _shieldIns.transform.localScale.y >= _shieldState.shieldSize)
                 break;
 
-            // 쉴드 델리게이트 (효과 적용) 실행
-
 
             // 일정시간 기다리기 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
 
+        // 쉴드 델리게이트 (효과 적용) 실행
+        try 
+        {
+            del_markerShieldUse(_marker , _shieldState.shieldSize );
+        }
+        catch (Exception ex) 
+        {
+            Debug.LogError(ex);
+        }
 
         // 일정시간후에 삭제 
         yield return new WaitForSeconds(0.2f);
+
+        // ##TODO : 쉴드 pool로 보내기 
         Destroy(_shieldIns);
+
+        // 코루틴 종료
+        yield break;
     }
 
     // 쉴드 카드 획득 시 실행
