@@ -1380,7 +1380,7 @@ MonoBehaviour:
     _bulletDamage: 0
     _bulletSize: 0
     _bulletBounceCount: 0
-  _basicBulletObject: {fileID: 4657294855528206554, guid: 9e504ad61bfc9da45b1f8378b224f6b1, type: 3}
+  _basicBulletObject: {fileID: 441514339485636694, guid: 9e504ad61bfc9da45b1f8378b224f6b1, type: 3}
 --- !u!114 &52772250
 MonoBehaviour:
   m_ObjectHideFlags: 0
