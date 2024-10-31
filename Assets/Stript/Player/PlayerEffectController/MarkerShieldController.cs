@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
 using System.Linq;
 
 public class MarkerShieldController : MonoBehaviour
@@ -16,18 +15,20 @@ public class MarkerShieldController : MonoBehaviour
     [SerializeField] private ShieldState _shieldState;
 
     [Header("===중복 검사 Dictionary===")]
-    private Dictionary< Shield_Effect, int> DICT_ShieldTOCount;
+    private Dictionary< Shield_Effect, int > DICT_ShieldTOCount;
     // Shield Enum (key)에 맞는 갯수 int (value) 
 
     [Header("===Skill Effect Ratio===")]
     [SerializeField] const  float   BLOOD_SHIPON_RATIO      = 0.7f;     // 피흡 비율 
-    [SerializeField] const  float   BLOOD_EXCUTION_RATIO    = 5f;       // ##TODO 임시 : 적이 5f이하면 처형
+    [SerializeField] const  float   BLOOD_EXCUTION_RATIO    = 5f;       // ##TODO 임시 : 적이 N이하면 처형
     [SerializeField] const  int     BOMB_GENERATE_RATIO     = 2;        // 폭탄 생성 비율 
 
-    public delegate void del_MarkerShield(Marker _unitTrs, float _size);
+    public delegate void del_ShieldExpanding        (Marker _unitTrs, float _size);             // 쉴드 생성 중
+    public delegate void del_ShiledExpandingComplete(Marker _unitTrs, float _size );            // 쉴드 생성완료 후 1회 
 
     // deligate 선언
-    public del_MarkerShield del_markerShieldUse;
+    public del_ShieldExpanding          del_shieldExpading;
+    public del_ShiledExpandingComplete  del_shieldExpandingComplete;
 
     private void Start()
     {
@@ -76,23 +77,32 @@ public class MarkerShieldController : MonoBehaviour
         while (true) 
         {
             // 크기 키우기 
-            _shieldIns.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f);
+            _shieldIns.transform.localScale += new Vector3(0.2f, 0, 0.2f);
             _shieldIns.transform.position   = _marker.gameObject.transform.position;
+
+            // 쉴드 생성 중 
+            try
+            {
+                del_shieldExpading(_marker, _shieldState.shieldSize);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+            }
 
             // 크기가 max가 되면 중지 
             if (_shieldIns.transform.localScale.x >= _shieldState.shieldSize
                 && _shieldIns.transform.localScale.y >= _shieldState.shieldSize)
                 break;
 
-
             // 일정시간 기다리기 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.02f);
         }
 
-        // 쉴드 델리게이트 (효과 적용) 실행
+        // 쉴드 생성 후 
         try 
         {
-            del_markerShieldUse(_marker , _shieldState.shieldSize );
+            del_shieldExpandingComplete(_marker , _shieldState.shieldSize );
         }
         catch (Exception ex) 
         {
@@ -122,21 +132,15 @@ public class MarkerShieldController : MonoBehaviour
         // Blood Shipon : 초기 1회 획득
         if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 1) 
         {
-            // Blood : 초기 1회만 델리게이트에 추가
-            // 1~3회까지는 F_BloodShiponEffect()내에서 count로 데미지 추가
-            // 4회에는 처형추가
-            del_markerShieldUse += v_card.F_SkillcardEffect;
+            // 쉴드 생성 중 : Blood Shipon 효과 적용 
+            del_shieldExpading += v_card.F_SkillcardEffect;
         }
-        // Blood Shipon : 4회 획득
+        // Blood Shipon : 4회 획득 
         if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 4) 
         {
-            // TODO : blood 관련 코드 수정해야함 
-            // 기존 삭제
-            del_markerShieldUse -= F_BloodShiponEffect;
-            // 처형효과 추가
-            del_markerShieldUse += F_Test;
+            // 쉴드 생성 후 : 처형 추가 
+            del_shieldExpandingComplete += F_Rein_BloodShipon_Excution;
         }
-
     }
 
     // skill effect 중복 체크 
@@ -184,73 +188,84 @@ public class MarkerShieldController : MonoBehaviour
         _shieldState.shieldSize += _shieldState.shieldSize * ShieldSizePercent;
     }
 
+    // collider 검출 후 return
+
+
     // Epic_BloodShiphon Effect : 범위내 unit 적 흡혈
     public void F_BloodShiponEffect(Marker _marker , float _size) 
     {
+
         // Unit 검사 
-        Collider[] _unitColliderList = Physics.OverlapSphere( _marker.gameObject.transform.position , _size , UnitManager.Instance.unitLayerInt);
+        Collider[] _unitColliderList = F_ReturnColliser( _marker.gameObject.transform , _size , UnitManager.Instance.unitLayerInt);
 
         // 범위안에 유닛이 x 
         if (_unitColliderList.Length <= 0)
             return;
 
+        // 흠혈 
+        // 비울 * 획득 count 만큼 
+        float _bloodAmount = BLOOD_SHIPON_RATIO * DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon];
+
         // 범위안에 유닛이 감지되면
-        foreach(Collider _coll in _unitColliderList) 
+        foreach (Collider _coll in _unitColliderList) 
         {
-            // 비울 * 획득 count 만큼 
-            float _bloodAmount = BLOOD_SHIPON_RATIO * DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon];
-                
+            if (_coll.GetComponent<Unit>() == null)
+                continue;
+
             // marker State hp 증가 
-            PlayerManager.instance.F_UpdateIndiMarkerHP(_marker , _bloodAmount);
+            PlayerManager.instance.F_UpdateIndiMarkerHP(_marker, _bloodAmount);
 
             // unit의 hp 감소 
-            try 
+            try
             {
                 _coll.GetComponent<Unit>().F_GetDamage(_bloodAmount);
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Debug.LogError(e);
             }
 
         }
-        
+
     }
 
-    // ##TODO : 임시 Blood를 4개 이상 먹었을 때 적 처형 효과 추가 
-    private void F_Test( Marker _marker , float _size ) 
+    // Epic_BloodShiphon Effect : 일정 hp 이하 적 처형 
+    private void F_Rein_BloodShipon_Excution( Marker _marker , float _size ) 
     {
         // Unit 검사 
-        Collider[] _unitColliderList = Physics.OverlapSphere(_marker.gameObject.transform.position, _size, UnitManager.Instance.unitLayerInt);
+        Collider[] _unitColliderList = F_ReturnColliser(_marker.gameObject.transform, _size, UnitManager.Instance.unitLayerInt);
 
         // 범위안에 유닛이 x 
         if (_unitColliderList.Length <= 0)
             return;
 
-        // 처형할 unit 추출 ( Linq :  적의 hp가 ratio 밑이면 temp에 저장 )
-        var temp = from coll in _unitColliderList
+        // 처형 unit
+        var _excutionUnit = from coll in _unitColliderList
                    where coll.GetComponent<Unit>() != null && coll.GetComponent<Unit>().unitHp <= BLOOD_EXCUTION_RATIO
                    select coll.GetComponent<Unit>();
 
-        // 그 외 나머지 ?
-        var temp2 = from coll in _unitColliderList
-                    where coll.GetComponent<Unit>() != null && coll.GetComponent<Unit>().unitHp > BLOOD_EXCUTION_RATIO
-                    select coll.GetComponent<Unit>();
-
-        foreach (Unit unit in temp) 
+        // 처형 
+        foreach (Unit unit in _excutionUnit) 
         {
-            // ##TODO : unit 의 적 처형
-        }
-        foreach (Unit unit in temp2) 
-        {
-            // ##TODO : 임시 코드 바꾸면 수정해야함 (데미지만 주기)
-            unit.F_GetDamage(2f);
+            // ##TODO : Pool로 되돌리기 
+            Destroy( unit , 0.1f );
         }
 
+
+    }
+
+    // 콜라이더 검출 
+    public Collider[] F_ReturnColliser(Transform v_trs, float v_radious, LayerMask v_layer)
+    {
+        Collider[] _coll = Physics.OverlapSphere(v_trs.position, v_radious, v_layer);
+
+        return _coll;
     }
 
     public void F_SupernovaEffect( Marker _marker, float _size ) 
     {
     
     }
+
+
 }
