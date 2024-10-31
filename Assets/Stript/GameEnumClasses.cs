@@ -70,6 +70,8 @@ public enum ParticleState
 
 }
 
+
+
 #region Shield State
 [System.Serializable]
 public class ShieldState 

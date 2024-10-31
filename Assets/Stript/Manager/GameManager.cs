@@ -16,9 +16,10 @@ public class GameManager : MonoBehaviour
     [Header("===Eenemy Generator Time===")]
     [SerializeField] private float _unitGenerateTime;
 
-    [Header("===LayerMask===")]
-    [SerializeField] private int _mapPropsLayer;
-    
+    [Header("===Pooling===")]
+    [SerializeField] private GameObject _emptyObject;       // 빈 오브젝트  
+    [SerializeField] private const int _POOLCOUNT = 10;     // pool에 초기 생성할 count 
+
     //프로퍼티
     public float BasicRatio => _basicRatio;
     public float CommonRatio => _commonRatio;
@@ -26,13 +27,12 @@ public class GameManager : MonoBehaviour
     public float EpicRatio => _epicRatio;
     public float LegaryRatio => _legendaryRatio;
     public float unitGenerateTime => _unitGenerateTime;
-    public int mapPropsLayer => _mapPropsLayer;
+    public GameObject emptyObject => _emptyObject;
+    public int POOLCOUNT => _POOLCOUNT;
 
     private void Awake()
     {
         instance = this;
-
-        _mapPropsLayer = LayerMask.NameToLayer("MapProps");
 
 
     }

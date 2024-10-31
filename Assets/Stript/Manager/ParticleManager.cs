@@ -10,14 +10,14 @@ public class ParticleManager : MonoBehaviour
 
     [Header("=== Container ===")]
     [SerializeField]
-    private List<GameObject> _effectList;
+    private List<GameObject> _effectList;   // 이펙트 리스트 
     [SerializeField]
-    private List<GameObject> _effectPool;
+    private GameObject      _PoolParent;    // pool 동적 생성할 parent
+    [SerializeField]
+    private List<GameObject> _effectPool;   // effect 담을 pool  
     
     [SerializeField]
     private Dictionary<ParticleState, Stack<GameObject>> DICT_stateToParticle;
-
-    private const int POOLCOUNT = 15;
 
     // 프로퍼티
     public List<GameObject> effectList => _effectList;
@@ -29,6 +29,22 @@ public class ParticleManager : MonoBehaviour
 
     private void Start()
     {
+        // POOl 오브젝트 초기화 
+        _effectPool = new List<GameObject>();
+
+        // pool Parent 하위에 pool 만들기 
+        for (int i = 0; i < System.Enum.GetValues(typeof(ParticleState)).Length; i++) 
+        {
+            GameObject _obj = Instantiate( GameManager.instance.emptyObject, Vector3.zero , Quaternion.identity);
+
+            _obj.name = System.Enum.GetName(typeof(ParticleState), i );
+
+            _obj.gameObject.transform.parent = _PoolParent.transform;
+
+            _effectPool.Add( _obj );    
+
+        }
+
         // Particle State에 따른 Dictionary 초기화
         F_InitEffectDictionary();
     }
@@ -44,7 +60,7 @@ public class ParticleManager : MonoBehaviour
             // stack 초기화
             Stack<GameObject> _stack = new Stack<GameObject>();
 
-            for (int j = 0; j < POOLCOUNT; j++) 
+            for (int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
             {
                 // 스택에 넣기 
                 _stack.Push( F_CreateParticle( _state[i]) );
@@ -106,6 +122,12 @@ public class ParticleManager : MonoBehaviour
     // particle Get
     private GameObject F_ParticleGet( ParticleState _state ) 
     {
+        if (!DICT_stateToParticle.ContainsKey(_state))
+        {
+            Debug.LogError(this + " : Particle DICTIONARY ISNT CONTAIN KEY");
+            return null;
+        }
+
         // stack이 비어있으면 
         if (DICT_stateToParticle[_state].Count == 0) 
         {
