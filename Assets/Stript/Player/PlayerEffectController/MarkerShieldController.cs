@@ -102,6 +102,9 @@ public class MarkerShieldController : MonoBehaviour
         // 일정시간후에 삭제 
         yield return new WaitForSeconds(0.2f);
 
+        // 파티클 실행
+        ParticleManager.instance.F_PlayerParticle( ParticleState.ShieldEndVFX , _shieldIns.transform );
+
         // ##TODO : 쉴드 pool로 보내기 
         Destroy(_shieldIns);
 
