@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ShieldPooling : MonoBehaviour
 {
+    public static ShieldPooling instance;
+
     [Header("===Pool===")]
     [SerializeField]
     private Transform _shieldPoolParent;    // 쉴드 pool 부모 
@@ -14,6 +16,11 @@ public class ShieldPooling : MonoBehaviour
     private List<GameObject> _shield;       // 쉴드 오브젝트 
     [SerializeField]
     private Dictionary<Shield_Effect, Stack<GameObject>> DICT_shieldEffectToObject;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -40,9 +47,6 @@ public class ShieldPooling : MonoBehaviour
         // shield effect enum 만큼 pool 생성  
         for (int i = 0; i < _effect.Length; i++) 
         {
-            if (_effect[i] == Shield_Effect.Rare_ShieldExpention)
-                continue;
-
             Stack<GameObject> _stack = new Stack<GameObject>(); 
             for(int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
             {
@@ -58,8 +62,9 @@ public class ShieldPooling : MonoBehaviour
     // effect에 맞는 쉴드 생성  
     private GameObject F_CreateShield(Shield_Effect _effect) 
     {
-        GameObject _obj = _shield[(int)_effect];
+        GameObject _obj = Instantiate(_shield[(int)_effect]);
         _obj.SetActive(false);
+        _obj.transform.position = Vector3.zero; 
         _obj.transform.parent = _shieldPool[(int)_effect].transform;
 
         return _obj;
