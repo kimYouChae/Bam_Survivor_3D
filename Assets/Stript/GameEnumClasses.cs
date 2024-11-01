@@ -47,7 +47,7 @@ public enum Shield_Effect
     Rare_ShieldExpention,
     Epic_BloodSiphon,
     Legend_Supernova,
-    Legend_BombShield
+    Legend_HealingField
 }
 
 // 총알 폭발 효과 ( csv의 _classSpriteName과 같아야함 )
@@ -65,9 +65,9 @@ public enum ParticleState
     BasicPoisonVFX,             // 기본 독 vfx
     BasicIceVFX,                // 기본 ice vfx
     ReinPosionVFX,              // 강화 독 vfx
-    //ReinIceVFX                  // 강화 ice vfx
-    ShieldEndVFX                // 쉴드 끝날 때 vfx
-
+    ShieldEndVFX,               // 쉴드 끝날 때 vfx
+    SupernovaVFX,               // 수퍼노바 vfx
+    HealingEndVFX,              // 힐 끝날때 vfx 
 }
 
 

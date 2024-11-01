@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legend_BombShield : SkillCard
+public class Legend_HealingField : SkillCard
 {
     public override void F_SkillcardEffect()
     {

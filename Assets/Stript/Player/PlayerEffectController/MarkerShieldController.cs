@@ -7,9 +7,15 @@ using System.Linq;
 public class MarkerShieldController : MonoBehaviour
 {
 
+    
     [Header("===basic Shield Object===")]
     [SerializeField]
     private GameObject _basicShieldObject;                              // 기본 쉴드 오브젝트
+    
+
+    [Header("===Contaier===")]
+    private List<GameObject>        _instnaceToShieldObject;            // 쉴드 생성 시점에 생성될 오브젝트 컨테이너  
+    private List<Shield_Effect>     _instanceShieldEffect;              // 생성한 쉴드 effect 컨테이너                               
 
     [Header("===Shield State===")]
     [SerializeField] private ShieldState _shieldState;
@@ -33,7 +39,10 @@ public class MarkerShieldController : MonoBehaviour
     private void Start()
     {
         // ##TODO : 임시 쉴드state 생성 , 나중에 쉴드 범위는 캐릭터 따라 달리지는 ?  
-        _shieldState = new ShieldState(3f);
+        _shieldState                = new ShieldState(3f);
+
+        _instnaceToShieldObject     = new List<GameObject>();
+        _instanceShieldEffect       = new List<Shield_Effect>();
 
         // 딕셔너리 초기화
         F_InitDictionary();
@@ -69,10 +78,13 @@ public class MarkerShieldController : MonoBehaviour
     // ## Test : 쉴드 돌아가는 로직 
     private IEnumerator IE_Test( Marker _marker ) 
     {
-        // ##TODO : 쉴드 pool에서 가져오기 
-        GameObject _shieldIns               = Instantiate(_basicShieldObject, _marker.gameObject.transform);
-        _shieldIns.transform.localPosition  = Vector3.zero;
-        _shieldIns.transform.localScale     = new Vector3(0.1f, 0.1f, 0.1f);
+        // Dictionary effect에 따라 생성할 쉴드 오브젝트 리스트에 추가  
+        //F_AddShieldObjByEffect();
+
+        // ##TODO : 쉴드 dictionary에 따라서 오브젝트 생성을 다르게 해야하는데 이부분 좀더 생각해봐야함 
+        GameObject _shieldIns = Instantiate(_basicShieldObject, _marker.gameObject.transform);
+        _shieldIns.transform.localPosition = Vector3.zero;
+        _shieldIns.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         while (true) 
         {
@@ -262,10 +274,46 @@ public class MarkerShieldController : MonoBehaviour
         return _coll;
     }
 
-    public void F_SupernovaEffect( Marker _marker, float _size ) 
+    public void F_SupernovaEffect( Marker _marker, float _size )
     {
-    
+
     }
 
+    private void F_AddShieldObjByEffect()
+    {
+        // Dictionary 따라 생성 쉴드 달라짐
 
+        _instnaceToShieldObject.Clear();
+        _instanceShieldEffect.Clear();
+
+        // blood 
+        if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] != 0) 
+        {
+            _instnaceToShieldObject.Add(ShieldPooling.instance.F_ShieldGet(Shield_Effect.Epic_BloodSiphon));
+            _instanceShieldEffect.  Add(Shield_Effect.Epic_BloodSiphon);
+        }
+
+        // supernova
+        if (DICT_ShieldTOCount[Shield_Effect.Legend_Supernova] != 0)
+        {
+            _instnaceToShieldObject.Add(ShieldPooling.instance.F_ShieldGet(Shield_Effect.Legend_Supernova));
+            _instanceShieldEffect  .Add(Shield_Effect.Legend_Supernova);
+        }
+
+        // heal
+        if (DICT_ShieldTOCount[Shield_Effect.Legend_HealingField] != 0)
+        {
+            _instnaceToShieldObject.Add(ShieldPooling.instance.F_ShieldGet(Shield_Effect.Legend_HealingField));
+            _instanceShieldEffect  .Add(Shield_Effect.Legend_HealingField);
+        }
+
+        // 기본
+        if (DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] == 0 ||
+            DICT_ShieldTOCount[Shield_Effect.Legend_Supernova] == 0 ||
+            DICT_ShieldTOCount[Shield_Effect.Legend_HealingField] == 0)
+        {
+            _instnaceToShieldObject.Add(ShieldPooling.instance.F_ShieldGet(Shield_Effect.Default));
+            _instanceShieldEffect  .Add(Shield_Effect.Default);
+        }
+    }
 }
