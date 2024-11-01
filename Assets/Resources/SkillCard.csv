@@ -1,5 +1,5 @@
 _cardTier,_cardAbility,_classSpritName,_skillCardName,_cardToolTip
-Legendary,Shield,Legend_BombShield,인페르노,방어막 사용 시 폭탄이 터집니다.
+Legendary,Shield,Legend_HealingField,힐링 필드 ,방어막 사용 시 hp를 증가시키는 장판을 생성합니다. 
 Legendary,Shield,Legend_Supernova,초신성,별이 폭발하여 강력한 에너지를 방출합니다.
 Legendary,BulletShoot,Legend_Mayhem,총알_난장판,"총알이 튕기는 횟수 +3회 증가, 총알은 10% 커지고 30% 추가 데미지를 줍니다."
 Epic,BulletShoot,Epic_Bounce,총알_바운스_증가,총알이 튕기는 횟수가 1회 증가합니다.
