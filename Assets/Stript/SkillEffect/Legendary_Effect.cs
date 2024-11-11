@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class Legend_HealingField : SkillCard
 {
-    public override void F_SkillcardEffect()
+    public override void F_SkillcardEffect(Marker _marker)
     {
         Debug.Log(this.classSpriteName);
 
-        // 쉴드 사용 시 외각에 폭탄 터짐 
+        // Healing 쉴드 pool에서 가져오기 
+        PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool(Shield_Effect.Legend_HealingField, _marker);
+
     }
 }
 
 public class Legend_Supernova : SkillCard
 {
-    public override void F_SkillcardEffect()
+    public override void F_SkillcardEffect(Marker _marker)
     {
         Debug.Log(this.classSpriteName);
 
-        // 쉴드 사용 시 unit을 중심으로 모으고 강한 데미지 줌
+        // Supernova 쉴드 pool에서 가져오기 
+        PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool(Shield_Effect.Legend_Supernova, _marker);
     }
 }
 

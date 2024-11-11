@@ -42,7 +42,7 @@ public class Rare_ShieldExpention : SkillCard
     {
         Debug.Log(this.classSpriteName);
 
-        // 쉴드 범위 10% 증가   
+        // (PlayerState)쉴드 범위 10% 증가   
         PlayerManager.instance.markerShieldController.F_UpdateShieldState(ShieldSizePercent : 0.1f);
     }
 }
