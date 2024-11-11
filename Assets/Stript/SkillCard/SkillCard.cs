@@ -16,7 +16,7 @@ public abstract class SkillCard
 
     //프로퍼티
     public CardTier cardTier => _cardTier;
-    public CardAbility cardAbility => _cardAbility; 
+    public CardAbility cardAbility => _cardAbility;
     public string classSpriteName => _classSpritName;
     public string skillCardName => _skillCardName;
     public string cardToolTip => _cardToolTip;
@@ -25,14 +25,14 @@ public abstract class SkillCard
     public SkillCard() { }
 
     // 초기화 함수
-    public void F_InitField( string[] v_str ) 
+    public void F_InitField(string[] v_str)
     {
         // 0. card tier ( string to enum )
         this._cardTier = (CardTier)Enum.Parse(typeof(CardTier), v_str[0]);
-        
+
         // 1. card ability (string to enum)
         this._cardAbility = (CardAbility)Enum.Parse(typeof(CardAbility), v_str[1]);
-        
+
         // 2. script Name
         this._classSpritName = v_str[2];
 
@@ -45,7 +45,7 @@ public abstract class SkillCard
 
     // 각 skillcard에서 공격효과
     public virtual void F_SkillcardEffect() { }
-    public virtual void F_SkillcardEffect(Marker _marker, float _size) { }
-    public virtual void F_SkillcardEffect(Transform _trs , float _size) { }
+    public virtual void F_SkillcardEffect(Marker _marker) { }
+    public virtual void F_SkillcardEffect(Transform _trs, float _size) { }
 
 }
