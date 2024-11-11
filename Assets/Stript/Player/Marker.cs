@@ -49,7 +49,7 @@ public class Marker : MonoBehaviour
                 (_markerState.markerShieldCoolTime);
 
             //  ΩØµÂ µ®∏Æ∞‘¿Ã∆Æ Ω««‡ 
-            PlayerManager.instance.markerShieldController.F_StartShieldAction(this);
+            PlayerManager.instance.markerShieldController.del_shieldCreate(this);
 
         }
     }

@@ -18,7 +18,7 @@ Basic,PlayerState,Basic_QuickRecovery,치유_가속,자연회복량 쿨타임이
 Basic,BulletShoot,Basic_RapidBullet,속사,총알속도가 10% 증가합니다.
 Legendary,PlayerState,Legend_ExtraLife,최후의_저항,부활횟수가 1회 증가합니다.
 Common,PlayerState,Common_DefenceUP,방어력_증가,방어력이 10% 증가합니다.
-Rare,Shield,Rare_ShieldExpention,쉴드_범위_확장,쉴드 범위가 10% 증가합니다.
+Rare,PlayerState,Rare_ShieldExpention,쉴드_범위_확장,쉴드 범위가 10% 증가합니다.
 Rare,PlayerState,Rare_MagneticUP,확장된_자기장,자석 범위가 10% 증가합니다.
 Epic,PlayerState,Epic_ExperienceBoost,학자의_선물,경험치 획득량이 5% 증가합니다.
 Epic,PlayerState,Epic_TouchOfLuck,행운의 _손길,행운이 5% 증가합니다.

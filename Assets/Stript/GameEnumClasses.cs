@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,7 +45,6 @@ public enum Unt_Type
 public enum Shield_Effect 
 {
     Default,
-    Rare_ShieldExpention,
     Epic_BloodSiphon,
     Legend_Supernova,
     Legend_HealingField
