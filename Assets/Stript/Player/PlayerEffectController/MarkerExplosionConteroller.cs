@@ -73,7 +73,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
         // 강화 독 (REIN_POISION_COUNT 이상 먹었을 때)
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= REIN_POISION_COUNT)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.ReinPosionVFX, _exposionTrs);
+            ParticleManager.instance.F_PlayerParticle(ParticleState.ReinPosionVFX, _exposionTrs.position);
             return;
         }
 
@@ -81,18 +81,18 @@ public class MarkerExplosionConteroller : MonoBehaviour
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= 1
             && DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] < REIN_POISION_COUNT)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicPoisonVFX, _exposionTrs);
+            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicPoisonVFX, _exposionTrs.position);
         }
 
         // 기본 얼음 + 기본 폭발 particle
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] >= 1)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicIceVFX, _exposionTrs);
+            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicIceVFX, _exposionTrs.position);
         }
         
 
         // 기본 폭발 particle 실행 
-        ParticleManager.instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs);
+        ParticleManager.instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs.position);
 
     }
 

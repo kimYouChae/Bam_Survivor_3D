@@ -72,13 +72,13 @@ public class ParticleManager : MonoBehaviour
     }
 
     // particle 플레이
-    public void F_PlayerParticle( ParticleState _state , Transform _playTrs) 
+    public void F_PlayerParticle( ParticleState _state , Vector3 _playTrs) 
     {
         // particle state에 맞는 particle 실행     
         GameObject _partiObj = F_ParticleGet( _state );
         
         // 위치 수정 
-        _partiObj.transform.position = _playTrs.position;
+        _partiObj.transform.position = _playTrs;
 
         // Play 시키기
         ParticleSystem _particle = _partiObj.GetComponent<ParticleSystem>();    
