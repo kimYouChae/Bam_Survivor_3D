@@ -48,6 +48,7 @@ public class Marker : MonoBehaviour
             yield return new WaitForSeconds
                 (_markerState.markerShieldCoolTime);
 
+            Debug.Log("Marker에서 Shield 코루틴 실행");
             //  쉴드 델리게이트 실행 
             PlayerManager.instance.markerShieldController.del_shieldCreate(this);
 

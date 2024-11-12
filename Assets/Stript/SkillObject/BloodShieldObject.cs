@@ -14,4 +14,8 @@ public class BloodShieldObject : ShieldObject
         
     }
 
+    protected override void F_ExpandingShield()
+    {
+
+    }
 }

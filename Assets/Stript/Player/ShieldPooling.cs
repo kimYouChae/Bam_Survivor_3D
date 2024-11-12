@@ -54,7 +54,6 @@ public class ShieldPooling : MonoBehaviour
             }
 
             DICT_shieldEffectToObject.Add(_effect[i] , _stack );
-
         }
         
     }
