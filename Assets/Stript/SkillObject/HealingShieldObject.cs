@@ -13,4 +13,9 @@ public class HealingShieldObject : ShieldObject
     {
         
     }
+
+    protected override void F_ExpandingShield()
+    { 
+
+    }
 }

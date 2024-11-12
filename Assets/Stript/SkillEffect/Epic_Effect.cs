@@ -31,7 +31,11 @@ public class Epic_BloodSiphon : SkillCard
 
         // blood 쉴드 pool에서 가져오기 
         PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool( Shield_Effect.Epic_BloodSiphon, _marker);
-        
+
+        // particle 가져오기 , 위치는 marker 위치로 
+        // ##TODO : Blood 이펙트 추가한 후 변경해야함
+        ParticleManager.instance.F_PlayerParticle(ParticleState.ShieldEndVFX, _marker.transform.position);
+
     }
 }
 

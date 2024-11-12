@@ -6,10 +6,14 @@ public class Legend_HealingField : SkillCard
 {
     public override void F_SkillcardEffect(Marker _marker)
     {
-        Debug.Log(this.classSpriteName);
+        //Debug.Log(this.classSpriteName);
 
         // Healing 쉴드 pool에서 가져오기 
         PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool(Shield_Effect.Legend_HealingField, _marker);
+
+        // particle 가져오기 , 위치는 marker 위치로 
+        ParticleManager.instance.F_PlayerParticle(ParticleState.HealingEndVFX, _marker.transform.position);
+
 
     }
 }
@@ -18,10 +22,14 @@ public class Legend_Supernova : SkillCard
 {
     public override void F_SkillcardEffect(Marker _marker)
     {
-        Debug.Log(this.classSpriteName);
+        //Debug.Log(this.classSpriteName);
 
         // Supernova 쉴드 pool에서 가져오기 
         PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool(Shield_Effect.Legend_Supernova, _marker);
+
+        // particle 가져오기 , 위치는 marker 위치로 
+        ParticleManager.instance.F_PlayerParticle(ParticleState.SupernovaVFX, _marker.transform.position);
+
     }
 }
 
@@ -30,7 +38,7 @@ public class Legend_Mayhem : SkillCard
 
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.classSpriteName);
+        //Debug.Log(this.classSpriteName);
 
         // 총알 튕기는 갯수 +3 , 총알 크기 10% 증가, 총알 데미지 30% 증가
         // (PlayerManager의 markerBulletController에 접근)

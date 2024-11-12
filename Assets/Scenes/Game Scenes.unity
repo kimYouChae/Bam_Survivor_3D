@@ -13617,13 +13617,14 @@ GameObject:
   - component: {fileID: 578624293}
   - component: {fileID: 578624292}
   - component: {fileID: 578624291}
+  - component: {fileID: 578624295}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &578624291
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13710,6 +13711,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &578624295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578624290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitHp: 100
+  _unitSpeed: 0
+  _unitAttackTime: 0
+  _unitTimeStamp: 0
+  _searchRadious: 0
+  _UnitHeadMachine:
+    _unit: {fileID: 0}
+  _curr_UNITS_TATE: 0
+  _pre_UNITS_TATE: 0
+  _hitWallLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &581536706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15858,11 +15883,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6eb5830befc3a4cb9b8102f323d44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicRatio: 0.1
-  _commonRatio: 0.2
-  _rareRatio: 0.7
-  _epicRatio: 0
-  _legendaryRatio: 0
+  _basicRatio: 0
+  _commonRatio: 0
+  _rareRatio: 0
+  _epicRatio: 0.1
+  _legendaryRatio: 0.9
   _unitGenerateTime: 60
   _emptyObject: {fileID: 3169148605313148159, guid: fc9cc5b8c880b104f8436626c1e0f1f7, type: 3}
 --- !u!114 &654742007
@@ -31014,7 +31039,6 @@ MonoBehaviour:
   _shieldPool: []
   _shield:
   - {fileID: 3314130714575852333, guid: f990e267340d9b8449607530218ae996, type: 3}
-  - {fileID: 3169148605313148159, guid: fc9cc5b8c880b104f8436626c1e0f1f7, type: 3}
   - {fileID: 5329340679695286071, guid: 9ae5086889651b94e86cd28316d3842b, type: 3}
   - {fileID: 4596289556294933364, guid: 325d5b88ba1768440bab9b528026ccd4, type: 3}
   - {fileID: 8742291443212081445, guid: 34cf415c137e63d4496da7b154de8709, type: 3}
