@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SupernovaObject : ShieldObject
 {
@@ -21,7 +22,7 @@ public class SupernovaObject : ShieldObject
     protected override void F_EndShiled()
     {
         // 복제된 supernova가 아니면-> clone 하기 
-        if ( ! _isCloned )
+        if ( _isCloned == false )
         {
             // supernova 복제 
             F_CloneSupernova();
@@ -34,15 +35,17 @@ public class SupernovaObject : ShieldObject
     protected override void F_ExpandingShield()
     {
         // 본인 주변 콜라이더 검출, 데미지 주가
-        Collider[] _coll = F_ReturnCollider(gameObject, gameObject.transform.position.x);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.position.x);
 
         foreach (Collider unit in _coll)
         {
             try
             {
                 // Unit 스크립트는 무조건 들어있음 ! 
-                // 유닛에게 데미지 
-                unit.gameObject.GetComponent<Unit>().F_GetDamage(F_CalculShieldDamage(Shield_Effect.Legend_Supernova));
+                // supernova 횟수 + supernova 고정데미지
+                float _damage = PlayerManager.instance.markerShieldController.F_ReturnCountToDic(Shield_Effect.Legend_Supernova) * 
+                    PlayerManager.instance.markerShieldController.supernovaDamage;
+                unit.gameObject.GetComponent<Unit>().F_GetDamage(_damage);
             }
             catch (Exception e)
             {
@@ -57,8 +60,8 @@ public class SupernovaObject : ShieldObject
         // dx, dy 위치에 supernova 오브젝트 생성 
         for (int i = 0; i < 4; i++)
         {
-            float nx = gameObject.transform.position.x + dx[i];
-            float ny = gameObject.transform.position.z + dy[i];
+            float nx = gameObject.transform.position.x + dx[i] + Random.Range(-2f, 2f);
+            float ny = gameObject.transform.position.z + dy[i] + Random.Range(-2f, 2f);
 
             // supernova pool에서 가져오기
             GameObject _supernova = ShieldPooling.instance.F_ShieldGet(Shield_Effect.Legend_Supernova);

@@ -24,7 +24,10 @@ public class MarkerShieldController : MonoBehaviour
     // Shield Enum (key)에 맞는 갯수 int (value) 
 
     [Header("===Skill Effect Ratio===")]
-    private const float SHIELD_BASE_DAMAGE = 2f;
+    private const float BLOOD_SHIPON_RATIO  = 0.7f;
+    private const float BLOOD_EXCUTION_LIMIT      = 15f;
+    private const int   BLOOD_EXUTION_CNT   = 4;
+    private const float SUPERNOVA_DAMAGE    = 10f;
 
     public delegate void del_ShieldCreate       (Marker _unitTrs);             
 
@@ -39,7 +42,17 @@ public class MarkerShieldController : MonoBehaviour
 
         return DICT_ShieldTOCount[_effect];
     }
-    public float shieldBaseDamage => SHIELD_BASE_DAMAGE;
+
+    public bool F_IsBloodExution() 
+    {
+        // count가 넘으면 true, 아니면 false
+        return DICT_ShieldTOCount[Shield_Effect.Epic_BloodSiphon] >= BLOOD_EXUTION_CNT;
+    }
+
+    public float supernovaDamage    => SUPERNOVA_DAMAGE;
+    public float bloodShiponRatio   => BLOOD_SHIPON_RATIO;
+    public int bloodExcutionCnt     => BLOOD_EXUTION_CNT;
+    public float bloodExcutionLimit      => BLOOD_EXCUTION_LIMIT;
 
 
     private void Start()

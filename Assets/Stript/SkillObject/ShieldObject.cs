@@ -7,9 +7,9 @@ public abstract class ShieldObject : MonoBehaviour
 {
     [Header("State")]
     [SerializeField]
-    protected Vector3 _minsize = new Vector3(0.5f,0.5f,0.5f);                 // 시작 크기 (최소크기)
+    protected Vector3 _minsize = new Vector3(0.5f,0.1f,0.5f);                 // 시작 크기 (최소크기)
     [SerializeField]
-    protected Vector3 _maxsize = new Vector3(2f, 2f, 2f);                 // end 크기 (최대크기)
+    protected Vector3 _maxsize = new Vector3(2f, 0.1f, 2f);                   // end 크기 (최대크기)
 
     [Header("Lerp")]
     private float currentTime;
@@ -46,7 +46,6 @@ public abstract class ShieldObject : MonoBehaviour
 
         // max가 되면 ?
         if (gameObject.transform.localScale.x >= _maxsize.x
-            || gameObject.transform.localScale.y >= _maxsize.y
             || gameObject.transform.localScale.z >= _maxsize.z)
         {
             // 쉴드 end 동작 
@@ -59,21 +58,13 @@ public abstract class ShieldObject : MonoBehaviour
     // 쉴드 확장할 때 효과 작성 필요
     protected abstract void F_ExpandingShield();
 
-    protected Collider[] F_ReturnCollider(GameObject _obj, float _size)
+    protected Collider[] F_ReturnUnitCollider(GameObject _obj, float _size)
     {
         Collider[] _coll = Physics.OverlapSphere(_obj.transform.position, _size, LayerManager.instance.unitLayer);
 
         return _coll;
     }
 
-    protected float F_CalculShieldDamage(Shield_Effect _effect) 
-    {
-        // 주는 데미지 
-        // : effect별 획득 count * 쉴드Manager의 Base Damage
-
-        return (PlayerManager.instance.markerShieldController.F_ReturnCountToDic(_effect) + 1)
-            * PlayerManager.instance.markerShieldController.shieldBaseDamage;
-    }
 
 
 }
