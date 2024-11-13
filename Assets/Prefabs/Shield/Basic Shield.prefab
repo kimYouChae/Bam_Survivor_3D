@@ -118,6 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfde2540943d5244987ea0ec25b7d500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minsize: {x: 0.5, y: 0.5, z: 0.5}
-  _maxsize: {x: 3, y: 3, z: 3}
-  _grothSpeed: 0.2
+  _minsize: {x: 0, y: 0, z: 0}
+  _maxsize: {x: 0, y: 0, z: 0}
+  _parentMarker: {fileID: 0}

@@ -119,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb9392664b64e447bd3ee53e469e01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minsize: {x: 0.5, y: 0.5, z: 0.5}
-  _maxsize: {x: 2, y: 2, z: 2}
+  _minsize: {x: 0, y: 0, z: 0}
+  _maxsize: {x: 0, y: 0, z: 0}
+  _parentMarker: {fileID: 0}
 --- !u!1 &8126427237876038442
 GameObject:
   m_ObjectHideFlags: 0

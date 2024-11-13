@@ -18,7 +18,9 @@ public class SupernovaObject : ShieldObject
     {
         F_ShieldUpdate();
 
-        F_FllowMarker();
+        // 클론 되지 않은 supernova만 follow
+        if( ! _isCloned)
+            F_FllowMarker();
     }
 
     protected override void F_EndShiled()

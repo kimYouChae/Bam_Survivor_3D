@@ -181,20 +181,6 @@ public class PlayerManager : MonoBehaviour
         this._luck          += _luck * LuckPercent;
     }
 
-    // 개별 Hp증가
-    public void F_UpdateHP(float HP = 0) 
-    {
-        for (int i = 0; i < _markers.Count; i++)
-        {
-            MarkerState state = _markers[i].markerState;
-
-            state.markerHp += HP;
-
-            if( state.markerHp > state.markerMaxHp)
-                state.markerMaxHp = state.markerHp;
-
-        }
-    }
 
 
 }
