@@ -9,6 +9,8 @@ public class BloodShieldObject : ShieldObject
     void Update()
     {
         F_ShieldUpdate();
+
+        F_FllowMarker();
     }
 
     protected override void F_EndShiled()
@@ -20,7 +22,7 @@ public class BloodShieldObject : ShieldObject
         // 일정횟수 이상 획득
         // 처형효과 추가
 
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x , LayerManager.instance.unitLayer);
 
         // Linq로 일정 hp 하위 unit 검출
         var _excutionUnit = from coll in _coll
@@ -34,11 +36,14 @@ public class BloodShieldObject : ShieldObject
 
         }
 
+        // 쉴드 pool로 되돌리기
+        ShieldPooling.instance.F_ShieldSet(gameObject, Shield_Effect.Epic_BloodSiphon);
+
     }
 
     protected override void F_ExpandingShield()
     {
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x, LayerManager.instance.unitLayer);
 
         // 흠혈 
         // 비울 * 획득 count 만큼 
@@ -54,7 +59,7 @@ public class BloodShieldObject : ShieldObject
                 unit.GetComponent<Unit>().F_GetDamage(_bloodAmount);
 
                 // 플레이어 Marker hp 증가
-                PlayerManager.instance.F_UpdateHP(HP : _bloodAmount);
+                _parentMarker.F_UpdateHP(HP:_bloodAmount);
             }
             catch(Exception e) 
             {

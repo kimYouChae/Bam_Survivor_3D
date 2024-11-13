@@ -17,6 +17,8 @@ public class SupernovaObject : ShieldObject
     void Update()
     {
         F_ShieldUpdate();
+
+        F_FllowMarker();
     }
 
     protected override void F_EndShiled()
@@ -35,7 +37,7 @@ public class SupernovaObject : ShieldObject
     protected override void F_ExpandingShield()
     {
         // 본인 주변 콜라이더 검출, 데미지 주가
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.position.x);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.position.x , LayerManager.instance.unitLayer);
 
         foreach (Collider unit in _coll)
         {

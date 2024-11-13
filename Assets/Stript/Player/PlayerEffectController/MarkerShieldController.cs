@@ -137,7 +137,18 @@ public class MarkerShieldController : MonoBehaviour
         // 쉴드 오브젝트 풀링에서 가져오기
         GameObject _obj = ShieldPooling.instance.F_ShieldGet(_effect);
 
-        _obj.transform.position = _marker.transform.position;   
+        // 위치설정 
+        _obj.transform.position = _marker.transform.position;
+
+        // marker 스크립트에 marker 넣어주기
+        try
+        {
+            _obj.GetComponent<ShieldObject>().parentMarker = _marker; 
+        }
+        catch (Exception e) 
+        {
+            Debug.Log(e.ToString());
+        }
     }
 
     // 쉴드 사이즈 수정 

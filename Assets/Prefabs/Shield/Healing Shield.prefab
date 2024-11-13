@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4914787129381315464}
   - component: {fileID: 2098909365679780199}
   - component: {fileID: 8639580957787863884}
+  - component: {fileID: 2449330892346162577}
   m_Layer: 10
   m_Name: Healing Shield
   m_TagString: Untagged
@@ -105,3 +106,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2449330892346162577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742291443212081445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3856d6354e755ec4586101d05e5d4427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minsize: {x: 0.5, y: 0.1, z: 0.5}
+  _maxsize: {x: 2, y: 0.1, z: 2}
+  _parentMarker: {fileID: 0}

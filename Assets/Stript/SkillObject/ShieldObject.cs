@@ -10,6 +10,10 @@ public abstract class ShieldObject : MonoBehaviour
     protected Vector3 _minsize = new Vector3(0.5f,0.1f,0.5f);                 // 시작 크기 (최소크기)
     [SerializeField]
     protected Vector3 _maxsize = new Vector3(2f, 0.1f, 2f);                   // end 크기 (최대크기)
+    [SerializeField]
+    protected Marker _parentMarker;                     // 기준이 되는 marker 
+
+    public Marker parentMarker { get => _parentMarker; set { _parentMarker = value; } }
 
     [Header("Lerp")]
     private float currentTime;
@@ -53,14 +57,19 @@ public abstract class ShieldObject : MonoBehaviour
         }
     }
 
+    protected void F_FllowMarker() 
+    {
+        gameObject.transform.position = _parentMarker.transform.position;
+    }
+
     // 쉴드 end시 효과 작성 필요 
     protected abstract void F_EndShiled();
     // 쉴드 확장할 때 효과 작성 필요
     protected abstract void F_ExpandingShield();
 
-    protected Collider[] F_ReturnUnitCollider(GameObject _obj, float _size)
+    protected Collider[] F_ReturnUnitCollider(GameObject _obj, float _size , LayerMask _layer)
     {
-        Collider[] _coll = Physics.OverlapSphere(_obj.transform.position, _size, LayerManager.instance.unitLayer);
+        Collider[] _coll = Physics.OverlapSphere(_obj.transform.position, _size, _layer);
 
         return _coll;
     }
