@@ -7,6 +7,8 @@ public class BasicShieldObject : ShieldObject
     void Update()
     {
         F_ShieldUpdate();
+
+        F_FllowMarker();
     }
 
     protected override void F_EndShiled()

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
-using UnityEngine.UIElements;
 
 public class MarkerShieldController : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class MarkerShieldController : MonoBehaviour
     private GameObject _basicShieldObject;                              // 기본 쉴드 오브젝트
 
     [Header("===Shield State===")]
-    [SerializeField] private ShieldState _shieldState;
+    private Dictionary<Shield_Effect, ShieldSize> DICT_ShieldToSize;
 
     [Header("===중복 검사 Dictionary===")]
     private Dictionary< Shield_Effect, int > DICT_ShieldTOCount;
@@ -57,23 +55,26 @@ public class MarkerShieldController : MonoBehaviour
 
     private void Start()
     {
-        // ##TODO : 임시 쉴드state 생성 , 나중에 쉴드 범위는 캐릭터 따라 달리지는 ?  
-        _shieldState                = new ShieldState(3f);
-
-        // 딕셔너리 초기화
-        F_InitDictionary();
+        // effect To Count 딕셔너리 초기화
+        F_InitShieldEffectToCountDIC();
 
         // 델리게이트에 기본 쉴드 use 추가
         del_shieldCreate += F_BasicShieldUse;
 
     }
 
-    private void F_InitDictionary() 
+
+    private void F_InitShieldEffectToCountDIC() 
     {
+        // Effect To Count 딕셔너리 초기화
         DICT_ShieldTOCount = new Dictionary<Shield_Effect, int>();
+
+        // effect To Size 딕셔너리 초기화
+        DICT_ShieldToSize = new Dictionary<Shield_Effect, ShieldSize>();
 
         Shield_Effect[] _effect = (Shield_Effect[])System.Enum.GetValues(typeof(Shield_Effect));
 
+        // EffEct To Count 딕셔너리 값 넣기 
         for (int i = 0; i < _effect.Length; i++)
         {
             if (_effect[i] == Shield_Effect.Default)
@@ -83,6 +84,21 @@ public class MarkerShieldController : MonoBehaviour
             if (!DICT_ShieldTOCount.ContainsKey(_effect[i]))
                 DICT_ShieldTOCount.Add(_effect[i], 0);
         }
+
+        // ##TODO : 임시로 size 결정 , 구조 변경이 필요함 
+        // Effect To Size
+        ShieldSize _defaultSize;
+        _defaultSize._minSize = new Vector3(0.5f, 0.1f , 0.5f);
+        _defaultSize._maxSize = new Vector3(2f, 0.1f, 2f);
+        ShieldSize _healingSize;
+        _healingSize._minSize = new Vector3(0.2f, 0.5f, 0.5f);
+        _healingSize._maxSize = new Vector3(0.2f, 3f, 3f);
+
+        DICT_ShieldToSize[Shield_Effect.Default] = _defaultSize;
+        DICT_ShieldToSize[Shield_Effect.Epic_BloodSiphon] = _defaultSize;
+        DICT_ShieldToSize[Shield_Effect.Legend_Supernova] = _defaultSize;
+        DICT_ShieldToSize[Shield_Effect.Legend_HealingField] = _healingSize;
+
     }
 
 
@@ -137,7 +153,22 @@ public class MarkerShieldController : MonoBehaviour
         // 쉴드 오브젝트 풀링에서 가져오기
         GameObject _obj = ShieldPooling.instance.F_ShieldGet(_effect);
 
-        _obj.transform.position = _marker.transform.position;   
+        // 위치설정 
+        _obj.transform.position = _marker.transform.position;
+
+        // marker 스크립트에 marker 넣어주기
+        try
+        {
+            _obj.GetComponent<ShieldObject>().parentMarker = _marker;
+            _obj.GetComponent<ShieldObject>().F_SettingShiledObject
+                (DICT_ShieldToSize[_effect]._minSize , DICT_ShieldToSize[_effect]._maxSize);
+
+            
+        }
+        catch (Exception e) 
+        {
+            Debug.Log(e.ToString());
+        }
     }
 
     // 쉴드 사이즈 수정 

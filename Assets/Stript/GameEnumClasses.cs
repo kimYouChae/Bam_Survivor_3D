@@ -73,20 +73,10 @@ public enum ParticleState
 
 
 #region Shield State
-[System.Serializable]
-public class ShieldState 
+public struct ShieldSize
 {
-    [SerializeField] private float _shieldSize;         // 쉴드 크기
-
-    // 프로퍼티 
-    public float shieldSize { get => _shieldSize; set { _shieldSize = value; } }
-
-    // 생성자
-    public ShieldState(float v_size) 
-    {
-        this._shieldSize = v_size;
-    }
-
+    public Vector3 _minSize;
+    public Vector3 _maxSize;
 }
 
 

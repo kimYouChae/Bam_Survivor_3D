@@ -76,5 +76,17 @@ public class Marker : MonoBehaviour
             , 7f);
     }
 
+    // 개별 Hp증가
+    public void F_UpdateHP(float HP = 0)
+    {
+        // hp 증가 
+        _markerState.markerHp += HP;
+
+        // max 넘으면 max로 
+        if (_markerState.markerHp > _markerState.markerMaxHp)
+            _markerState.markerHp = _markerState.markerMaxHp;
+
+        
+    }
 
 }
