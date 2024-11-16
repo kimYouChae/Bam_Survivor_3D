@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class ShieldPooling : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class ShieldPooling : MonoBehaviour
             Stack<GameObject> _stack = new Stack<GameObject>(); 
             for(int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
             {
+                // 스택에 오브젝트 생성해서 넣기 
                 _stack.Push(F_CreateShield(_effect[i]));    
             }
 
@@ -66,12 +68,30 @@ public class ShieldPooling : MonoBehaviour
         _obj.transform.position = Vector3.zero; 
         _obj.transform.parent = _shieldPool[(int)_effect].transform;
 
+        // effect별 min,max Size 넣기
+        try
+        {
+            _obj.GetComponent<ShieldObject>().F_SettingShiledObject
+                (
+                    _effect,
+                    ShieldCSVImporter.instance.ShieldMin(_effect),
+                    ShieldCSVImporter.instance.ShieldMax(_effect)
+                ); 
+        }
+        catch (Exception e) 
+        {
+            Debug.LogError(e.ToString());
+        }
+            
+        
+
         return _obj;
     }
 
     // shield Get
     public GameObject F_ShieldGet(Shield_Effect _effect)
     {
+        // Effect에 해당하는 오브젝트가 없을떄 
         if (!DICT_shieldEffectToObject.ContainsKey(_effect))
         {
             Debug.LogError(this + " : SHIELD DICTIONARY ISNT CONTAIN KEY");

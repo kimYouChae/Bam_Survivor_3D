@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public abstract class ShieldObject : MonoBehaviour
 {
     [Header("State")]
+    [SerializeField]
+    protected Shield_Effect _effect;
     [SerializeField]
     protected Vector3 _minsize;                // 시작 크기 (최소크기)
     [SerializeField]
@@ -19,16 +22,23 @@ public abstract class ShieldObject : MonoBehaviour
     private float currentTime;
     private float lerpTime = 1f;
 
-    public void F_SettingShiledObject(Vector3 _min, Vector3 _max)
+    public void F_SettingShiledObject(Shield_Effect _effect ,Vector3 _min, Vector3 _max)
     {
-        this._minsize = _min;
-        this._maxsize = _max;
+        this._effect    = _effect;
+        this._minsize   = _min;
+        this._maxsize   = _max;
+
+        gameObject.transform.localScale = this._minsize;
     }
 
-    // on 될 때 minSize로 지정
-    private void OnEnable()
+
+    private void OnDisable()
     {
-        gameObject.transform.localScale = _minsize;
+        currentTime = 0;
+
+        // 다 커지고 나서 off 될 때
+        // 본인크기를 min size로
+        gameObject.transform.localScale = this._minsize;
     }
 
     protected void F_ShieldUpdate()
@@ -50,7 +60,7 @@ public abstract class ShieldObject : MonoBehaviour
 
         // max가 되면 ?
         if (gameObject.transform.localScale.x >= _maxsize.x
-            && gameObject.transform.localScale.z >= _maxsize.y
+            && gameObject.transform.localScale.y >= _maxsize.y
             && gameObject.transform.localScale.z >= _maxsize.z)
         {
             // 쉴드 end 동작 

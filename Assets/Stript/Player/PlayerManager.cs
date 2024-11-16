@@ -131,7 +131,7 @@ public class PlayerManager : MonoBehaviour
                 _defence    : 0f , 
                 _search     : 5f , 
                 _magnet     : 2f, 
-                _sCoolTime  : 5f, 
+                _sCoolTime  : 2f, 
                 _bCoolTime  : 2f, 
                 _recovery   : 1f, 
                 _rCoolTime  : 10f );

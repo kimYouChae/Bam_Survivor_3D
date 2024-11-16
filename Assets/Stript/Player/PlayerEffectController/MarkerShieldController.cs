@@ -85,20 +85,6 @@ public class MarkerShieldController : MonoBehaviour
                 DICT_ShieldTOCount.Add(_effect[i], 0);
         }
 
-        // ##TODO : 임시로 size 결정 , 구조 변경이 필요함 
-        // Effect To Size
-        ShieldSize _defaultSize;
-        _defaultSize._minSize = new Vector3(0.5f, 0.1f , 0.5f);
-        _defaultSize._maxSize = new Vector3(2f, 0.1f, 2f);
-        ShieldSize _healingSize;
-        _healingSize._minSize = new Vector3(0.2f, 0.5f, 0.5f);
-        _healingSize._maxSize = new Vector3(0.2f, 3f, 3f);
-
-        DICT_ShieldToSize[Shield_Effect.Default] = _defaultSize;
-        DICT_ShieldToSize[Shield_Effect.Epic_BloodSiphon] = _defaultSize;
-        DICT_ShieldToSize[Shield_Effect.Legend_Supernova] = _defaultSize;
-        DICT_ShieldToSize[Shield_Effect.Legend_HealingField] = _healingSize;
-
     }
 
 
@@ -156,14 +142,12 @@ public class MarkerShieldController : MonoBehaviour
         // 위치설정 
         _obj.transform.position = _marker.transform.position;
 
+        _obj.gameObject.name = "!!!!!!!!!!!!!!!!!!!!!!";
+
         // marker 스크립트에 marker 넣어주기
         try
         {
             _obj.GetComponent<ShieldObject>().parentMarker = _marker;
-            _obj.GetComponent<ShieldObject>().F_SettingShiledObject
-                (DICT_ShieldToSize[_effect]._minSize , DICT_ShieldToSize[_effect]._maxSize);
-
-            
         }
         catch (Exception e) 
         {
