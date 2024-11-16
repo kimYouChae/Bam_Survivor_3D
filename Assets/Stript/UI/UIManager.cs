@@ -5,9 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    public static UIManager Instance;
 
     [Header("===Card select Ui===")]
     [SerializeField]
@@ -24,10 +23,8 @@ public class UIManager : MonoBehaviour
     // 프로퍼티
     public CardSelectUI cardSelectUi => _cardSelectUI;
 
-    private void Awake()
+    protected override void Singleton_Awake()
     {
-        Instance = this;
-
         _GetExpButton.onClick.AddListener(F_TEST);
     }
 
@@ -41,7 +38,7 @@ public class UIManager : MonoBehaviour
     // ##TODO : 임시 경험치 획득 버튼 만들기 
     private void F_TEST() 
     {
-        PlayerManager.instance.F_AddEXP(0.7f);
+        PlayerManager.Instance.F_AddEXP(0.7f);
     }
 
     // EXP Slider Bar 적용
@@ -66,11 +63,12 @@ public class UIManager : MonoBehaviour
     public void F_UpdateMarkerStateText() 
     {
         _stateText.text
-            = "max hp : " + PlayerManager.instance.markers[0].markerState.markerMaxHp + '\n'
-            + "move speed: " + PlayerManager.instance.markers[0].markerState.markerMoveSpeed + '\n'
-            + "shield cool Time: " + PlayerManager.instance.markers[0].markerState.markerShieldCoolTime + '\n'
-            + "shoot cool Time:" + PlayerManager.instance.markers[0].markerState.markerBulletShootCoolTime + '\n'
-            + "searRadious" + PlayerManager.instance.markers[0].markerState.markerSearchRadious;
+            = "max hp : " + PlayerManager.Instance.markers[0].markerState.markerMaxHp + '\n'
+            + "move speed: " + PlayerManager.Instance.markers[0].markerState.markerMoveSpeed + '\n'
+            + "shield cool Time: " + PlayerManager.Instance.markers[0].markerState.markerShieldCoolTime + '\n'
+            + "shoot cool Time:" + PlayerManager.Instance.markers[0].markerState.markerBulletShootCoolTime + '\n'
+            + "searRadious" + PlayerManager.Instance.markers[0].markerState.markerSearchRadious;
     }
+
 
 }

@@ -34,11 +34,16 @@ public class GridMapWrapper
 */
 #endregion
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : Singleton<SaveManager>
 {
     [Header("===저장경로===")]
     private string _savePath;
     private string _mapGridFileName = "/mapGridSaveFile.txt";
+
+    protected override void Singleton_Awake()
+    {
+
+    }
 
     private void Start()
     {

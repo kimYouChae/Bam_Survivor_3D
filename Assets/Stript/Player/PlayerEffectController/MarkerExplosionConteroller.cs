@@ -73,7 +73,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
         // 강화 독 (REIN_POISION_COUNT 이상 먹었을 때)
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= REIN_POISION_COUNT)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.ReinPosionVFX, _exposionTrs.position);
+            ParticleManager.Instance.F_PlayerParticle(ParticleState.ReinPosionVFX, _exposionTrs.position);
             return;
         }
 
@@ -81,18 +81,18 @@ public class MarkerExplosionConteroller : MonoBehaviour
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_PoisionBullet] >= 1
             && DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] < REIN_POISION_COUNT)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicPoisonVFX, _exposionTrs.position);
+            ParticleManager.Instance.F_PlayerParticle(ParticleState.BasicPoisonVFX, _exposionTrs.position);
         }
 
         // 기본 얼음 + 기본 폭발 particle
         if (DICT_ExplotionToCount[Explosion_Effect.Rare_IceBullet] >= 1)
         {
-            ParticleManager.instance.F_PlayerParticle(ParticleState.BasicIceVFX, _exposionTrs.position);
+            ParticleManager.Instance.F_PlayerParticle(ParticleState.BasicIceVFX, _exposionTrs.position);
         }
         
 
         // 기본 폭발 particle 실행 
-        ParticleManager.instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleState.BasicExposionVFX, _exposionTrs.position);
 
     }
 
@@ -100,14 +100,14 @@ public class MarkerExplosionConteroller : MonoBehaviour
     public void F_BasicExplosionUse(Transform _bulletTrs, float _size) 
     {
         // 1. 사거리 내 모든 unit 콜라이더 검사 
-        Collider[] _coll = F_ReturnColliser(_bulletTrs, _explosionState.explosionRadious, UnitManager.Instance.unitLayer);
+        Collider[] _coll = F_ReturnColliser(_bulletTrs, _explosionState.explosionRadious, LayerManager.Instance.unitLayer);
 
         // 2. 검출된 coll에 데미지 주기
         foreach(Collider _unitColl in _coll) 
         {
             try 
             {
-                _unitColl.GetComponent<Unit>().F_GetDamage( PlayerManager.instance.markerBulletController.bulletSate.bulletDamage );
+                _unitColl.GetComponent<Unit>().F_GetDamage( PlayerManager.Instance.markerBulletController.bulletSate.bulletDamage );
             }
             catch(Exception ex) 
             {
@@ -181,7 +181,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
     {
         // 총알 폭발 시 사거리 안에 있는 unit에게 독 효과 
         // 1. 사거리 내 모든 unit 콜라이더 검사 
-        Collider[] _coll = F_ReturnColliser(_bulletTrs, _radious, UnitManager.Instance.unitLayer);
+        Collider[] _coll = F_ReturnColliser(_bulletTrs, _radious, LayerManager.Instance.unitLayer);
 
         // ## TODO : 나중에 unit 추가 하고나면 방어력 이 얼마 이상인 unit에겐 데미지 조금주고
         // < 이런거 linq로 할 수 있을듯? 지금은 basic 밖에 없음
@@ -210,7 +210,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
     public void F_IceBullet(Transform _bulletTrs, float _radious) 
     {
         // 1. 사거리 내 모든 unit 콜라이더 검사 
-        Collider[] _coll = F_ReturnColliser(_bulletTrs, _radious, UnitManager.Instance.unitLayer);
+        Collider[] _coll = F_ReturnColliser(_bulletTrs, _radious, LayerManager.Instance.unitLayer);
 
         foreach (Collider coll in _coll)
         {

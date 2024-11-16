@@ -16,18 +16,18 @@ public class BloodShieldObject : ShieldObject
     protected override void F_EndShiled()
     {
         // Blood »πµÊ count ∞ÀªÁ
-        if (!PlayerManager.instance.markerShieldController.F_IsBloodExution())
+        if (!ShieldManager.Instance.F_IsBloodExution())
             return;
 
         // ¿œ¡§»Ωºˆ ¿ÃªÛ »πµÊ
         // √≥«¸»ø∞˙ √ﬂ∞°
 
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x , LayerManager.instance.unitLayer);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x , LayerManager.Instance.unitLayer);
 
         // Linq∑Œ ¿œ¡§ hp «œ¿ß unit ∞À√‚
         var _excutionUnit = from coll in _coll
                             where coll.GetComponent<Unit>() != null && coll.GetComponent<Unit>().unitHp 
-                                <= PlayerManager.instance.markerShieldController.bloodExcutionLimit
+                                <= ShieldManager.Instance.bloodExcutionLimit
                             select coll.GetComponent<Unit>();
 
         foreach (var unit in _excutionUnit) 
@@ -37,19 +37,19 @@ public class BloodShieldObject : ShieldObject
         }
 
         // ΩØµÂ pool∑Œ µ«µπ∏Æ±‚
-        ShieldPooling.instance.F_ShieldSet(gameObject, Shield_Effect.Epic_BloodSiphon);
+        ShieldManager.Instance.shieldPooling.F_ShieldSet(gameObject, Shield_Effect.Epic_BloodSiphon);
 
     }
 
     protected override void F_ExpandingShield()
     {
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x, LayerManager.instance.unitLayer);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.localScale.x, LayerManager.Instance.unitLayer);
 
         // »Ï«˜ 
         // ∫ÒøÔ * »πµÊ count ∏∏≈≠ 
         float _bloodAmount =
-            PlayerManager.instance.markerShieldController.bloodShiponRatio
-            * PlayerManager.instance.markerShieldController.F_ReturnCountToDic(Shield_Effect.Epic_BloodSiphon);
+            ShieldManager.Instance.bloodShiponRatio
+            * ShieldManager.Instance.F_ReturnCountToDic(Shield_Effect.Epic_BloodSiphon);
 
         foreach (Collider unit in _coll) 
         {

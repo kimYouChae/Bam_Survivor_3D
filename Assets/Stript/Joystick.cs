@@ -27,7 +27,7 @@ public class Joystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (_isInput) 
         {
-            PlayerManager.instance.markerMovement.joystickVec = _inputVector;
+            PlayerManager.Instance.markerMovement.joystickVec = _inputVector;
 
         }
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SkillCardManager : MonoBehaviour
+public class SkillCardManager : Singleton<SkillCardManager>
 {
     public static SkillCardManager instance;
 
@@ -19,9 +19,13 @@ public class SkillCardManager : MonoBehaviour
     // 프로퍼티
     public SkillCardDatabase SkillCardDatabase => _skillDatabase;
 
-    private void Awake()
+    protected override void Singleton_Awake()
     {
-        instance = this;
+        
+    }
+
+    private void Start()
+    {
         _randomSelectCard = new List<Tuple<CardTier, SkillCard>>();
     }
 
@@ -50,25 +54,25 @@ public class SkillCardManager : MonoBehaviour
         //Debug.Log(_randomRatio);
 
         // legend 
-        if (_randomRatio >= 1f - GameManager.instance.LegaryRatio)
+        if (_randomRatio >= 1f - GameManager.Instance.LegaryRatio)
         {
             // legend tier의 리스트 안에서 랜덤값 
             F_SelectCardInList(CardTier.Legendary, _skillDatabase.tierBySkillCard[CardTier.Legendary]);
         }
         // epic
-        else if (_randomRatio >= 1f - GameManager.instance.EpicRatio)
+        else if (_randomRatio >= 1f - GameManager.Instance.EpicRatio)
         {
             // epic tier의 리스트 안에서 랜덤값 
             F_SelectCardInList(CardTier.Epic, _skillDatabase.tierBySkillCard[CardTier.Epic]);
         }
         // rare
-        else if (_randomRatio >= 1f - GameManager.instance.RareRatio)
+        else if (_randomRatio >= 1f - GameManager.Instance.RareRatio)
         {
             // rare tier의 리스트 안에서 랜덤값 
             F_SelectCardInList(CardTier.Rare, _skillDatabase.tierBySkillCard[CardTier.Rare]);
         }
         // common
-        else if (_randomRatio >= 1f - GameManager.instance.CommonRatio)
+        else if (_randomRatio >= 1f - GameManager.Instance.CommonRatio)
         {
             // common tier의 리스트 안에서 랜덤값 
             F_SelectCardInList(CardTier.Common, _skillDatabase.tierBySkillCard[CardTier.Common]);
@@ -104,23 +108,25 @@ public class SkillCardManager : MonoBehaviour
         {
             // PlayerManager에 접근
             case CardAbility.PlayerState:
-                PlayerManager.instance.F_ApplyCardEffect(skillCard);
+                PlayerManager.Instance.F_ApplyCardEffect(skillCard);
                 break;
 
             // MarkerShieldController에 접근 
             case CardAbility.Shield:
-                PlayerManager.instance.markerShieldController.F_ApplyShieldEffect(skillCard);
+                ShieldManager.Instance.F_ApplyShieldEffect(skillCard);
                 break;
             
             // MarkerBulletController에 접근
             case CardAbility.BulletShoot:
-                PlayerManager.instance.markerBulletController.F_ApplyBulletEffect(skillCard);
+                PlayerManager.Instance.markerBulletController.F_ApplyBulletEffect(skillCard);
                 break;
             
             // MarkerExplosionConteroller에 접근
             case CardAbility.BulletExplosion:
-                PlayerManager.instance.markerExplosionConteroller.F_ApplyExplosionEffect(skillCard);
+                PlayerManager.Instance.markerExplosionConteroller.F_ApplyExplosionEffect(skillCard);
                 break;
         }
     }
+
+
 }

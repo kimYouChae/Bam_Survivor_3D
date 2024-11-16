@@ -155,7 +155,7 @@ public class Unit : MonoBehaviour
         while (true) 
         {
             // marker의 첫번째 위치를 목적지고
-            _destiPosition = PlayerManager.instance.markers[0].transform.position;
+            _destiPosition = PlayerManager.Instance.markers[0].transform.position;
 
             // agent의 도착지 잡아주기 
             _unitAgent.SetDestination( _destiPosition );
@@ -167,7 +167,7 @@ public class Unit : MonoBehaviour
     // marker(플레이어)가 범위안에 들어오면 changeState
     public void F_UpdateSateByDistance(Unit v_unit) 
     {
-        Vector2 _playerPos2D = new Vector2(PlayerManager.instance.markers[0].transform.position.x, PlayerManager.instance.markers[0].transform.position.z);
+        Vector2 _playerPos2D = new Vector2(PlayerManager.Instance.markers[0].transform.position.x, PlayerManager.Instance.markers[0].transform.position.z);
         Vector2 _unitPos2D = new Vector2(v_unit.gameObject.transform.position.x, v_unit.gameObject.transform.position.z);
 
         //Debug.Log(Vector2.Distance(_playerPos2D, _unitPos2D));

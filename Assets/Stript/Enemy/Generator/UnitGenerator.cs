@@ -23,7 +23,7 @@ public class UnitGenerator : MonoBehaviour
         {
             // unity »ý¼º 
             GameObject _instance = Instantiate(_tempUnit, _unitSpawn.position , Quaternion.identity );
-            yield return new WaitForSeconds(GameManager.instance.unitGenerateTime);
+            yield return new WaitForSeconds(GameManager.Instance.unitGenerateTime);
         }
     }
 }

@@ -55,6 +55,7 @@ public class AStar : MonoBehaviour
 
     private void Start()
     {
+        /*
         // 얕은복사
         _mapGrid    = MapManager.instance.mapGrid;
 
@@ -67,6 +68,7 @@ public class AStar : MonoBehaviour
 
         pathFinder = new Pos[_chunk * 2, _chunk * 2];
         path = new List<Pos>();
+        */
 
         Debug.Log("테스트 유닛 위치 " +_testUnit.transform.position.x + " / " + _testUnit.transform.position.z);
 
@@ -87,15 +89,18 @@ public class AStar : MonoBehaviour
 
         // ##TODO
         // 임시 unit으로 해보기 
+        /*
         F_SearchPath(_testUnit.transform.position, new Vector3(2, 1, 3));
+        */
 
     }
 
     private void Update()
     {
-        Debug.DrawRay(new Vector3(20, 1, 45), (new Vector3(2, 1, 3) - new Vector3(20, 1, 45)).normalized * 100f , Color.blue);
+        //Debug.DrawRay(new Vector3(20, 1, 45), (new Vector3(2, 1, 3) - new Vector3(20, 1, 45)).normalized * 100f , Color.blue);
     }
 
+    /*
     public void F_SearchPath(Vector3 _start, Vector3 _goal) 
     {
 
@@ -113,6 +118,7 @@ public class AStar : MonoBehaviour
         // 이동경로 정하기 
         F_CheckPath((int)_start.x, (int)_start.z, (int)desti.x, (int)desti.z);
     }
+    */
 
     private void F_FindAStarPath( int startX, int startY, int goalX, int goalY) 
     {
@@ -353,6 +359,7 @@ public class AStar : MonoBehaviour
 
     }
 
+    /*
     private Vector3 F_FindChunckDestination(Vector3 _start, Vector3 _goal) 
     {
         // 시작점에서 raycast
@@ -374,5 +381,5 @@ public class AStar : MonoBehaviour
         return Vector3.zero;
     }
 
-
+    */
 }

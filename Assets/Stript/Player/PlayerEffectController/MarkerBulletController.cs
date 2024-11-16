@@ -50,7 +50,7 @@ public class MarkerBulletController : MonoBehaviour
         //##TODO : 여기서 오류남 null 
         // unit만 콜라이더 검사 
         Collider[] _coll = Physics.OverlapSphere
-            (v_muzzleTrs.position, PlayerManager.instance.markers[0].markerState.markerSearchRadious, UnitManager.Instance.unitLayer);
+            (v_muzzleTrs.position, PlayerManager.Instance.markers[0].markerState.markerSearchRadious, LayerManager.Instance.unitLayer);
         
         // 검출된게 없으면 종료
         if (_coll.Length <= 0) 

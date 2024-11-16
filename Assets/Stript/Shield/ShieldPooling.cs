@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class ShieldPooling : MonoBehaviour
 {
-    public static ShieldPooling instance;
 
     [Header("===Pool===")]
     [SerializeField]
@@ -16,11 +16,6 @@ public class ShieldPooling : MonoBehaviour
     private List<GameObject> _shield;       // 쉴드 오브젝트 
     [SerializeField]
     private Dictionary<Shield_Effect, Stack<GameObject>> DICT_shieldEffectToObject;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {
@@ -37,7 +32,7 @@ public class ShieldPooling : MonoBehaviour
         // pool 오브젝트 생성
         for(int i = 0; i < _effect.Length; i++) 
         {
-            GameObject _obj = Instantiate(GameManager.instance.emptyObject);
+            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
             _obj.transform.parent = _shieldPoolParent;
             _obj.name = _effect[i].ToString();
 
@@ -48,8 +43,9 @@ public class ShieldPooling : MonoBehaviour
         for (int i = 0; i < _effect.Length; i++) 
         {
             Stack<GameObject> _stack = new Stack<GameObject>(); 
-            for(int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
+            for(int j = 0; j < GameManager.Instance.POOLCOUNT; j++) 
             {
+                // 스택에 오브젝트 생성해서 넣기 
                 _stack.Push(F_CreateShield(_effect[i]));    
             }
 
@@ -66,12 +62,30 @@ public class ShieldPooling : MonoBehaviour
         _obj.transform.position = Vector3.zero; 
         _obj.transform.parent = _shieldPool[(int)_effect].transform;
 
+        // effect별 min,max Size 넣기
+        try
+        {
+            _obj.GetComponent<ShieldObject>().F_SettingShiledObject
+                (
+                    _effect,
+                    ShieldCSVImporter.instance.ShieldMin(_effect),
+                    ShieldCSVImporter.instance.ShieldMax(_effect)
+                ); 
+        }
+        catch (Exception e) 
+        {
+            Debug.LogError(e.ToString());
+        }
+            
+        
+
         return _obj;
     }
 
     // shield Get
     public GameObject F_ShieldGet(Shield_Effect _effect)
     {
+        // Effect에 해당하는 오브젝트가 없을떄 
         if (!DICT_shieldEffectToObject.ContainsKey(_effect))
         {
             Debug.LogError(this + " : SHIELD DICTIONARY ISNT CONTAIN KEY");

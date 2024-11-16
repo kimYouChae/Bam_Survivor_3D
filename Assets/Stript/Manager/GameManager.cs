@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager instance;
 
     [Header("===Ratio / 0~1사이 ===")]
     [SerializeField] private float _basicRatio;
@@ -30,10 +29,8 @@ public class GameManager : MonoBehaviour
     public GameObject emptyObject => _emptyObject;
     public int POOLCOUNT => _POOLCOUNT;
 
-    private void Awake()
+    protected override void Singleton_Awake()
     {
-        instance = this;
-
 
     }
 
