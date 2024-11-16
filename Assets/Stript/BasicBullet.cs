@@ -72,20 +72,20 @@ public class BasicBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // unit이랑 충돌시
-        if (collision.gameObject.layer == LayerManager.instance.unitLayerNum)
+        if (collision.gameObject.layer == LayerManager.Instance.unitLayerNum)
         {
             //Debug.Log("Unit이랑 충돌함");
 
             // markerBulletExplosion의 함수실행 
-            PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
+            PlayerManager.Instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
 
             // ##TODO : 총알 pooling으로 return 하기 
             Destroy(gameObject, 0.1f);
         }
 
         // wall + mapProps
-        if (collision.gameObject.layer == LayerManager.instance.wallLayerNum
-            || collision.gameObject.layer == LayerManager.instance.mapPropsLayerNum )
+        if (collision.gameObject.layer == LayerManager.Instance.wallLayerNum
+            || collision.gameObject.layer == LayerManager.Instance.mapPropsLayerNum )
         {
             //Debug.LogError("벽 / map proprs 랑 충돌 ");
 
@@ -95,7 +95,7 @@ public class BasicBullet : MonoBehaviour
             if (_currBounceCount == _bulletState.bulletBounceCount)
             {
                 // markerBulletExplosion의 함수실행 
-                PlayerManager.instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
+                PlayerManager.Instance.markerExplosionConteroller.F_BulletExplosionStart(gameObject.transform);
 
                 // ##TODO : 총알 pooling으로 return 하기 
                 Destroy(gameObject, 0.1f);

@@ -33,13 +33,13 @@ public class SupernovaObject : ShieldObject
         }
 
         // 쉴드 pool로 되돌리기
-        ShieldPooling.instance.F_ShieldSet(gameObject, Shield_Effect.Legend_Supernova);
+        ShieldManager.Instance.shieldPooling.F_ShieldSet(gameObject, Shield_Effect.Legend_Supernova);
     }
 
     protected override void F_ExpandingShield()
     {
         // 본인 주변 콜라이더 검출, 데미지 주가
-        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.position.x , LayerManager.instance.unitLayer);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject, gameObject.transform.position.x , LayerManager.Instance.unitLayer);
 
         foreach (Collider unit in _coll)
         {
@@ -47,8 +47,8 @@ public class SupernovaObject : ShieldObject
             {
                 // Unit 스크립트는 무조건 들어있음 ! 
                 // supernova 횟수 + supernova 고정데미지
-                float _damage = PlayerManager.instance.markerShieldController.F_ReturnCountToDic(Shield_Effect.Legend_Supernova) * 
-                    PlayerManager.instance.markerShieldController.supernovaDamage;
+                float _damage = ShieldManager.Instance.F_ReturnCountToDic(Shield_Effect.Legend_Supernova) * 
+                    ShieldManager.Instance.supernovaDamage;
                 unit.gameObject.GetComponent<Unit>().F_GetDamage(_damage);
             }
             catch (Exception e)
@@ -68,9 +68,9 @@ public class SupernovaObject : ShieldObject
             float ny = gameObject.transform.position.z + dy[i] + Random.Range(-2f, 2f);
 
             // supernova pool에서 가져오기
-            GameObject _supernova = ShieldPooling.instance.F_ShieldGet(Shield_Effect.Legend_Supernova);
+            GameObject _supernova = ShieldManager.Instance.shieldPooling.F_ShieldGet(Shield_Effect.Legend_Supernova);
             // 파티클 pool에서 가져오기
-            ParticleManager.instance.F_PlayerParticle(ParticleState.SupernovaVFX, new Vector3(nx, 0, ny));
+            ParticleManager.Instance.F_PlayerParticle(ParticleState.SupernovaVFX, new Vector3(nx, 0, ny));
 
             _supernova.transform.position = new Vector3(nx, 0, ny);
 

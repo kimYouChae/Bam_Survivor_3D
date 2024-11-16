@@ -49,7 +49,7 @@ public class Marker : MonoBehaviour
                 (_markerState.markerShieldCoolTime);
 
             //  쉴드 델리게이트 실행 
-            PlayerManager.instance.markerShieldController.del_shieldCreate(this);
+            ShieldManager.Instance.del_shieldCreate(this);
 
         }
     }
@@ -63,7 +63,7 @@ public class Marker : MonoBehaviour
                 (_markerState.markerBulletShootCoolTime);
 
             // 총알 발사 함수 실행
-            PlayerManager.instance.markerBulletController.F_BasicBulletShoot(_markerMuzzleTrs);
+            PlayerManager.Instance.markerBulletController.F_BasicBulletShoot(_markerMuzzleTrs);
         }
     }
 

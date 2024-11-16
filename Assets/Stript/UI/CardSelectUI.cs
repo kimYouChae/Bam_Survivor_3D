@@ -56,7 +56,7 @@ public class CardSelectUI : MonoBehaviour
             _cardNameList[i].text = _currCard.skillCardName;
 
             // 카드 idx에 맞는 sprite
-            _cardImageList[i].sprite = ResourceManager.instance.F_ReturnSkillNameToSprite(_currCard.classSpriteName);
+            _cardImageList[i].sprite = ResourceManager.Instance.F_ReturnSkillNameToSprite(_currCard.classSpriteName);
 
             // 카드 툴팁
             _cardToopTipList[i].text = _currCard.cardToolTip;

@@ -6,7 +6,6 @@ using System;
 
 public class ShieldPooling : MonoBehaviour
 {
-    public static ShieldPooling instance;
 
     [Header("===Pool===")]
     [SerializeField]
@@ -17,11 +16,6 @@ public class ShieldPooling : MonoBehaviour
     private List<GameObject> _shield;       // 쉴드 오브젝트 
     [SerializeField]
     private Dictionary<Shield_Effect, Stack<GameObject>> DICT_shieldEffectToObject;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {
@@ -38,7 +32,7 @@ public class ShieldPooling : MonoBehaviour
         // pool 오브젝트 생성
         for(int i = 0; i < _effect.Length; i++) 
         {
-            GameObject _obj = Instantiate(GameManager.instance.emptyObject);
+            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
             _obj.transform.parent = _shieldPoolParent;
             _obj.name = _effect[i].ToString();
 
@@ -49,7 +43,7 @@ public class ShieldPooling : MonoBehaviour
         for (int i = 0; i < _effect.Length; i++) 
         {
             Stack<GameObject> _stack = new Stack<GameObject>(); 
-            for(int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
+            for(int j = 0; j < GameManager.Instance.POOLCOUNT; j++) 
             {
                 // 스택에 오브젝트 생성해서 넣기 
                 _stack.Push(F_CreateShield(_effect[i]));    

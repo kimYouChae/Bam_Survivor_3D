@@ -27,13 +27,13 @@ public class MarkerMovement : MonoBehaviour
         _markerNowTransform = new List<Transform>();
         _markerNowQuaternion = new List<Quaternion>();
 
-        for (int i = 0; i < PlayerManager.instance.markers.Count; i++)
+        for (int i = 0; i < PlayerManager.Instance.markers.Count; i++)
         {
             // 위치 저장
-            _markerNowTransform.Add(PlayerManager.instance.markers[i].transform);
+            _markerNowTransform.Add(PlayerManager.Instance.markers[i].transform);
 
             // 회전 저장 
-            _markerNowQuaternion.Add(PlayerManager.instance.markers[i].transform.rotation);
+            _markerNowQuaternion.Add(PlayerManager.Instance.markers[i].transform.rotation);
 
         }
 
@@ -60,13 +60,13 @@ public class MarkerMovement : MonoBehaviour
         Vector3 joyVec = new Vector3(_joystickVec.x, 0, _joystickVec.y);
 
         // 마커의 현재 위치를 저장
-        Vector3 currentPosition = PlayerManager.instance.markers[0].transform.position;
+        Vector3 currentPosition = PlayerManager.Instance.markers[0].transform.position;
 
         // 새로운 위치 계산
         Vector3 newPosition = currentPosition + joyVec * _speed * Time.deltaTime;
 
         // 마커 이동
-        PlayerManager.instance.markers[0].transform.position = newPosition;
+        PlayerManager.Instance.markers[0].transform.position = newPosition;
 
         // 이동 방향이 0이 아닐 때만 회전 적용
         if (joyVec != Vector3.zero)
@@ -75,7 +75,7 @@ public class MarkerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(joyVec);
 
             // 부드러운 회전 적용
-            PlayerManager.instance.markers[0].transform.rotation = Quaternion.Slerp( PlayerManager.instance.markers[0].transform.rotation,
+            PlayerManager.Instance.markers[0].transform.rotation = Quaternion.Slerp( PlayerManager.Instance.markers[0].transform.rotation,
                 targetRotation, _speed * Time.deltaTime); 
         }
 
@@ -83,10 +83,10 @@ public class MarkerMovement : MonoBehaviour
 
     private void F_SnakeBodyMovement()
     {
-        for (int i = 1; i < PlayerManager.instance.markers.Count; i++)
+        for (int i = 1; i < PlayerManager.Instance.markers.Count; i++)
         {
-            Transform _currentMarker = PlayerManager.instance.markers[i].transform;
-            Transform _previousMarker = PlayerManager.instance.markers[i - 1].transform;
+            Transform _currentMarker = PlayerManager.Instance.markers[i].transform;
+            Transform _previousMarker = PlayerManager.Instance.markers[i - 1].transform;
 
             // 방향벡터
             Vector3 _direction = _previousMarker.position - _currentMarker.position;

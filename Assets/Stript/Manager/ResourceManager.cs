@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager : Singleton<ResourceManager>
 {
-    public static ResourceManager instance;
-
     [Header("===Sprite===")]
     [SerializeField]
     private string _skillCardFolderName = "SkillCardName";
@@ -15,9 +13,9 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     private Sprite _defaultSprite;
 
-    private void Awake()
+    protected override void Singleton_Awake()
     {
-        instance = this;
+
     }
 
     private void Start()
@@ -55,5 +53,4 @@ public class ResourceManager : MonoBehaviour
     }
 
 
-    
 }

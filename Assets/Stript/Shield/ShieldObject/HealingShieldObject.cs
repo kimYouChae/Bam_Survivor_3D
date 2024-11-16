@@ -14,7 +14,7 @@ public class HealingShieldObject : ShieldObject
     protected override void F_EndShiled()
     {
         // 일정 범위 내 marker을 다 검사 후 hp증가 
-        Collider[] _coll = F_ReturnUnitCollider(gameObject , _maxsize.x, LayerManager.instance.markerLayer);
+        Collider[] _coll = F_ReturnUnitCollider(gameObject , _maxsize.x, LayerManager.Instance.markerLayer);
 
         foreach (Collider _marker in _coll) 
         {
@@ -30,7 +30,7 @@ public class HealingShieldObject : ShieldObject
         }
 
         // 쉴드 pool로 되돌리기
-        ShieldPooling.instance.F_ShieldSet(gameObject, Shield_Effect.Legend_HealingField);
+        ShieldManager.Instance.shieldPooling.F_ShieldSet(gameObject, Shield_Effect.Legend_HealingField);
     }
 
     protected override void F_ExpandingShield()

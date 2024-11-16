@@ -4,10 +4,8 @@ using System.Linq;
 using UnityEngine;
 
 
-public class ParticleManager : MonoBehaviour
+public class ParticleManager : Singleton<ParticleManager>
 {
-    public static ParticleManager instance;
-
     [Header("=== Container ===")]
     [SerializeField]
     private List<GameObject> _effectList;   // 이펙트 리스트 
@@ -22,9 +20,9 @@ public class ParticleManager : MonoBehaviour
     // 프로퍼티
     public List<GameObject> effectList => _effectList;
 
-    private void Awake()
+    protected override void Singleton_Awake()
     {
-        instance = this;
+
     }
 
     private void Start()
@@ -35,7 +33,7 @@ public class ParticleManager : MonoBehaviour
         // pool Parent 하위에 pool 만들기 
         for (int i = 0; i < System.Enum.GetValues(typeof(ParticleState)).Length; i++) 
         {
-            GameObject _obj = Instantiate( GameManager.instance.emptyObject, Vector3.zero , Quaternion.identity);
+            GameObject _obj = Instantiate( GameManager.Instance.emptyObject, Vector3.zero , Quaternion.identity);
 
             _obj.name = System.Enum.GetName(typeof(ParticleState), i );
 
@@ -60,7 +58,7 @@ public class ParticleManager : MonoBehaviour
             // stack 초기화
             Stack<GameObject> _stack = new Stack<GameObject>();
 
-            for (int j = 0; j < GameManager.instance.POOLCOUNT; j++) 
+            for (int j = 0; j < GameManager.Instance.POOLCOUNT; j++) 
             {
                 // 스택에 넣기 
                 _stack.Push( F_CreateParticle( _state[i]) );

@@ -9,7 +9,7 @@ public class Epic_Bounce : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 총알 bounce 갯수 1개 증가 (PlayerManager의 markerBulletController에 접근)
-        PlayerManager.instance.markerBulletController.F_UpdateBulletState(BulletCnt : 1);
+        PlayerManager.Instance.markerBulletController.F_UpdateBulletState(BulletCnt : 1);
     }
 }
 public class Epic_BulletStrom : SkillCard
@@ -19,7 +19,7 @@ public class Epic_BulletStrom : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 총알갯수 2개 증가 (PlayerManager의 markerBulletController에 접근)
-        PlayerManager.instance.markerBulletController.F_UpdateBulletState(BulletBounceCount: 2);
+        PlayerManager.Instance.markerBulletController.F_UpdateBulletState(BulletBounceCount: 2);
     }
 }
 
@@ -30,11 +30,11 @@ public class Epic_BloodSiphon : SkillCard
         Debug.Log(this.classSpriteName);
 
         // blood 쉴드 pool에서 가져오기 
-        PlayerManager.instance.markerShieldController.F_GetBloodShieldToPool( Shield_Effect.Epic_BloodSiphon, _marker);
+        ShieldManager.Instance.F_GetBloodShieldToPool( Shield_Effect.Epic_BloodSiphon, _marker);
 
         // particle 가져오기 , 위치는 marker 위치로 
         // ##TODO : Blood 이펙트 추가한 후 변경해야함
-        ParticleManager.instance.F_PlayerParticle(ParticleState.ShieldEndVFX, _marker.transform.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleState.ShieldEndVFX, _marker.transform.position);
 
     }
 }
@@ -46,7 +46,7 @@ public class Epic_ExperienceBoost : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 경험치 획득량 5% 증가
-        PlayerManager.instance.F_UpdateMarkerSubState(ExperiencePercent : 0.05f);
+        PlayerManager.Instance.F_UpdateMarkerSubState(ExperiencePercent : 0.05f);
     }
 }
 
@@ -57,6 +57,6 @@ public class Epic_TouchOfLuck : SkillCard
         Debug.Log(this.classSpriteName);
 
         // 행운 5% 증가
-        PlayerManager.instance.F_UpdateMarkerSubState(LuckPercent : 0.05f);
+        PlayerManager.Instance.F_UpdateMarkerSubState(LuckPercent : 0.05f);
     }
 }

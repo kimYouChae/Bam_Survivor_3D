@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LayerManager : MonoBehaviour
-{
-    public static LayerManager instance;
+public class LayerManager : Singleton<LayerManager>
+{ 
 
     [Header("===Layer===")]
     [SerializeField] private LayerMask _markerLayer;
@@ -34,11 +33,11 @@ public class LayerManager : MonoBehaviour
     public int wallLayerNum => _wallLayerNum;
     public int unitLayerNum => _unitLayerNum;
     public int shieldLayerNum => _shieldLayerNum;
-    public int mapPropsLayerNum => _mapPropsLayerNum;   
+    public int mapPropsLayerNum => _mapPropsLayerNum;
 
-    public void Awake()
+    protected override void Singleton_Awake()
     {
-        instance = this;
+
     }
 
     public void Start()
@@ -60,5 +59,6 @@ public class LayerManager : MonoBehaviour
         _mapPropsLayerNum   = LayerMask.NameToLayer("MapProps");
 
     }
+
 
 }
