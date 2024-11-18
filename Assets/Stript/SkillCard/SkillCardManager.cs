@@ -6,8 +6,6 @@ using Random = UnityEngine.Random;
 
 public class SkillCardManager : Singleton<SkillCardManager>
 {
-    public static SkillCardManager instance;
-
     [Header("===Script====")]
     [SerializeField]
     private SkillCardDatabase _skillDatabase;
