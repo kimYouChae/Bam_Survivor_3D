@@ -66,7 +66,7 @@ public class ResourceManager : Singleton<ResourceManager>
     }
 
     // string¿¡ µû¸¥ sprite return
-    public Sprite F_ReturnSkillNameToSprite(string v_name) 
+    public Sprite F_NameToCardSprite(string v_name) 
     {
         if( DICT_skillCardSprite.ContainsKey(v_name))
             return DICT_skillCardSprite[v_name];

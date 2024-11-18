@@ -12,7 +12,11 @@ public class SkillCardManager : Singleton<SkillCardManager>
 
     [Header("===RandomCard===")]
     [SerializeField]
-    private List<Tuple<CardTier, SkillCard>> _randomSelectCard; // 랜덤으로 선택 된 카드 
+    private List<SkillCard> _randomSelectCard; // 랜덤으로 선택 된 카드 
+
+    [Header("===SkillCard 중복===")]
+    [SerializeField]
+    private Dictionary<string, int> DICT_skillcardToCount;      // 스킬카드 이름, 획득 count
 
     // 프로퍼티
     public SkillCardDatabase SkillCardDatabase => _skillDatabase;
@@ -24,11 +28,12 @@ public class SkillCardManager : Singleton<SkillCardManager>
 
     private void Start()
     {
-        _randomSelectCard = new List<Tuple<CardTier, SkillCard>>();
+        _randomSelectCard       = new List<SkillCard>();
+        DICT_skillcardToCount   = new Dictionary<string, int>();
     }
 
     // 랜덤으로 N 장 선택된 카드 List 반환
-    public List<Tuple<CardTier, SkillCard>> F_FinalSelectCard()
+    public List<SkillCard> F_FinalSelectCard()
     {
         // 초기화 
         _randomSelectCard.Clear();
@@ -92,39 +97,65 @@ public class SkillCardManager : Singleton<SkillCardManager>
 
 
         // 랜덤으로 선택된 카드를 리스트에 추가 
-        _randomSelectCard.Add(new Tuple<CardTier, SkillCard>(v_tier, v_cardList[_rand]));
+        _randomSelectCard.Add(v_cardList[_rand]);
     }
 
     // 스킬카드에 따라 효과적용
-    public void F_applyEffectBySkillcard(Tuple<CardTier , SkillCard> v_selectCard )  
+    public void F_applyEffectBySkillcard(SkillCard _skillCard)  
     {
-        CardTier _cardTier = v_selectCard.Item1;
-        SkillCard skillCard = v_selectCard.Item2;
+        // skillname으로 중복검사
+        F_CheckTuplication(_skillCard.skillCardName);
 
         // skillcard의 cardAbility에 따라 스크립트 넘겨주는게 다름 
-        switch (skillCard.cardAbility) 
+        switch (_skillCard.cardAbility) 
         {
             // PlayerManager에 접근
             case CardAbility.PlayerState:
-                PlayerManager.Instance.F_ApplyCardEffect(skillCard);
+                PlayerManager.Instance.F_ApplyCardEffect(_skillCard);
                 break;
 
             // MarkerShieldController에 접근 
             case CardAbility.Shield:
-                ShieldManager.Instance.F_ApplyShieldEffect(skillCard);
+                ShieldManager.Instance.F_ApplyShieldEffect(_skillCard);
                 break;
             
             // MarkerBulletController에 접근
             case CardAbility.BulletShoot:
-                PlayerManager.Instance.markerBulletController.F_ApplyBulletEffect(skillCard);
+                PlayerManager.Instance.markerBulletController.F_ApplyBulletEffect(_skillCard);
                 break;
             
             // MarkerExplosionConteroller에 접근
             case CardAbility.BulletExplosion:
-                PlayerManager.Instance.markerExplosionConteroller.F_ApplyExplosionEffect(skillCard);
+                PlayerManager.Instance.markerExplosionConteroller.F_ApplyExplosionEffect(_skillCard);
                 break;
         }
     }
 
+    // name으로 중복 체크
+    private void F_CheckTuplication(string _name) 
+    {
+        // 포함 x 
+        if (!DICT_skillcardToCount.ContainsKey(_name))
+        {
+            DICT_skillcardToCount.Add(_name, 1);
+            Debug.Log(_name + "처음획득! ");
+            return;
+        }
+        else 
+        {
+            DICT_skillcardToCount[_name]++;
+            Debug.Log(_name + " : " + DICT_skillcardToCount[_name] + "번째 획득 ");
+        }
+    }
+
+    // name 으로 획득 count return
+    public int F_SkillAcquiCount(string name) 
+    {
+        // 포함안되어있으면 -> 0  
+        if (!DICT_skillcardToCount.ContainsKey(name))
+            return 0;
+
+        return DICT_skillcardToCount[name];
+    }
 
 }
