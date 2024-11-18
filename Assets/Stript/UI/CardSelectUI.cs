@@ -12,21 +12,28 @@ public class CardSelectUI : MonoBehaviour
     private GameObject          _cardSelectUi;              // 카드 선택ui 부모 
     [SerializeField]
     private int                 _currCardIndex;             // 현재 선택 된 카드 인덱스  
+
+    [Header("===UI===")]
     [SerializeField]
-    private GameObject[]        _cardList;                  // 카드 선택 ui의 스킬카드 
+    private Image[]             _cardBgList;                // BackGround
+    [SerializeField]
+    private GameObject[]        _cardTierBg;                // 카드 티어 bg
+    [SerializeField]
+    private GameObject[]        _cardTierText;              // 카드 티어 text
+    [SerializeField]
+    private GameObject[]        _cardIcon;                  // 카드 아이콘 
     [SerializeField]
     private TextMeshProUGUI[]   _cardNameList;              // 카드 이름 리스트
     [SerializeField]
     private Image[]             _cardImageList;             // 카드 이미지 리스트
     [SerializeField]
+    private GameObject[]        _cardStartCount;            // 카드 count별 Star
+    [SerializeField]
     private TextMeshProUGUI[]   _cardToopTipList;           // 카드 툴팁 리스트 
     [SerializeField]
     private GameObject[]        _cardPointSprite;           // 선택 시 point 스프라이트 
 
-    [Header("===CardTierSprit===")]
-    [SerializeField]
-    private Sprite[] _cardTierSprite;           // tier에 따른 스프라이트 
-
+    [Header("===Random Select Card===")]
     [SerializeField]
     private List<Tuple<CardTier, SkillCard>> _finalSelectCard; // 랜덤으로 선택 된 카드 
 
@@ -45,11 +52,17 @@ public class CardSelectUI : MonoBehaviour
         // 카드 표시하기 
         for (int i = 0; i < _finalSelectCard.Count; i++)
         {
+            // ##TODO : finalSelectCard는 Tuple일 필요가 없는듯 ?
+            // skillcard안에 tier도 있자나
+
+            //F_UpdateCard();
+
+            /*
             CardTier _currTier = _finalSelectCard[i].Item1;
             SkillCard _currCard = _finalSelectCard[i].Item2;
 
             // tier에 따른 카드 이미지 바꾸기 
-            _cardList[i].GetComponent<Image>().sprite
+            _cardBgList[i].sprite
                 = _cardTierSprite[(int)_finalSelectCard[i].Item1];
 
             Debug.Log(_finalSelectCard[i].Item1);
@@ -57,11 +70,12 @@ public class CardSelectUI : MonoBehaviour
             // 카드이름
             _cardNameList[i].text = _currCard.skillCardName;
 
-            // 카드 idx에 맞는 sprite
+            // 카드 name에 맞는 sprite
             _cardImageList[i].sprite = ResourceManager.Instance.F_ReturnSkillNameToSprite(_currCard.classSpriteName);
 
             // 카드 툴팁
             _cardToopTipList[i].text = _currCard.cardToolTip;
+            */
         }
 
     }
@@ -74,11 +88,11 @@ public class CardSelectUI : MonoBehaviour
         if(_currCardIndex != v_idx) 
         {
             // 선택된 카드 크기 키우기 
-            _cardList[v_idx].GetComponent<RectTransform>().sizeDelta += new Vector2(20,20);
+            _cardBgList[v_idx].GetComponent<RectTransform>().sizeDelta += new Vector2(20,20);
 
             // 현재 카드 크기 작게
             if(_currCardIndex != -1)
-                _cardList[_currCardIndex].GetComponent<RectTransform>().sizeDelta = new Vector2(350,600);
+                _cardBgList[_currCardIndex].GetComponent<RectTransform>().sizeDelta = new Vector2(350,600);
 
             // card point 스프라이트 on 
             _cardPointSprite[v_idx].gameObject.SetActive(true);
@@ -91,7 +105,7 @@ public class CardSelectUI : MonoBehaviour
         else 
         {
             // 커졌던 카드 되돌려놓기
-            _cardList[_currCardIndex].GetComponent<RectTransform>().sizeDelta = new Vector2(350, 600);
+            _cardBgList[_currCardIndex].GetComponent<RectTransform>().sizeDelta = new Vector2(350, 600);
 
             // ui off
             _cardSelectUi.SetActive(false);
@@ -106,6 +120,20 @@ public class CardSelectUI : MonoBehaviour
             if( Time.timeScale == 0 )
                 Time.timeScale = 1;
         }
+    }
+
+    private void F_UpdateCard(SkillCard _card, int _i) 
+    {
+        CardTier _tier          = _card.cardTier;
+        CardAbility _ability    = _card.cardAbility;
+
+        // tier 별 카드 bg 변경 
+        _cardBgList[_i].sprite = ResourceManager.Instance.cardBackGround(_tier);
+
+        // tier 별 tier 이미지 변경 
+
+        //##TODO : 수정해야함 ! 
+        
     }
 
 }

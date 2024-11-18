@@ -1,17 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
-    [Header("===Sprite===")]
+    [Header("===Forder Name===")]
     [SerializeField]
     private string _skillCardFolderName = "SkillCardName";
+    
+    [Header("===Sprite===")]
     [SerializeField]
-    private Dictionary<string, Sprite> DICT_skillCardSprite;
+    private Dictionary<string, Sprite> DICT_skillCardSprite;        // 스킬 이름별 스프라이트 (skillCard Csv의 classSpriteName과 같음)
+    [SerializeField]
+    private List<Sprite> _cardBackground;           // 카드 background
+    [SerializeField]
+    private List<Sprite> _cardTierSprite;           // 카드 티어 sprite
+    [SerializeField]
+    private List<Sprite> _cardIconSprite;           // 카드 아이콘 sprite
+    [SerializeField]
+    private Sprite _cardStartSprite;                // 카드 별 아이콘
+    
     [SerializeField]
     private Sprite _defaultSprite;
+
+    // Tier에 해당하는 Background Return
+    public Sprite cardBackGround(CardTier _tier) => _cardBackground[(int)_tier];
+
+    // Tier에 해당하는 스프라이트 return 
+    public Sprite cardTierSprite(CardTier _tier) => _cardTierSprite[(int)_tier];
+    // Ability에 해당하는 스프라이트 return
+    public Sprite cardIconSprite(CardAbility _abili) => _cardIconSprite[(int)_abili];
+    // 카드 별 icon return
+    public Sprite cardStarSprite => _cardStartSprite;
 
     protected override void Singleton_Awake()
     {
