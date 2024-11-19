@@ -1,28 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    /// <summary>
-    /// Unit들의 부모 
-    /// 
-    /// 1. hp
-    /// 2. 이동속도
-    /// 3. abstract 공격
-    /// 
-    /// </summary>
-
     [Header("===Uint State===")]
-    [SerializeField] protected float   _unitHp;           // hp
-    [SerializeField] protected float _unitSpeed;        // speed 
-    [SerializeField] protected float _unitAttackTime;   // 공격 지속시간
-    [SerializeField] protected float _unitTimeStamp;   // 공격 시 0으로 초기화                                                 
-    [SerializeField] protected float _searchRadious;       // 플레이어 감지 범위 
+    [SerializeField] protected Unt_Type         _unitType;          // 유닛 타입
+    [SerializeField] protected Unit_Animal_Type _animalType;        // animal 타입
+    [SerializeField] protected float            _unitHp;            // hp
+    [SerializeField] protected float            _unitSpeed;         // speed 
+    [SerializeField] protected float            _unitAttackTime;    // 공격 지속시간
+    [SerializeField] protected float            _unitTimeStamp;     // 공격 시 0으로 초기화                                                 
+    [SerializeField] protected float            _searchRadious;     // 플레이어 감지 범위 
+    [SerializeField] protected float            _defencePower;      // 방어력
 
+    [Header("===네비게이션 쿨타임===")]
     [SerializeField] const float _navActionCoolDown = 1f;
 
     [Header("===FSM===")]
@@ -30,10 +22,6 @@ public class Unit : MonoBehaviour
     public FSM[] _UnitStateArr;
     [SerializeField] public UNIT_STATE _curr_UNITS_TATE;           // 현재 enum
     [SerializeField] public UNIT_STATE _pre_UNITS_TATE;           // 이전 enum 
-
-
-    [Header("===LayerMask===")]
-    public LayerMask _hitWallLayerMask;
 
     // 프로퍼티
     public float unitHp => _unitHp;
@@ -43,7 +31,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        _hitWallLayerMask = LayerMask.GetMask("Wall");
+
     }
 
     // 상태 초기화

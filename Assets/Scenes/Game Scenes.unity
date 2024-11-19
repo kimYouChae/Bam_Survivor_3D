@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52772246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be87805d83b141240b8af8f9920e1f1c, type: 3}
   m_Name: 
@@ -13498,18 +13498,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitType: 0
+  _animalType: 0
   _unitHp: 100
   _unitSpeed: 0
   _unitAttackTime: 0
   _unitTimeStamp: 0
   _searchRadious: 0
+  _defencePower: 0
   _UnitHeadMachine:
     _unit: {fileID: 0}
   _curr_UNITS_TATE: 0
   _pre_UNITS_TATE: 0
-  _hitWallLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1001 &581536706
 PrefabInstance:
   m_ObjectHideFlags: 0
