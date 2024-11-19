@@ -32,13 +32,29 @@ public enum UNIT_STATE
     Die                 // 사망 
 }
 
-// Unit Type
+// 적 Type
 public enum Unt_Type
 {
     MELLE,
     RANGED,
-    MIDDLE,
     BOSS
+}
+
+// Animal Type
+public enum Unit_Animal_Type 
+{
+    Roster,
+    Pig,
+    Sheep,
+    Chick,
+    Duck,
+    Hen,
+    Donkey,
+    Cow,
+    Buffalo,
+    RosterBoss,
+    SheepBoss,
+    BuffaloBoss
 }
 
 // 쉴드 효과 ( csv의 _classSpritName과 같아야함 )

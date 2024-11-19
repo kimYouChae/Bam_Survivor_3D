@@ -72,7 +72,7 @@ public class Marker : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere( gameObject.transform.position
-            , 7f);
+            , 1f);
     }
 
     // 개별 Hp증가
