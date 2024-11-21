@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 // 카드 티어
@@ -33,7 +34,7 @@ public enum UNIT_STATE
 }
 
 // 적 Type
-public enum Unt_Type
+public enum Unit_Type
 {
     MELLE,
     RANGED,
@@ -85,8 +86,6 @@ public enum ParticleState
     SupernovaVFX,               // 수퍼노바 vfx
     HealingEndVFX,              // 힐 끝날때 vfx 
 }
-
-
 
 #region Shield State
 public struct ShieldSize
@@ -160,32 +159,73 @@ public class BulletSate
 
 public class UnitState 
 {
-    [SerializeField] private float _unitHp;           // hp
-    [SerializeField] private float _unitSpeed;        // speed 
-    [SerializeField] private float _unitAttackTime;   // 공격 지속시간
-    [SerializeField] private float _unitTimeStamp;    // 공격 시 0으로 초기화                                                 
-    [SerializeField] private float _searchRadious;    // 플레이어 감지 범위 
+    [SerializeField] private Unit_Type _unitType;                   // 유닛 타입
+    [SerializeField] private Unit_Animal_Type _animalType;          // animal 타입
+    [SerializeField] private String _unitName;                      // 이름 
+    [SerializeField] private float _unitHp;                         // hp
+    [SerializeField] private float _unitMaxHp;                      // max hp 
+    [SerializeField] private float _unitSpeed;                      // speed 
+    [SerializeField] private float _unitAttackTime;                 // 공격 지속시간
+    [SerializeField] private float _unitTimeStamp;                  // 공격 시 0으로 초기화                                                 
+    [SerializeField] private float _searchRadious;                  // 플레이어 감지 범위 
+    [SerializeField] private float _defencePower;                   // 방어력
+    [SerializeField] private float _unitDamage;                     // 데미지 
 
     // 프로퍼티 
-    public float UnitHp { get { return _unitHp; } set { _unitHp = value; } }
-    public float UnitSpeed { get { return _unitSpeed; } set { _unitSpeed = value; } }
-    public float UnitAttackTime
-    { get { return _unitAttackTime; } set { _unitAttackTime = value; } }
-    public float UnitTimeStamp
-    { get { return _unitTimeStamp; } set { _unitTimeStamp = value; } }
+    public Unit_Type UnitType { get => _unitType; set => _unitType = value; }
+    public Unit_Animal_Type AnimalType { get => _animalType; set => _animalType = value; }
+    public string UnitName { get => _unitName; set => _unitName = value; }
+    public float UnitHp { get => _unitHp; set => _unitHp = value; }
+    public float UnitMaxHp { get => _unitMaxHp; set => _unitMaxHp = value; }
+    
+    public float UnitSpeed { get => _unitSpeed; set => _unitSpeed = value; }
+    public float UnitAttackTime { get => _unitAttackTime; set => _unitAttackTime = value; }
+    public float UnitTimeStamp { get => _unitTimeStamp; set => _unitTimeStamp = value; }
+    public float SearchRadious { get => _searchRadious; set => _searchRadious = value; }
+    public float DefencePower { get => _defencePower; set => _defencePower = value; }
+    public float UnitDamage { get => _unitDamage; set => _unitDamage = value; }
 
-    public float searchRadious
-    { get { return _searchRadious; } set { _searchRadious = value; } }
 
     // 생성자
-    public UnitState(float h ,float s , float a , float t , float r) 
+    public UnitState(String[] str) 
     {
-        this._unitHp = h;
-        this._unitSpeed = s;
-        this._unitAttackTime = a;
-        this._unitTimeStamp = t;
-        this._searchRadious = r;
+        // [0] : unit type
+        // [1] : animal Type
+        // [2] : name
+        // [3] : hp
+        // [4] : speed
+        // [5] : attackTime
+        // [6] : timeStamp
+        // [7] : radious
+        // [8] : defence Power
+
+        this._unitType          = (Unit_Type)Enum.Parse(typeof(Unit_Type), str[0]);
+        this._animalType        = (Unit_Animal_Type)Enum.Parse(typeof(Unit_Animal_Type) , str[1]);
+        this.UnitName          = str[2];
+        this._unitHp            = float.Parse(str[3]);
+        this._unitMaxHp         = _unitHp;
+        this._unitSpeed         = float.Parse(str[4]);
+        this._unitAttackTime    = float.Parse(str[5]);
+        this._unitTimeStamp     = float.Parse(str[6]);
+        this._searchRadious     = float.Parse(str[7]);
+        this._defencePower      = float.Parse(str[8]);
+        this._unitDamage        = float.Parse(str[9]);
     }
+
+    // stage에 따른 state 변화
+    public void F_StateByStage(float _stage) 
+    {
+        // hp, max hp 
+        _unitMaxHp      += _stage;
+        _unitHp         = _unitMaxHp;
+
+        // damage 증가
+        _unitDamage     += _stage;
+
+        // 방어력 증가
+        _defencePower   += _stage;
+    }
+
 }
 #endregion
 

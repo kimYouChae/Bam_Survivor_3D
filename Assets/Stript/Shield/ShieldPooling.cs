@@ -15,7 +15,7 @@ public class ShieldPooling : MonoBehaviour
     [SerializeField]
     private List<GameObject> _shield;       // 쉴드 오브젝트 
     [SerializeField]
-    private Dictionary<Shield_Effect, Stack<GameObject>> DICT_shieldEffectToObject;
+    private Dictionary<Shield_Effect, Stack<GameObject>> DICT_shieldEffectToStack;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class ShieldPooling : MonoBehaviour
 
     private void F_InitShieldPool() 
     {
-        DICT_shieldEffectToObject = new Dictionary<Shield_Effect, Stack<GameObject>>();
+        DICT_shieldEffectToStack = new Dictionary<Shield_Effect, Stack<GameObject>>();
 
         Shield_Effect[] _effect = (Shield_Effect[])System.Enum.GetValues(typeof(Shield_Effect));
 
@@ -49,7 +49,7 @@ public class ShieldPooling : MonoBehaviour
                 _stack.Push(F_CreateShield(_effect[i]));    
             }
 
-            DICT_shieldEffectToObject.Add(_effect[i] , _stack );
+            DICT_shieldEffectToStack.Add(_effect[i] , _stack );
         }
         
     }
@@ -86,19 +86,19 @@ public class ShieldPooling : MonoBehaviour
     public GameObject F_ShieldGet(Shield_Effect _effect)
     {
         // Effect에 해당하는 오브젝트가 없을떄 
-        if (!DICT_shieldEffectToObject.ContainsKey(_effect))
+        if (!DICT_shieldEffectToStack.ContainsKey(_effect))
         {
             Debug.LogError(this + " : SHIELD DICTIONARY ISNT CONTAIN KEY");
             return null;
         }
 
         // 스택이 비어있으면 ? 
-        if (DICT_shieldEffectToObject[_effect].Count == 0 )
+        if (DICT_shieldEffectToStack[_effect].Count == 0 )
         {
-            DICT_shieldEffectToObject[_effect].Push(F_CreateShield(_effect)); 
+            DICT_shieldEffectToStack[_effect].Push(F_CreateShield(_effect)); 
         }
 
-        GameObject _shield = DICT_shieldEffectToObject[_effect].Pop();
+        GameObject _shield = DICT_shieldEffectToStack[_effect].Pop();
         _shield.SetActive(true);
 
         return _shield;
@@ -110,7 +110,7 @@ public class ShieldPooling : MonoBehaviour
         _shield.SetActive(false);
         _shield.transform.localPosition = Vector3.zero;
 
-        DICT_shieldEffectToObject[_effct].Push(_shield);
+        DICT_shieldEffectToStack[_effct].Push(_shield);
 
     }
 

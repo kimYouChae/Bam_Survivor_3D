@@ -1,12 +1,10 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;   // regex 사용
+using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class SkillCardDatabase : MonoBehaviour
+public class SkillCardCsvImporter : MonoBehaviour
 {
     // csv 파싱 정규식 
     string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
@@ -55,7 +53,7 @@ public class SkillCardDatabase : MonoBehaviour
             CardTier _temp = (CardTier)i;
 
             // dictionary에 key가 없으면? 추가 후 list 초기화
-            if (!tierBySkillCard.ContainsKey(_temp)) 
+            if (!tierBySkillCard.ContainsKey(_temp))
             {
                 tierBySkillCard[_temp] = new List<SkillCard>();
             }
@@ -63,15 +61,15 @@ public class SkillCardDatabase : MonoBehaviour
 
     }
 
-    private void F_InitSkillCard() 
+    private void F_InitSkillCard()
     {
 
         // cvs 파일을 텍스트 파일로 가져오기 
         TextAsset textAsset = Resources.Load("SkillCard") as TextAsset;
         // 행 별로 자르기 
-        string[] lines = Regex.Split( textAsset.text , LINE_SPLIT_RE);
+        string[] lines = Regex.Split(textAsset.text, LINE_SPLIT_RE);
         // 첫번째 행 자르기 
-        string[] header = Regex.Split(lines[0] , SPLIT_RE);
+        string[] header = Regex.Split(lines[0], SPLIT_RE);
 
         // _cardName이 몇번째 인덱스인지 찾기
         int _nameIdx = Array.IndexOf(header, _skillcardColunm);     // 2
@@ -110,7 +108,7 @@ public class SkillCardDatabase : MonoBehaviour
             {
                 Debug.LogError(ex);
                 continue;
-            } 
+            }
         }
 
         // 딕셔너리 출력해보기
@@ -127,5 +125,4 @@ public class SkillCardDatabase : MonoBehaviour
         */
 
     }
-
 }

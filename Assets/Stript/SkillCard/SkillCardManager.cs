@@ -8,7 +8,7 @@ public class SkillCardManager : Singleton<SkillCardManager>
 {
     [Header("===Script====")]
     [SerializeField]
-    private SkillCardDatabase _skillDatabase;
+    private SkillCardCsvImporter _skillCsvImporter;
 
     [Header("===RandomCard===")]
     [SerializeField]
@@ -19,7 +19,7 @@ public class SkillCardManager : Singleton<SkillCardManager>
     private Dictionary<string, int> DICT_skillcardToCount;      // 스킬카드 이름, 획득 count
 
     // 프로퍼티
-    public SkillCardDatabase SkillCardDatabase => _skillDatabase;
+    public SkillCardCsvImporter SkillCardDatabase => _skillCsvImporter;
 
     protected override void Singleton_Awake()
     {
@@ -60,31 +60,31 @@ public class SkillCardManager : Singleton<SkillCardManager>
         if (_randomRatio >= 1f - GameManager.Instance.LegaryRatio)
         {
             // legend tier의 리스트 안에서 랜덤값 
-            F_SelectCardInList(CardTier.Legendary, _skillDatabase.tierBySkillCard[CardTier.Legendary]);
+            F_SelectCardInList(CardTier.Legendary, _skillCsvImporter.tierBySkillCard[CardTier.Legendary]);
         }
         // epic
         else if (_randomRatio >= 1f - GameManager.Instance.EpicRatio)
         {
             // epic tier의 리스트 안에서 랜덤값 
-            F_SelectCardInList(CardTier.Epic, _skillDatabase.tierBySkillCard[CardTier.Epic]);
+            F_SelectCardInList(CardTier.Epic, _skillCsvImporter.tierBySkillCard[CardTier.Epic]);
         }
         // rare
         else if (_randomRatio >= 1f - GameManager.Instance.RareRatio)
         {
             // rare tier의 리스트 안에서 랜덤값 
-            F_SelectCardInList(CardTier.Rare, _skillDatabase.tierBySkillCard[CardTier.Rare]);
+            F_SelectCardInList(CardTier.Rare, _skillCsvImporter.tierBySkillCard[CardTier.Rare]);
         }
         // common
         else if (_randomRatio >= 1f - GameManager.Instance.CommonRatio)
         {
             // common tier의 리스트 안에서 랜덤값 
-            F_SelectCardInList(CardTier.Common, _skillDatabase.tierBySkillCard[CardTier.Common]);
+            F_SelectCardInList(CardTier.Common, _skillCsvImporter.tierBySkillCard[CardTier.Common]);
         }
         // basic
         else
         {
             // basic tier의 리스트 안에서 랜덤값 
-            F_SelectCardInList(CardTier.Basic, _skillDatabase.tierBySkillCard[CardTier.Basic]);
+            F_SelectCardInList(CardTier.Basic, _skillCsvImporter.tierBySkillCard[CardTier.Basic]);
         }
     }
 

@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     [Header("===Pooling===")]
     [SerializeField] private GameObject _emptyObject;       // 빈 오브젝트  
     [SerializeField] private const int _POOLCOUNT = 10;     // pool에 초기 생성할 count 
+    [SerializeField] private const int _UNIT_POOL_COUNT = 25;   // pool에 초기 생성할 count
 
     //프로퍼티
     public float BasicRatio => _basicRatio;
@@ -28,6 +29,7 @@ public class GameManager : Singleton<GameManager>
     public float unitGenerateTime => _unitGenerateTime;
     public GameObject emptyObject => _emptyObject;
     public int POOLCOUNT => _POOLCOUNT;
+    public int UNIT_POOL_COUNT => _UNIT_POOL_COUNT;
 
     protected override void Singleton_Awake()
     {
