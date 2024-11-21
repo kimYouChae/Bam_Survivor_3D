@@ -157,6 +157,7 @@ public class BulletSate
 
 #region Unit
 
+[System.Serializable]
 public class UnitState 
 {
     [SerializeField] private Unit_Type _unitType;                   // ¿Ø¥÷ ≈∏¿‘

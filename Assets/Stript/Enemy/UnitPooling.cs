@@ -33,7 +33,7 @@ public class UnitPooling : MonoBehaviour
         // Resource에 있는 프리팹 가져오기 
         _unitPrefabs = Resources.LoadAll<GameObject>("Unit");
         // 번호순대로 sort
-        System.Array.Sort(_unitPrefabs,(a,b)=>a.name.CompareTo(b.name));
+        //System.Array.Sort(_unitPrefabs,(a,b)=>a.name.CompareTo(b.name));
 
         // dict 초기화
         DICT_AnimalTypeToStack = new Dictionary<Unit_Animal_Type, Stack<GameObject>>();

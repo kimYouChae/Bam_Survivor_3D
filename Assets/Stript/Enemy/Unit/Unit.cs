@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Unit : MonoBehaviour
 {
     [Header("===Uint State===")]
-    [SerializeField] UnitState _unitState;
+    [SerializeField] protected UnitState _unitState;
 
     [Header("===네비게이션 쿨타임===")]
     [SerializeField] const float _navActionCoolDown = 1f;
