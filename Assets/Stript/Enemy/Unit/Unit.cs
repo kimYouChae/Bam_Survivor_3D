@@ -5,14 +5,7 @@ using UnityEngine.AI;
 public class Unit : MonoBehaviour
 {
     [Header("===Uint State===")]
-    [SerializeField] protected Unt_Type         _unitType;          // 유닛 타입
-    [SerializeField] protected Unit_Animal_Type _animalType;        // animal 타입
-    [SerializeField] protected float            _unitHp;            // hp
-    [SerializeField] protected float            _unitSpeed;         // speed 
-    [SerializeField] protected float            _unitAttackTime;    // 공격 지속시간
-    [SerializeField] protected float            _unitTimeStamp;     // 공격 시 0으로 초기화                                                 
-    [SerializeField] protected float            _searchRadious;     // 플레이어 감지 범위 
-    [SerializeField] protected float            _defencePower;      // 방어력
+    [SerializeField] UnitState _unitState;
 
     [Header("===네비게이션 쿨타임===")]
     [SerializeField] const float _navActionCoolDown = 1f;
@@ -24,19 +17,16 @@ public class Unit : MonoBehaviour
     [SerializeField] public UNIT_STATE _pre_UNITS_TATE;           // 이전 enum 
 
     // 프로퍼티
-    public float unitHp => _unitHp;
-    public float unitSpeed      => _unitSpeed;
-    public float searchRadious  => _searchRadious;
-    public float unitTimeStamp { get => _unitTimeStamp; set{ _unitTimeStamp = value;} }
+    public UnitState unitState { get => _unitState; set { _unitState = value; } }
+    public float unitHp => _unitState.UnitHp;
+    public float unitSpeed      => _unitState.UnitSpeed;
+    public float searchRadious  => _unitState.SearchRadious;
+    public float unitTimeStamp { get => _unitState.UnitTimeStamp; set{ _unitState.UnitTimeStamp = value;} }
 
     private void Start()
     {
 
     }
-
-    // 상태 초기화
-    // ##TODO CVS로 데이터 관리 시 수정필요함
-    protected virtual void F_InitUnitUnitState() { }
 
     // attack 동작 재정의
     public virtual void F_UnitAttatk() { }
@@ -88,7 +78,7 @@ public class Unit : MonoBehaviour
     public void F_ChekchUnitHp() 
     {
         // hp가 0이하면 true 
-        if (_unitHp <= 0)
+        if (_unitState.UnitHp <= 0)
         {
             // Die로 상태변화
             F_ChangeState(UNIT_STATE.Die);
@@ -170,13 +160,13 @@ public class Unit : MonoBehaviour
     public void F_GetDamage(float v_damage) 
     {
         // damage만큼 hp 감소
-        _unitHp -= v_damage;
+        _unitState.UnitHp -= v_damage;
     }
 
     public void F_ChageSpeed(float v_speed) 
     {
         // 속도 변경 
-        _unitSpeed = v_speed;
+        _unitState.UnitSpeed = v_speed;
     }
 
     private void OnCollisionEnter(Collision collision)
