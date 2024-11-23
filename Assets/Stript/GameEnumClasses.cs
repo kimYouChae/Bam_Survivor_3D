@@ -87,13 +87,43 @@ public enum ParticleState
     HealingEndVFX,              // 힐 끝날때 vfx 
 }
 
-#region Shield State
-public struct ShieldSize
+#region Stage
+[System.Serializable]
+public class Stage
 {
-    public Vector3 _minSize;
-    public Vector3 _maxSize;
+    [SerializeField] int    _stageIndex;        // 스테이지 순서
+    [SerializeField] float  _stageMinites;      // 스테이지 진행 minute
+    [SerializeField] int    _generateCount;     // 유닛 생성 횟수
+    [SerializeField] List<Unit_Animal_Type> _generateUnitList;      // 생성 유닛 리스트 
+    public int StageIndex { get => _stageIndex; set => _stageIndex = value; }
+    public float StageMinites { get => _stageMinites; set => _stageMinites = value; }
+    public int GenerateCount { get => _generateCount; set => _generateCount = value; }
+    public List<Unit_Animal_Type> GenerateUnitList { get => _generateUnitList; set => _generateUnitList = value; }
+
+    public Stage(string[] _value) 
+    {
+        // [0] : 스테이지 인덱스
+        // [1] : 스테이지 진행 minute
+        // [2] : 생성 횟수
+        // [3] : 생성 유닛 리스트 , '-'로 구분 
+
+        this._stageIndex    = int.Parse(_value[0]);
+        this._stageMinites  = float.Parse(_value[1]);
+        this._generateCount = int.Parse(_value[2]);
+
+        string[] _unitList = _value[3].Split('-');
+        _generateUnitList = new List<Unit_Animal_Type>();
+        for (int i = 0; i < _unitList.Length; i++) 
+        {
+            Unit_Animal_Type _type = (Unit_Animal_Type)Enum.Parse(typeof(Unit_Animal_Type), _unitList[i]);
+            _generateUnitList.Add(_type);
+        }
+    }
 }
 
+#endregion
+
+#region Shield State
 
 #endregion
 
