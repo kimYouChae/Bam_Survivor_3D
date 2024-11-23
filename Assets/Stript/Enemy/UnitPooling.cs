@@ -20,11 +20,16 @@ public class UnitPooling : MonoBehaviour
     private List<GameObject> _unitPool;     // 쉴드 pool
     [SerializeField]
     private GameObject[] _unitPrefabs;      // 유닛 프리팹
+
+    [Header("===Dictionary===")]
     [SerializeField]
     private Dictionary<Unit_Animal_Type, Stack<GameObject>> DICT_AnimalTypeToStack;
 
     private void Start()
     {
+        // 초기화
+        DICT_AnimalTypeToStack = new Dictionary<Unit_Animal_Type, Stack<GameObject>>();
+
         F_InitUnitPool();
     }
 
@@ -34,9 +39,6 @@ public class UnitPooling : MonoBehaviour
         _unitPrefabs = Resources.LoadAll<GameObject>("Unit");
         // 번호순대로 sort
         //System.Array.Sort(_unitPrefabs,(a,b)=>a.name.CompareTo(b.name));
-
-        // dict 초기화
-        DICT_AnimalTypeToStack = new Dictionary<Unit_Animal_Type, Stack<GameObject>>();
 
         Unit_Animal_Type[] _type = (Unit_Animal_Type[])System.Enum.GetValues(typeof(Unit_Animal_Type));
 
@@ -85,5 +87,29 @@ public class UnitPooling : MonoBehaviour
         return _unit;        
     }
 
+    // Get
+    public GameObject F_GetUnit(Unit_Animal_Type _type , Transform _trs) 
+    {
+        // Effect에 해당하는 오브젝트가 없을떄 
+        if (!DICT_AnimalTypeToStack.ContainsKey(_type))
+        {
+            Debug.LogError(this + " : UNIT DICTIONARY ISNT CONTAIN KEY");
+            return null;
+        }
+
+        // stack이 0이면 
+        if (DICT_AnimalTypeToStack[_type].Count == 0) 
+        {
+            // 넣기 
+            DICT_AnimalTypeToStack[_type].Push(F_CreateUnit(_type));
+        }
+
+        GameObject _unit = DICT_AnimalTypeToStack[_type].Pop();
+        _unit.SetActive(true);
+        _unit.transform.position = _trs.position;
+
+        return _unit;
+
+    }
 
 }

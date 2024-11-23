@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -16,14 +14,14 @@ public class StageManager : Singleton<StageManager>
     [SerializeField]
     private float _seconds;
     [SerializeField]
-    private int _currStage;
+    private int _currStageIndex;
     [SerializeField]
     private List<Stage> _stages;
 
     protected override void Singleton_Awake()
     {
         // 초기화 
-        _currStage = 0;
+        _currStageIndex = 0;
         F_InitStage();
     }
 
@@ -61,12 +59,21 @@ public class StageManager : Singleton<StageManager>
             }
 
             _nextStageTime = _stages[1 + i].StageMinites;
-            _currStage++;
+            _currStageIndex++;
         }
 
     }
 
-    public void F_InitStage() 
+    // currStage에 맞는 stage return
+    public Stage F_CurrentStage() 
+    {
+        if (_currStageIndex < 0 || _currStageIndex >= _stages.Count)
+            return null;
+
+        return _stages[_currStageIndex];
+    }
+
+    private void F_InitStage() 
     {
         // 리스트 초기화 
         _stages = new List<Stage>();
