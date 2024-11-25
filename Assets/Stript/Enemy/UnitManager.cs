@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class UnitManager : Singleton<UnitManager>
 {
@@ -25,7 +26,14 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Start()
     {
+        StartCoroutine(IE_Test());
+    }
+
+    IEnumerator IE_Test() 
+    {
+        yield return new WaitForSeconds(1f);
         F_EnemyInstanceByStage();
+
     }
 
     // stage 정보에 맞게 
@@ -47,8 +55,17 @@ public class UnitManager : Singleton<UnitManager>
         {
             for (int j = 0; j < _unitInstanceCount; j++) 
             {
-                GameObject _temp = _unitPooling.F_GetUnit(_myState.GenerateUnitList[i] , _spawner[i]);
+                GameObject _insUnit = _unitPooling.F_GetUnit(_myState.GenerateUnitList[i]);
+                F_ObjectOnOffNavmesh(_insUnit, _spawner[i].transform);
             }
         }
+    }
+
+    // 위치를 바꾸기 위한 navmesh on off
+    public void F_ObjectOnOffNavmesh(GameObject _obj , Transform _trs) 
+    {
+        _obj.GetComponent<NavMeshAgent>().enabled = false;
+        _obj.transform.position = _trs.position;
+        _obj.GetComponent<NavMeshAgent>().enabled = true;
     }
 }

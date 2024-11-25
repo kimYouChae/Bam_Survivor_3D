@@ -133,7 +133,7 @@ public class ShieldManager : Singleton<ShieldManager>
         GameObject _obj = shieldPooling.F_ShieldGet(_effect);
 
         // 위치설정 
-        _obj.transform.position = _marker.transform.position;
+        //_obj.transform.position = _marker.transform.position;
 
         // marker 스크립트에 marker 넣어주기
         try

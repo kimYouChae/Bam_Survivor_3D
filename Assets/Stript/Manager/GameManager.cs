@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -20,6 +21,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private const int _POOLCOUNT = 10;     // pool에 초기 생성할 count 
     [SerializeField] private const int _UNIT_POOL_COUNT = 25;   // pool에 초기 생성할 count
 
+    // 테스트오브젝트 ##TODO 나중에 삭제
+    public GameObject _testObject;
+    public GameObject _testUnitPig;
+
     //프로퍼티
     public float BasicRatio => _basicRatio;
     public float CommonRatio => _commonRatio;
@@ -34,6 +39,16 @@ public class GameManager : Singleton<GameManager>
     protected override void Singleton_Awake()
     {
 
+    }
+
+    private void Start()
+    {
+        // unit 네브매쉬 테스트
+        /*
+        GameObject _temp = Instantiate(_testUnitPig , new Vector3(12f,0,99f), Quaternion.identity);
+        _temp.gameObject.name = "?!!!!!!!!!!!!!!!!!!";
+        _temp.GetComponent<NavMeshAgent>().SetDestination(PlayerManager.Instance.markerHeadTrasform.position);
+        */
     }
 
     /*
