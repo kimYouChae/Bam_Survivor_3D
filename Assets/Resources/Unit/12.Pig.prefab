@@ -410,10 +410,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitState:
+    _unitType: 0
+    _animalType: 0
+    _unitName: 
+    _unitHp: 0
+    _unitMaxHp: 0
+    _unitSpeed: 0
+    _unitAttackTime: 0
+    _unitTimeStamp: 0
+    _searchRadious: 0
+    _defencePower: 0
+    _unitDamage: 0
   _UnitHeadMachine:
     _unit: {fileID: 0}
   _curr_UNITS_TATE: 0
   _pre_UNITS_TATE: 0
+  _destiPosition: {x: 0, y: 0, z: 0}
+  _unitAgent: {fileID: 0}
 --- !u!195 &35586975561958334
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class Unit_Tracking : FSM
     public override void FSM_Enter()
     {
         Debug.Log("Tracking Enter");
-        _unit._curr_UNITS_TATE = UNIT_STATE.Tracking;
+        _unit.Curr_UNITS_TATE = UNIT_STATE.Tracking;
 
         // 현재 돌고있는 코루틴 스탑
         _unit.F_StopColoutine();
@@ -35,6 +35,6 @@ public class Unit_Tracking : FSM
     public override void FSM_Exit()
     {
         Debug.Log("Tracking Exit");
-        _unit._pre_UNITS_TATE = UNIT_STATE.Tracking;
+        _unit.Pre_UNITS_TATE = UNIT_STATE.Tracking;
     }
 }

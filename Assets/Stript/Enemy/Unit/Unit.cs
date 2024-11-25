@@ -5,7 +5,8 @@ using UnityEngine.AI;
 public class Unit : MonoBehaviour
 {
     [Header("===Uint State===")]
-    [SerializeField] protected UnitState _unitState;
+    [SerializeField] protected UnitState _unitState;    // 유닛 클래스
+    [SerializeField] protected LifeCycle _lifeCycle;    // 생성 유무 체크
 
     [Header("===네비게이션 쿨타임===")]
     [SerializeField] const float _navActionCoolDown = 1f;
@@ -13,8 +14,12 @@ public class Unit : MonoBehaviour
     [Header("===FSM===")]
     public HeadMachine _UnitHeadMachine;
     public FSM[] _UnitStateArr;
-    [SerializeField] public UNIT_STATE _curr_UNITS_TATE;           // 현재 enum
-    [SerializeField] public UNIT_STATE _pre_UNITS_TATE;           // 이전 enum 
+    [SerializeField] protected UNIT_STATE curr_UNITS_TATE;           // 현재 enum
+    [SerializeField] protected UNIT_STATE pre_UNITS_TATE;           // 이전 enum 
+
+    [Header("===Tracking===")]
+    [SerializeField] private Vector3 _destiPosition     = Vector3.zero;
+    [SerializeField] private NavMeshAgent _unitAgent    = null;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -22,6 +27,9 @@ public class Unit : MonoBehaviour
     public float unitSpeed      => _unitState.UnitSpeed;
     public float searchRadious  => _unitState.SearchRadious;
     public float unitTimeStamp { get => _unitState.UnitTimeStamp; set{ _unitState.UnitTimeStamp = value;} }
+
+    public UNIT_STATE Curr_UNITS_TATE { get => curr_UNITS_TATE; set => curr_UNITS_TATE = value; }
+    public UNIT_STATE Pre_UNITS_TATE { get => pre_UNITS_TATE; set => pre_UNITS_TATE = value; }
 
     private void Start()
     {
@@ -46,15 +54,21 @@ public class Unit : MonoBehaviour
         _UnitStateArr[(int)UNIT_STATE.Die]          = new Unit_Die(v_standard);
 
         // 현재상태 지정 
-        _curr_UNITS_TATE = UNIT_STATE.Tracking;
+        //curr_UNITS_TATE = UNIT_STATE.Tracking;
 
         // Machine에 상태 넣기 
-        _UnitHeadMachine.HM_SetState(_UnitStateArr[(int)_curr_UNITS_TATE]);
+        //_UnitHeadMachine.HM_SetState(_UnitStateArr[(int)Curr_UNITS_TATE]);
     }
 
     // 현재 상태 진입 ( 1회 , Start에서 실행 )
     protected void F_CurrStateEnter() 
     {
+        // 현재상태 지정 
+        curr_UNITS_TATE = UNIT_STATE.Tracking;
+
+        // Machine에 상태 넣기 
+        _UnitHeadMachine.HM_SetState(_UnitStateArr[(int)Curr_UNITS_TATE]);
+
         // head Machine의 enter
         _UnitHeadMachine.HM_StateEnter();
     }
@@ -116,12 +130,9 @@ public class Unit : MonoBehaviour
 
     private IEnumerator IE_UnitTracking(Unit v_unit) 
     {
-        Vector3 _destiPosition;
-        NavMeshAgent _unitAgent = null;
-
         if (v_unit.gameObject.GetComponent<NavMeshAgent>() == null)
         {
-            Debug.LogError("Unit의 agane가 null");
+            Debug.LogError("Unit의 agent가 null");
             yield return null;
         }
         else 
@@ -132,11 +143,17 @@ public class Unit : MonoBehaviour
         // update문 효과 
         while (true) 
         {
-            // marker의 첫번째 위치를 목적지고
-            _destiPosition = PlayerManager.Instance.markers[0].transform.position;
+            // 근처에 navMesh가 있을때만
+            if (F_CheckIsOnNavMesh()) 
+            {
+                // marker의 첫번째 위치를 목적지고
+                _destiPosition = PlayerManager.Instance.markerHeadTrasform.position;
 
-            // agent의 도착지 잡아주기 
-            _unitAgent.SetDestination( _destiPosition );
+                Debug.Log(gameObject.name + "의 도착지 + " + _destiPosition);
+
+                // agent의 도착지 잡아주기 
+                _unitAgent.SetDestination(_destiPosition);
+            }
 
             yield return new WaitForSeconds(_navActionCoolDown);
         }
@@ -176,5 +193,34 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("총알이랑 충돌");
         }                   
+    }
+
+    // 근처에 navMesh가 있는지 체크
+    private bool F_CheckIsOnNavMesh() 
+    {
+        NavMeshHit hit;
+
+        // 근처에서 1.0 안에 navmesh가 있는지 
+        if (NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas)) 
+        {
+            float _distanceToMesh = Vector3.Distance(transform.position, hit.position);
+
+            // 범위오차 : 0.1f
+            if (_distanceToMesh < 0.1f) 
+            {
+                Debug.Log("Agent가 Navmesh위에 있습니다");
+                return true;
+            }
+            else 
+            {
+                Debug.Log("Agent가 Navmesh 밖에 있습니다.");
+                return false;
+            }
+        }
+
+        // 근처에 아얘 없으면 
+        Debug.Log("근처에 Navmesh가 없습니다.");
+        return false;
+
     }
 }

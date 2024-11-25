@@ -88,7 +88,7 @@ public class UnitPooling : MonoBehaviour
     }
 
     // Get
-    public GameObject F_GetUnit(Unit_Animal_Type _type , Transform _trs) 
+    public GameObject F_GetUnit(Unit_Animal_Type _type ) 
     {
         // Effect에 해당하는 오브젝트가 없을떄 
         if (!DICT_AnimalTypeToStack.ContainsKey(_type))
@@ -106,7 +106,6 @@ public class UnitPooling : MonoBehaviour
 
         GameObject _unit = DICT_AnimalTypeToStack[_type].Pop();
         _unit.SetActive(true);
-        _unit.transform.position = _trs.position;
 
         return _unit;
 

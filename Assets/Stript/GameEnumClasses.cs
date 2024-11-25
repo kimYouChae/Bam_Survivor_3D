@@ -87,6 +87,13 @@ public enum ParticleState
     HealingEndVFX,              // 힐 끝날때 vfx 
 }
 
+// 오브젝트가 현재 씬에서 어떤 상태인지 
+public enum LifeCycle 
+{
+    InitInstance,       // 초기 1회 생성
+    ExistingInstance    // 이미 생성된 
+}
+
 #region Stage
 [System.Serializable]
 public class Stage
