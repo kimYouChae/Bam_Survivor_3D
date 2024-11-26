@@ -10,9 +10,11 @@ public class ResourceManager : Singleton<ResourceManager>
     [SerializeField]
     private string _skillCardFolderName = "SkillCardName";
     
-    [Header("===Sprite===")]
+    [Header("=== Skillcard Sprite===")]
     [SerializeField]
     private Dictionary<string, Sprite> DICT_skillCardSprite;        // 스킬 이름별 스프라이트 (skillCard Csv의 classSpriteName과 같음)
+
+    [Header("=== Card Tier / Ability ===")]
     [SerializeField]
     private List<Sprite> _cardBackground;           // 카드 background
     [SerializeField]
@@ -21,7 +23,12 @@ public class ResourceManager : Singleton<ResourceManager>
     private List<Sprite> _cardIconSprite;           // 카드 아이콘 sprite
     [SerializeField]
     private Sprite _cardStartSprite;                // 카드 별 아이콘
-    
+
+    [Header("=== Props Building ===")]
+    [SerializeField]
+    private List<Sprite> _propsSprite;              // props 작물별 sprite
+
+    [Header("=== default Sprite ===")]
     [SerializeField]
     private Sprite _defaultSprite;
 
@@ -34,6 +41,8 @@ public class ResourceManager : Singleton<ResourceManager>
     public Sprite cardIconSprite(CardAbility _abili) => _cardIconSprite[(int)_abili];
     // 카드 별 icon return
     public Sprite cardStarSprite => _cardStartSprite;
+    // props 에 해당하는 스프라이트 return
+    public Sprite propsSprite(InGamePropState _pro) => _propsSprite[(int)_pro]; 
 
     protected override void Singleton_Awake()
     {

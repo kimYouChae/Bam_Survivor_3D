@@ -94,6 +94,45 @@ public enum LifeCycle
     ExistingInstance    // 이미 생성된 
 }
 
+// 인게임 작물
+public enum InGamePropState 
+{
+    Crystal,            // 크리스탈 
+    Rice,               // 벼
+    Tomato,             // 토마토
+    Carrot              // 당근 
+}
+
+#region PropsBuilding
+[System.Serializable]
+public class Building 
+{
+    [SerializeField] private InGamePropState _propsType;
+    [SerializeField] private string _buildingName;
+    [SerializeField] private float _generateSecond;
+    [SerializeField] private Sprite _propsSprite;
+
+    public InGamePropState PropsType { get => _propsType; set => _propsType = value; }
+    public string BuildingName { get => _buildingName; set => _buildingName = value; }
+    public float GenerateSecond { get => _generateSecond; set => _generateSecond = value; }
+    public Sprite PropsSprite { get => _propsSprite; set => _propsSprite = value; }
+
+    public Building(string[] value) 
+    {
+        // [0] : propsType
+        // [1] : buildingName
+        // [2] : generateSecond
+        // [3] : Sprite
+
+        this._propsType = (InGamePropState)Enum.Parse(typeof(InGamePropState), value[0]);
+        this._buildingName = value[1];
+        this._generateSecond = float.Parse(value[2]);
+        this._propsSprite = ResourceManager.Instance.propsSprite(_propsType);
+    }
+}
+
+#endregion
+
 #region Stage
 [System.Serializable]
 public class Stage
@@ -127,10 +166,6 @@ public class Stage
         }
     }
 }
-
-#endregion
-
-#region Shield State
 
 #endregion
 

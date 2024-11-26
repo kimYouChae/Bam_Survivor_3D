@@ -17,8 +17,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _unitGenerateTime;
 
     [Header("===Pooling===")]
-    [SerializeField] private GameObject _emptyObject;       // 빈 오브젝트  
-    [SerializeField] private const int _POOLCOUNT = 10;     // pool에 초기 생성할 count 
+    [SerializeField] private GameObject _emptyObject;           // 빈 오브젝트  
+    [SerializeField] private const int _POOLCOUNT = 10;         // pool에 초기 생성할 count 
     [SerializeField] private const int _UNIT_POOL_COUNT = 25;   // pool에 초기 생성할 count
 
     // 테스트오브젝트 ##TODO 나중에 삭제
@@ -51,10 +51,14 @@ public class GameManager : Singleton<GameManager>
         */
     }
 
+
+    #region GridMap 생성 (X)
     /*
     public void F_SetGridMap(int v_x , int v_z , bool v_flag) 
     {
         _mapGrid[v_x , v_z] = v_flag;
     }
     */
+    #endregion
+
 }
