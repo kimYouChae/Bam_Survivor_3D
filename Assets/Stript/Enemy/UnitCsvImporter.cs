@@ -13,15 +13,6 @@ public class UnitCsvImporter : MonoBehaviour
     [SerializeField]
     private Dictionary<Unit_Animal_Type, UnitState> DICT_AnimalTypeToUnitState;
 
-    // typeº° state return
-    public UnitState F_TypeByState(Unit_Animal_Type _type) 
-    {
-        if(DICT_AnimalTypeToUnitState.ContainsKey(_type))
-            return DICT_AnimalTypeToUnitState[_type];
-
-        return null;
-    }
-
     void Start()
     {
         DICT_AnimalTypeToUnitState = new Dictionary<Unit_Animal_Type, UnitState>();
