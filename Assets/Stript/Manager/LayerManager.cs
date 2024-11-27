@@ -12,6 +12,7 @@ public class LayerManager : Singleton<LayerManager>
     [SerializeField] private LayerMask _bulletLayer;
     [SerializeField] private LayerMask _shieldLayer;
     [SerializeField] private LayerMask _mapPropsLayer;
+    [SerializeField] private LayerMask _expLayer;
 
     [Header("===Layer int===")]
     [SerializeField] private int _markerLayerNum;
@@ -20,6 +21,7 @@ public class LayerManager : Singleton<LayerManager>
     [SerializeField] private int _bulletLayerNum;
     [SerializeField] private int _shieldLayerNum;
     [SerializeField] private int _mapPropsLayerNum;
+    [SerializeField] private int _expLayerNum;
 
     // 프로퍼티
     public LayerMask markerLayer => _markerLayer;
@@ -28,12 +30,14 @@ public class LayerManager : Singleton<LayerManager>
     public LayerMask bulletLayer => _bulletLayer;
     public LayerMask shieldLayer => _shieldLayer;
     public LayerMask mapPropsLayer => _mapPropsLayer;
+    public LayerMask expLayer => _expLayer;
 
     public int markerLayerNum => _markerLayerNum;
     public int wallLayerNum => _wallLayerNum;
     public int unitLayerNum => _unitLayerNum;
     public int shieldLayerNum => _shieldLayerNum;
     public int mapPropsLayerNum => _mapPropsLayerNum;
+    public int expLayerNum => _expLayerNum; 
 
     protected override void Singleton_Awake()
     {
@@ -49,6 +53,7 @@ public class LayerManager : Singleton<LayerManager>
         _bulletLayer    = LayerMask.GetMask("Bullet");
         _shieldLayer    = LayerMask.GetMask("Shield");
         _mapPropsLayer  = LayerMask.GetMask("MapProps");
+        _expLayer       = LayerMask.GetMask("EXP");
 
         // 레이어 num
         _markerLayerNum     = LayerMask.NameToLayer("Marker");
@@ -57,7 +62,7 @@ public class LayerManager : Singleton<LayerManager>
         _bulletLayerNum     = LayerMask.NameToLayer("Bullet");
         _shieldLayerNum     = LayerMask.NameToLayer("Shield");
         _mapPropsLayerNum   = LayerMask.NameToLayer("MapProps");
-
+        _expLayerNum        = LayerMask.NameToLayer("EXP");
     }
 
 

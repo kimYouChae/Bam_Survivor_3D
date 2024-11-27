@@ -70,7 +70,7 @@ public class Marker : MonoBehaviour
     // 임시 ) radious만큼 draw
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere( gameObject.transform.position
             , 1f);
     }
@@ -87,5 +87,6 @@ public class Marker : MonoBehaviour
 
         
     }
+
 
 }

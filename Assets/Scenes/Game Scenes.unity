@@ -15690,12 +15690,16 @@ MonoBehaviour:
   _mapPropsLayer:
     serializedVersion: 2
     m_Bits: 0
+  _expLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _markerLayerNum: 0
   _wallLayerNum: 0
   _unitLayerNum: 0
   _bulletLayerNum: 0
   _shieldLayerNum: 0
   _mapPropsLayerNum: 0
+  _expLayerNum: 0
 --- !u!114 &654742010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26098,6 +26102,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5082903399240561879, guid: 7577bb34f43830b4e8f37e37399c5526, type: 3}
   m_PrefabInstance: {fileID: 1095293561}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1098199824
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 237770514035936799, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_Name
+      value: EXP
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.97964346
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.103665836
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.12619199
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.116738066
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098158854309473595, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41e3102e2945d8545a5bf0e78679f48b, type: 3}
 --- !u!1001 &1102528701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33864,7 +33925,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398733624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e0f421ae83a77c489d9f1c2bb739431, type: 3}
   m_Name: 
@@ -52822,10 +52883,10 @@ MonoBehaviour:
   - {fileID: 1688970440}
   - {fileID: 1328322416}
   _buildingPrepabs:
-  - {fileID: 2908586435109987317, guid: 33f105c1a08fe6548ab70c1b6b95d613, type: 3}
-  - {fileID: 4878879932805828714, guid: 7e1c206d4d48bda439153ecb6705c6dc, type: 3}
-  - {fileID: 7189452803490373632, guid: bea0da6db3218934bb559bf3781543b2, type: 3}
-  - {fileID: 6477270138985075245, guid: d4f6d8e2d0fe0fe47a1f8b536fd68ad8, type: 3}
+  - {fileID: 4282937854599953635, guid: 33f105c1a08fe6548ab70c1b6b95d613, type: 3}
+  - {fileID: 4078900712796754020, guid: 7e1c206d4d48bda439153ecb6705c6dc, type: 3}
+  - {fileID: 7194469919379658733, guid: bea0da6db3218934bb559bf3781543b2, type: 3}
+  - {fileID: 1664276012499020654, guid: d4f6d8e2d0fe0fe47a1f8b536fd68ad8, type: 3}
   _inGamePropsStateList: 
   _buildingParnet: {fileID: 319940091}
   _propsCsvImporter: {fileID: 2128532647}
@@ -53627,3 +53688,4 @@ SceneRoots:
   - {fileID: 1492454876}
   - {fileID: 2138376945}
   - {fileID: 216520052}
+  - {fileID: 1098199824}

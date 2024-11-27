@@ -285,6 +285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5719547913889371017}
   - {fileID: 6249274060507733429}
   - {fileID: 2143947108514746192}
   - {fileID: 4419147871641352749}
@@ -381,12 +382,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _markerState:
+    _markerName: 
     _markerHp: 10
     _markerMaxHp: 10
     _markerMoveSpeed: 3
-    _markerShieldCoolTime: 2
-    _markerShootCoolTime: 2
+    _defence: 0
+    _naturalRecovery: 0
     _markerSearchRadious: 7
+    _magnetSearchRadious: 0
+    _markerShieldCoolTime: 2
+    _markerBulletShootCoolTime: 0
+    _recoveryCoolTime: 0
   _markerHpBar: {fileID: 0}
   _markerMuzzleTrs: {fileID: 6249274060507733429}
 --- !u!1 &3183689434296365398
@@ -484,6 +490,72 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.0007852004, z: 0.008015736}
     m_Extent: {x: 0.0058034253, y: 0.015354335, z: 0.008042634}
   m_DirtyAABB: 0
+--- !u!1 &3500579104834255379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5719547913889371017}
+  - component: {fileID: 5593909592542723948}
+  - component: {fileID: 5330078681023134949}
+  m_Layer: 15
+  m_Name: Magnetic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5719547913889371017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500579104834255379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7036496003290705142}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5593909592542723948
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500579104834255379}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5330078681023134949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500579104834255379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2e2a0a91c91b40b68fdefde469c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3595835833842148666
 GameObject:
   m_ObjectHideFlags: 0

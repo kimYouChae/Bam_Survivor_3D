@@ -69,6 +69,9 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
             // navMesh Obstacle 없으면 추가 
             if (_buil.GetComponent<NavMeshObstacle>() == null)
                 _buil.AddComponent<NavMeshObstacle>();
+            
+            // curve 체크 
+            _buil.GetComponent<NavMeshObstacle>().carving = true;
         }
     }
 
