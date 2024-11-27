@@ -103,6 +103,7 @@ public enum InGamePropState
     Carrot              // ´ç±Ù 
 }
 
+
 #region PropsBuilding
 [System.Serializable]
 public class Building 

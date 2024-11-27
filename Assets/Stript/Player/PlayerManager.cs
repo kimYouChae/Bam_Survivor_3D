@@ -120,7 +120,7 @@ public class PlayerManager : Singleton<PlayerManager>
                 _speed      : 3f , 
                 _defence    : 0f , 
                 _search     : 5f , 
-                _magnet     : 2f, 
+                _magnet     : 1f, 
                 _sCoolTime  : 2f, 
                 _bCoolTime  : 2f, 
                 _recovery   : 1f, 

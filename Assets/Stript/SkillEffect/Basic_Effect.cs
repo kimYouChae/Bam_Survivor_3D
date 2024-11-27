@@ -6,7 +6,7 @@ public class Basic_Tanker : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.classSpriteName);
+        //Debug.Log(this.classSpriteName);
 
         // marker의 max hp가 30퍼 증가 ( PlayerManager의 marker 리스트에 접근 )
         PlayerManager.Instance.F_UpdateMarkerState(MaxHpPercent : 0.3f);
@@ -18,7 +18,7 @@ public class Basic_Speeder : SkillCard
 {
     public override void F_SkillcardEffect()
     {
-        Debug.Log(this.classSpriteName);
+        //Debug.Log(this.classSpriteName);
 
         // marker의 움직임 속도 20% 증가 ( PlayerManager의 marker 리스트에 접근 )
         PlayerManager.Instance.F_UpdateMarkerState(SpeedPercent : 0.2f);
