@@ -18,6 +18,9 @@ public class Unit_Attack : FSM
 
         // 공격 시 0으로 초기화 
         _unit.unitTimeStamp = 0f;
+
+        // Attack 애니메이션 실행
+        _unit.F_ChangeAniParemeter(UnitAnimation.Attack, true);
     }
 
     public override void FSM_Excute()
@@ -26,13 +29,16 @@ public class Unit_Attack : FSM
         _unit.F_ChekchUnitHp();
         
         // 각 Unit 마다 다른 Attack 동작 
-        _unit.F_UnitAttatk();
+        _unit.F_UnitAttackAnimationCheck();
     }
 
     public override void FSM_Exit()
     {
         Debug.Log("Attack exit");
         _unit.Pre_UNITS_TATE = UNIT_STATE.Attack;
+
+        // Attack 애니메이션 종료
+        _unit.F_ChangeAniParemeter(UnitAnimation.Attack, true);
     }
 
 
