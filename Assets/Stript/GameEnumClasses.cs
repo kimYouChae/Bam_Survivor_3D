@@ -103,6 +103,14 @@ public enum InGamePropState
     Carrot              // 당근 
 }
 
+// Unit 애니메이션
+public enum UnitAnimation 
+{
+    Tracking, 
+    Attack,
+    Die,
+    Exit
+}
 
 #region PropsBuilding
 [System.Serializable]

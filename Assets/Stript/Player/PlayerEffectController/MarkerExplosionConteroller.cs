@@ -24,7 +24,7 @@ public class MarkerExplosionConteroller : MonoBehaviour
     private void Start()
     {
         // ##TODO : 임시 (3f) : explosion State 초기화
-        _explosionState = new ExplosionState(3f);
+        _explosionState = new ExplosionState(1f);
 
         // 초기 1회 Dic 초기화
         F_InitDictionary();

@@ -34,18 +34,20 @@ public class Basic_Unit :  Unit
         F_CurrStateExcute();
     }
 
-    public override void F_UnitAttatk()
+    public override void F_UnitAttackAnimationCheck()
     {
-        unitState.UnitTimeStamp += Time.deltaTime;
+        // attack이 실행되고 있는지
+        if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(DICT_unitAniPara[UnitAnimation.Attack]) == true)
+        {
+            // 플레이중인지
+            float _aniPlayTime = _unitAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
-        if(unitState.UnitTimeStamp < unitState.UnitAttackTime)
-        {
-            // ##TODO : 각 공격동작 추가 
-        }
-        else if(unitState.UnitTimeStamp >= unitState.UnitAttackTime)
-        {
-            // tracking으로 상태변화
-            F_ChangeState(UNIT_STATE.Tracking);
+            // 애니메이션이 종료되면 
+            if (_aniPlayTime >= 1.0f)
+            {
+                // tracking으로 상태변화
+                F_ChangeState(UNIT_STATE.Tracking);
+            }
         }
     }
 

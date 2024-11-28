@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,11 +17,18 @@ public class Unit : MonoBehaviour
     public HeadMachine _UnitHeadMachine;
     public FSM[] _UnitStateArr;
     [SerializeField] protected UNIT_STATE curr_UNITS_TATE;           // 현재 enum
-    [SerializeField] protected UNIT_STATE pre_UNITS_TATE;           // 이전 enum 
+    [SerializeField] protected UNIT_STATE pre_UNITS_TATE;            // 이전 enum 
 
     [Header("===Tracking===")]
     [SerializeField] private Vector3 _destiPosition     = Vector3.zero;
     [SerializeField] private NavMeshAgent _unitAgent    = null;
+    [SerializeField] private Vector2 _playerPos2D       = Vector2.zero;
+    [SerializeField] private Vector2 _unitPos2D         = Vector2.zero;
+
+    [Header("===Animator===")]
+    [SerializeField] protected UnitAnimation  _nowAnimation;
+    [SerializeField] protected Animator       _unitAnimator;
+    [SerializeField] protected Dictionary<UnitAnimation, string> DICT_unitAniPara;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -36,8 +45,8 @@ public class Unit : MonoBehaviour
 
     }
 
-    // attack 동작 재정의
-    public virtual void F_UnitAttatk() { }
+    // attack Animtaion Check
+    public virtual void F_UnitAttackAnimationCheck() { }
 
     // FSM 세팅 
     protected void F_InitUnitState( Unit v_standard ) 
@@ -53,6 +62,21 @@ public class Unit : MonoBehaviour
         _UnitStateArr[(int)UNIT_STATE.Attack]       = new Unit_Attack(v_standard);
         _UnitStateArr[(int)UNIT_STATE.Die]          = new Unit_Die(v_standard);
 
+        // 애니메이션 파라미터 딕셔너리 초기화
+        DICT_unitAniPara = new Dictionary<UnitAnimation, string>
+        {
+            { UnitAnimation.Tracking, "Tracking"},
+            { UnitAnimation.Attack  , "Attack"},
+            { UnitAnimation.Die     , "Die"},
+            { UnitAnimation.Exit    , "Exit"}
+        };
+
+        // 에니메이터 가져오기
+        _unitAnimator = gameObject.GetComponent<Animator>();
+
+        // 파라미터 다 false로 바꾸기 
+        F_InitParameter();
+
         // 현재상태 지정 
         //curr_UNITS_TATE = UNIT_STATE.Tracking;
 
@@ -60,7 +84,7 @@ public class Unit : MonoBehaviour
         //_UnitHeadMachine.HM_SetState(_UnitStateArr[(int)Curr_UNITS_TATE]);
     }
 
-    // 현재 상태 진입 ( 1회 , Start에서 실행 )
+    // 현재 상태 진입 ( OnEnable에서 실행 )
     protected void F_CurrStateEnter() 
     {
         // 현재상태 지정 
@@ -162,8 +186,11 @@ public class Unit : MonoBehaviour
     // marker(플레이어)가 범위안에 들어오면 changeState
     public void F_UpdateSateByDistance(Unit v_unit) 
     {
-        Vector2 _playerPos2D = new Vector2(PlayerManager.Instance.markers[0].transform.position.x, PlayerManager.Instance.markers[0].transform.position.z);
-        Vector2 _unitPos2D = new Vector2(v_unit.gameObject.transform.position.x, v_unit.gameObject.transform.position.z);
+        _playerPos2D.x = PlayerManager.Instance.markers[0].transform.position.x;
+        _playerPos2D.y = PlayerManager.Instance.markers[0].transform.position.z;
+
+        _unitPos2D.x = v_unit.gameObject.transform.position.x;
+        _unitPos2D.y = v_unit.gameObject.transform.position.z;
 
         //Debug.Log(Vector2.Distance(_playerPos2D, _unitPos2D));
 
@@ -184,15 +211,6 @@ public class Unit : MonoBehaviour
     {
         // 속도 변경 
         _unitState.UnitSpeed = v_speed;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.gameObject.CompareTag("Unit"))
-        {
-            Debug.Log("총알이랑 충돌");
-        }                   
     }
 
     // 근처에 navMesh가 있는지 체크
@@ -223,4 +241,30 @@ public class Unit : MonoBehaviour
         return false;
 
     }
+
+    public void F_ChangeAniParemeter(UnitAnimation _ani, bool _flag)
+    {
+        // state에 맞는 string을 true / false 
+        if (DICT_unitAniPara.TryGetValue(_ani, out string parameterName))
+        {
+            // setbool을 true
+            _unitAnimator.SetBool(parameterName, _flag);
+
+            // flag가 true일때 nowAni 바꾸기
+            if (_flag)
+                _nowAnimation = _ani;
+        }
+    }
+
+    private void F_InitParameter()
+    {
+        UnitAnimation[] _para = (UnitAnimation[])System.Enum.GetValues(typeof(UnitAnimation));
+
+        for (int i = 0; i < _para.Length; i++)
+        {
+            F_ChangeAniParemeter(_para[i], false);
+        }
+
+    }
+
 }
