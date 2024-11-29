@@ -45,9 +45,6 @@ public class Unit : MonoBehaviour
 
     }
 
-    // attack Animtaion Check
-    public virtual void F_UnitAttackAnimationCheck() { }
-
     // FSM 세팅 
     protected void F_InitUnitState( Unit v_standard ) 
     {
@@ -265,6 +262,24 @@ public class Unit : MonoBehaviour
             F_ChangeAniParemeter(_para[i], false);
         }
 
+    }
+
+    // 현재 animation 실행하는지 check
+    public void F_UnitAttackAnimationCheck()
+    {
+        // attack이 실행되고 있는지
+        if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(DICT_unitAniPara[UnitAnimation.Attack]) == true)
+        {
+            // 플레이중인지
+            float _aniPlayTime = _unitAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+            // 애니메이션이 종료되면 
+            if (_aniPlayTime >= 1.0f)
+            {
+                // tracking으로 상태변화
+                F_ChangeState(UNIT_STATE.Tracking);
+            }
+        }
     }
 
 }

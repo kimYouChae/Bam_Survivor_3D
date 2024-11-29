@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Basic_Unit :  Unit 
+public class RANGES : Unit
 {
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class Basic_Unit :  Unit
     private void OnEnable()
     {
         // 초기생성x pool에서 꺼낸 후 on 될때만
-        if (_lifeCycle == LifeCycle.ExistingInstance) 
+        if (_lifeCycle == LifeCycle.ExistingInstance)
         {
             // 현재상태 지정 
             Curr_UNITS_TATE = UNIT_STATE.Tracking;
@@ -33,7 +33,5 @@ public class Basic_Unit :  Unit
         // FSM excute 
         F_CurrStateExcute();
     }
-
-
 
 }
