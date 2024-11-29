@@ -5,6 +5,17 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+#region Interface
+public interface IAttackStrategy
+{
+    void Attack(Unit _unit);
+}
+
+#endregion
+
+#region Enum
+
+
 // 카드 티어
 public enum CardTier 
 {
@@ -111,6 +122,8 @@ public enum UnitAnimation
     Die,
     Exit
 }
+
+#endregion
 
 #region PropsBuilding
 [System.Serializable]
