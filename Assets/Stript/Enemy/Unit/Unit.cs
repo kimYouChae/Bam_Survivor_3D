@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Unit : MonoBehaviour
 {
@@ -26,9 +27,13 @@ public class Unit : MonoBehaviour
     [SerializeField] private Vector2 _unitPos2D         = Vector2.zero;
 
     [Header("===Animator===")]
-    [SerializeField] protected UnitAnimation  _nowAnimation;
-    [SerializeField] protected Animator       _unitAnimator;
-    [SerializeField] protected Dictionary<UnitAnimation, string> DICT_unitAniPara;
+    [SerializeField] protected Animator             _unitAnimator;
+    [SerializeField] protected Dictionary<UnitAnimationType, string> DICT_unitAniPara;
+
+    [Header("===Attack===")]
+    [SerializeField] protected UnitAnimationType        _nowAnimation;
+    [SerializeField] protected List<IAttackStrategy>    _strategyList;
+    [SerializeField] private IAttackStrategy            _nowAttack;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -60,12 +65,14 @@ public class Unit : MonoBehaviour
         _UnitStateArr[(int)UNIT_STATE.Die]          = new Unit_Die(v_standard);
 
         // 애니메이션 파라미터 딕셔너리 초기화
-        DICT_unitAniPara = new Dictionary<UnitAnimation, string>
+        DICT_unitAniPara = new Dictionary<UnitAnimationType, string>
         {
-            { UnitAnimation.Tracking, "Tracking"},
-            { UnitAnimation.Attack  , "Attack"},
-            { UnitAnimation.Die     , "Die"},
-            { UnitAnimation.Exit    , "Exit"}
+            { UnitAnimationType.Tracking            , "Tracking"},
+            { UnitAnimationType.BasicAttack         , "BasicAttack"},
+            { UnitAnimationType.RushAttack          , "RushAttack"},
+            { UnitAnimationType.ProjectileAttack    , "ProjectileAttack"},
+            { UnitAnimationType.Die                 , "Die"},
+            { UnitAnimationType.Exit                , "Exit"}
         };
 
         // 에니메이터 가져오기
@@ -239,23 +246,30 @@ public class Unit : MonoBehaviour
 
     }
 
-    public void F_ChangeAniParemeter(UnitAnimation _ani, bool _flag)
+    public void F_ChangeAniParemeter(UnitAnimationType _ani, bool _flag)
     {
         // state에 맞는 string을 true / false 
         if (DICT_unitAniPara.TryGetValue(_ani, out string parameterName))
         {
+            Debug.Log( _ani.ToString() + " 의 상태변화 : " + _flag);
+
             // setbool을 true
             _unitAnimator.SetBool(parameterName, _flag);
 
-            // flag가 true일때 nowAni 바꾸기
+            // true로 변경되는 AnimatorType을 currState 로 변경 
             if (_flag)
                 _nowAnimation = _ani;
+        }
+        // Dict에 없으면
+        else 
+        {
+            Debug.LogError( _ani.ToString() + "Animation이 존재하지 않습니다 ");
         }
     }
 
     private void F_InitParameter()
     {
-        UnitAnimation[] _para = (UnitAnimation[])System.Enum.GetValues(typeof(UnitAnimation));
+        UnitAnimationType[] _para = (UnitAnimationType[])System.Enum.GetValues(typeof(UnitAnimationType));
 
         for (int i = 0; i < _para.Length; i++)
         {
@@ -267,19 +281,47 @@ public class Unit : MonoBehaviour
     // 현재 animation 실행하는지 check
     public void F_UnitAttackAnimationCheck()
     {
+        Debug.Log("현재 실행중인 : " + _nowAnimation.ToString());
+
         // attack이 실행되고 있는지
-        if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(DICT_unitAniPara[UnitAnimation.Attack]) == true)
+        if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(DICT_unitAniPara[_nowAnimation]) == true)
         {
             // 플레이중인지
             float _aniPlayTime = _unitAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
+            Debug.Log(_aniPlayTime);
+            
             // 애니메이션이 종료되면 
             if (_aniPlayTime >= 1.0f)
             {
                 // tracking으로 상태변화
                 F_ChangeState(UNIT_STATE.Tracking);
+
+                // tracking으로 애니메이션 변화 (nowAnimtaionState는 attack1,2,3 중에 하나 )
+                F_ChangeAniParemeter(_nowAnimation, false);
+                //F_ChangeAniParemeter(UnitAnimationType.Tracking, true);
             }
         }
+    }
+
+    // Attack Interface 리스트안에서 랜덤으로 idx 골라서 attack 실행
+    public void F_AttackExcutor( Unit _unit ) 
+    {
+        if( _strategyList.Count <= 0 ) 
+        {
+            Debug.LogError("Attack Interface not implemented ");
+            return;
+        }
+
+        // 리스트 내 랜덤 인덱스 구하기 
+        int _randIdx = Random.Range(0, _strategyList.Count);
+
+        // 인덱스에 해당하는 인터페이스 함수 실행
+        _strategyList[_randIdx].Attack(_unit);
+
+        // ##TODO : 지워도됨 인스펙터 창에서 보기위한
+        _nowAttack = _strategyList[_randIdx];
+
     }
 
 }

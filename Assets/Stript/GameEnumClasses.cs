@@ -115,10 +115,12 @@ public enum InGamePropState
 }
 
 // Unit 애니메이션
-public enum UnitAnimation 
+public enum UnitAnimationType 
 {
     Tracking, 
-    Attack,
+    BasicAttack,
+    RushAttack,
+    ProjectileAttack,
     Die,
     Exit
 }

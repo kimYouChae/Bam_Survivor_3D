@@ -23,7 +23,7 @@ public class Unit_Tracking : FSM
         _unit.F_UniTracking(_unit);
 
         // Tracking 애니메이션 실행
-        _unit.F_ChangeAniParemeter(UnitAnimation.Tracking, true);
+        _unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, true);
     }   
 
     public override void FSM_Excute()
@@ -41,6 +41,6 @@ public class Unit_Tracking : FSM
         _unit.Pre_UNITS_TATE = UNIT_STATE.Tracking;
 
         // Tracking 애니메이션 종료
-        _unit.F_ChangeAniParemeter(UnitAnimation.Tracking, false);
+        _unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, false);
     }
 }

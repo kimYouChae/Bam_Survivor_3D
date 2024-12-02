@@ -21,9 +21,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private const int _POOLCOUNT = 10;         // pool에 초기 생성할 count 
     [SerializeField] private const int _UNIT_POOL_COUNT = 25;   // pool에 초기 생성할 count
 
+    [Header("===Delete Object ===")]
     // 테스트오브젝트 ##TODO 나중에 삭제
     public GameObject _testObject;
     public GameObject _testUnitPig;
+    public Transform _unitTestGeneration;
 
     //프로퍼티
     public float BasicRatio => _basicRatio;
@@ -49,6 +51,7 @@ public class GameManager : Singleton<GameManager>
         _temp.gameObject.name = "?!!!!!!!!!!!!!!!!!!";
         _temp.GetComponent<NavMeshAgent>().SetDestination(PlayerManager.Instance.markerHeadTrasform.position);
         */
+
     }
 
 

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3078124929395302607}
   - component: {fileID: 3078124929395302606}
   - component: {fileID: 3078124929395302593}
-  - component: {fileID: 6193112164527826498}
   - component: {fileID: -5686862263345740451}
+  - component: {fileID: -7689188298976565293}
   m_Layer: 8
   m_Name: 16.Hen
   m_TagString: Unit
@@ -116,22 +116,6 @@ CapsuleCollider:
   m_Height: 0.75277853
   m_Direction: 1
   m_Center: {x: 0, y: 0.44154668, z: -0.020498961}
---- !u!114 &6193112164527826498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3078124929395302595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  _curr_UNITS_TATE: 0
-  _pre_UNITS_TATE: 0
 --- !u!195 &-5686862263345740451
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -154,6 +138,41 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-7689188298976565293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078124929395302595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa11b48aa847e944b125ab4ed351e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitState:
+    _unitType: 0
+    _animalType: 0
+    _unitName: 
+    _unitHp: 0
+    _unitMaxHp: 0
+    _unitSpeed: 0
+    _unitAttackTime: 0
+    _unitTimeStamp: 0
+    _searchRadious: 0
+    _defencePower: 0
+    _unitDamage: 0
+  _lifeCycle: 0
+  _UnitHeadMachine:
+    _unit: {fileID: 0}
+  curr_UNITS_TATE: 0
+  pre_UNITS_TATE: 0
+  _destiPosition: {x: 0, y: 0, z: 0}
+  _unitAgent: {fileID: 0}
+  _playerPos2D: {x: 0, y: 0}
+  _unitPos2D: {x: 0, y: 0}
+  _unitAnimator: {fileID: 0}
+  _nowAnimation: 0
 --- !u!1 &3078124929766028031
 GameObject:
   m_ObjectHideFlags: 0
