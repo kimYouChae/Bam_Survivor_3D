@@ -32,7 +32,7 @@ public class Marker : MonoBehaviour
         StartCoroutine(IE_MarkerUseShield());
 
         // bullet 발사 코루틴
-        StartCoroutine(IE_MarkerShootBullet());
+        //StartCoroutine(IE_MarkerShootBullet());
     }
 
     IEnumerator IE_MarkerUseShield()

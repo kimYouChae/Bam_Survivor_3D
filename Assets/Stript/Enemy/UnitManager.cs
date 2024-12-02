@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,8 +33,9 @@ public class UnitManager : Singleton<UnitManager>
     IEnumerator IE_Test() 
     {
         yield return new WaitForSeconds(1f);
-        F_EnemyInstanceByStage();
-
+        //F_EnemyInstanceByStage();
+        GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Pig);
+        F_ObjectOnOffNavmesh(_insUnit, GameManager.Instance._unitTestGeneration);
     }
 
     // stage 정보에 맞게 

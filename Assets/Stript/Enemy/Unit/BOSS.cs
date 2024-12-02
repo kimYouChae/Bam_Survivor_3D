@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BOSS : Unit
 {
-    // ##TODO : 상위로 올려야함
-    private List<IAttackStrategy> _strategyList;
-
     private void Awake()
     {
         // Awake는 초기1회에만 생성된다
@@ -14,7 +11,7 @@ public class BOSS : Unit
         F_InitUnitState(this);
 
         // lifeCycle을 exist로 
-        _lifeCycle = LifeCycle.ExistingInstance;
+        _lifeCycle = LifeCycle.InitInstance;
 
         // ##TODO : awake, onEnable, disEnable < 이거는 unit상속받는 모든 클래스가 동일하니까 
         // unit에서 작성후 모시깽저시깽 하면될듯 ?
@@ -24,7 +21,7 @@ public class BOSS : Unit
         _strategyList.Add(new Boss_Basic_Attack());
 
         // EX) 사용할 때는
-        _strategyList[0].Attack(this);
+        //_strategyList[0].Attack(this);
     }
 
     // 켜졌을 때 enter (pool에서 on 될 때 )
@@ -39,6 +36,10 @@ public class BOSS : Unit
             // FSM enter 
             F_CurrStateEnter();
         }
+
+        // Init일때만
+        if (_lifeCycle == LifeCycle.InitInstance)
+            _lifeCycle = LifeCycle.ExistingInstance;
     }
 
     private void Update()
@@ -52,7 +53,7 @@ public class BOSS : Unit
         // 보스 돌진 
         public void Attack(Unit _boss)
         {
-            
+            Debug.Log("BOSS가 RUSH Attack을 합니다");
         }
     }
 
@@ -63,7 +64,7 @@ public class BOSS : Unit
 
         public void Attack(Unit _boss)
         {
-            
+            Debug.Log("BOSS가 Projectile Attack을 합니다");
         }
     }
 
@@ -71,7 +72,7 @@ public class BOSS : Unit
     {
         public void Attack(Unit _boss)
         {
-            
+            Debug.Log("RANGED가 BASIC Attack 을 합니다");
         }
     }
 }

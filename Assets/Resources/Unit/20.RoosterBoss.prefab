@@ -396,10 +396,10 @@ GameObject:
   - component: {fileID: 5510196490160580393}
   - component: {fileID: 5510196490160580394}
   - component: {fileID: 5510196490160580395}
-  - component: {fileID: -5124999115056475689}
   - component: {fileID: 8859080982585222431}
+  - component: {fileID: 3594161195124687929}
   m_Layer: 8
-  m_Name: 20.Rooster
+  m_Name: 20.RoosterBoss
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,22 +500,6 @@ CapsuleCollider:
   m_Height: 0.84559727
   m_Direction: 1
   m_Center: {x: 0.01090309, y: 0.5164294, z: 0.023427457}
---- !u!114 &-5124999115056475689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5510196490160580397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6560cb9ff1e1e4390d6c59fa286003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  _curr_UNITS_TATE: 0
-  _pre_UNITS_TATE: 0
 --- !u!195 &8859080982585222431
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -538,6 +522,41 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3594161195124687929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510196490160580397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfce38fc13a8fcd40b01f5cc20a6b8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitState:
+    _unitType: 0
+    _animalType: 0
+    _unitName: 
+    _unitHp: 0
+    _unitMaxHp: 0
+    _unitSpeed: 0
+    _unitAttackTime: 0
+    _unitTimeStamp: 0
+    _searchRadious: 0
+    _defencePower: 0
+    _unitDamage: 0
+  _lifeCycle: 0
+  _UnitHeadMachine:
+    _unit: {fileID: 0}
+  curr_UNITS_TATE: 0
+  pre_UNITS_TATE: 0
+  _destiPosition: {x: 0, y: 0, z: 0}
+  _unitAgent: {fileID: 0}
+  _playerPos2D: {x: 0, y: 0}
+  _unitPos2D: {x: 0, y: 0}
+  _unitAnimator: {fileID: 0}
+  _nowAnimation: 0
 --- !u!1 &8819864896993621664
 GameObject:
   m_ObjectHideFlags: 0
