@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -27,11 +29,11 @@ public class Unit : MonoBehaviour
     [SerializeField] private Vector2 _unitPos2D         = Vector2.zero;
 
     [Header("===Animator===")]
+    [SerializeField] protected UnitAnimationType    _currAniState;
     [SerializeField] protected Animator             _unitAnimator;
-    [SerializeField] protected Dictionary<UnitAnimationType, string> DICT_unitAniPara;
+    [SerializeField] protected bool _animationEndFlag;
 
     [Header("===Attack===")]
-    [SerializeField] protected UnitAnimationType        _nowAnimation;
     [SerializeField] protected List<IAttackStrategy>    _strategyList;
     [SerializeField] private IAttackStrategy            _nowAttack;
 
@@ -64,22 +66,8 @@ public class Unit : MonoBehaviour
         _UnitStateArr[(int)UNIT_STATE.Attack]       = new Unit_Attack(v_standard);
         _UnitStateArr[(int)UNIT_STATE.Die]          = new Unit_Die(v_standard);
 
-        // 애니메이션 파라미터 딕셔너리 초기화
-        DICT_unitAniPara = new Dictionary<UnitAnimationType, string>
-        {
-            { UnitAnimationType.Tracking            , "Tracking"},
-            { UnitAnimationType.BasicAttack         , "BasicAttack"},
-            { UnitAnimationType.RushAttack          , "RushAttack"},
-            { UnitAnimationType.ProjectileAttack    , "ProjectileAttack"},
-            { UnitAnimationType.Die                 , "Die"},
-            { UnitAnimationType.Exit                , "Exit"}
-        };
-
         // 에니메이터 가져오기
         _unitAnimator = gameObject.GetComponent<Animator>();
-
-        // 파라미터 다 false로 바꾸기 
-        F_InitParameter();
 
         // 현재상태 지정 
         //curr_UNITS_TATE = UNIT_STATE.Tracking;
@@ -136,23 +124,6 @@ public class Unit : MonoBehaviour
     // Unit 일정시간동안 Traking
     public void F_UniTracking(Unit v_unit) 
     {
-        /*
-        // 1. 플레이어 추적
-        v_unit.gameObject.transform.position
-            = Vector3.MoveTowards(v_unit.gameObject.transform.position,
-                PlayerManager.instance.markerHeadTrasform.position, v_unit.unitSpeed * Time.deltaTime);
-
-        // 2. 감지범위에 marker 가 검출되면
-        Collider[] _coll = Physics.OverlapSphere
-            (v_unit.gameObject.transform.position, v_unit.searchRadious, PlayerManager.instance.markerLayer);
-
-        if (_coll.Length > 0)
-        {
-            // 상태전이
-            v_unit.F_ChangeState( UNIT_STATE.Attack );
-        }
-        */
-
         StartCoroutine(IE_UnitTracking(v_unit));
     }
 
@@ -246,34 +217,43 @@ public class Unit : MonoBehaviour
 
     }
 
-    public void F_ChangeAniParemeter(UnitAnimationType _ani, bool _flag)
+    // 애니메이터 - 파리미터의 bool
+    public void F_SetAnimatorBoolByState(UnitAnimationType _paramaterName, bool _flag)
     {
-        // state에 맞는 string을 true / false 
-        if (DICT_unitAniPara.TryGetValue(_ani, out string parameterName))
+        try
         {
-            Debug.Log( _ani.ToString() + " 의 상태변화 : " + _flag);
+            //Debug.Log(_paramaterName + " 의 상태변화 : " + _flag);
 
             // setbool을 true
-            _unitAnimator.SetBool(parameterName, _flag);
+            _unitAnimator.SetBool(_paramaterName.ToString(), _flag);
 
-            // true로 변경되는 AnimatorType을 currState 로 변경 
-            if (_flag)
-                _nowAnimation = _ani;
+            // 일단 보기용 
+            _currAniState = _paramaterName;
+
         }
-        // Dict에 없으면
-        else 
+        catch (Exception e) 
         {
-            Debug.LogError( _ani.ToString() + "Animation이 존재하지 않습니다 ");
+            Debug.LogError(e.ToString() + " / " + "Animation Bool 이 존재하지 않습니다 ");
         }
     }
 
-    private void F_InitParameter()
+    // 애니메이터 - 파라미터의 trigger
+    public void F_SetAnimatorTriggerByState(UnitAnimationType _paramaterName)
     {
-        UnitAnimationType[] _para = (UnitAnimationType[])System.Enum.GetValues(typeof(UnitAnimationType));
-
-        for (int i = 0; i < _para.Length; i++)
+        try
         {
-            F_ChangeAniParemeter(_para[i], false);
+            //Debug.Log(_paramaterName + " 의 상태변화 : " + _flag);
+
+            // setbool을 true
+            _unitAnimator.SetTrigger(_paramaterName.ToString());
+
+            // 일단 보기용 
+            _currAniState = _paramaterName;
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.ToString() + " / " + "Animation Trigger가 존재하지 않습니다 ");
         }
 
     }
@@ -281,28 +261,34 @@ public class Unit : MonoBehaviour
     // 현재 animation 실행하는지 check
     public void F_UnitAttackAnimationCheck()
     {
-        Debug.Log("현재 실행중인 : " + _nowAnimation.ToString());
+        // ex) Pig_BasicAttack 이런식으로 (State 이름)
+        string _nowAnimationString = unitState.UnitName + "_" + _currAniState.ToString();
 
-        // attack이 실행되고 있는지
-        if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(DICT_unitAniPara[_nowAnimation]) == true)
-        {
-            // 플레이중인지
-            float _aniPlayTime = _unitAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-            Debug.Log(_aniPlayTime);
-            
-            // 애니메이션이 종료되면 
-            if (_aniPlayTime >= 1.0f)
-            {
-                // tracking으로 상태변화
-                F_ChangeState(UNIT_STATE.Tracking);
-
-                // tracking으로 애니메이션 변화 (nowAnimtaionState는 attack1,2,3 중에 하나 )
-                F_ChangeAniParemeter(_nowAnimation, false);
-                //F_ChangeAniParemeter(UnitAnimationType.Tracking, true);
-            }
-        }
+        // 애니메이션 끝나면 flag를 true로
+        StartCoroutine(IE_AnimationPlaying(_nowAnimationString));
     }
+
+    private IEnumerator IE_AnimationPlaying(string _aniState) 
+    {
+        //Debug.Log("코루틴실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // 현재 animation실행까지 대기
+        yield return new WaitUntil(() => _unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(_aniState));
+
+        //Debug.Log("현재 애니메이션 길이" + _unitAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+        // 현재 애니메이션의 시간까지 
+        float _time = _unitAnimator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(_time);
+
+        // animation 실행하고 나서 tracking으로 상태변화
+        F_ChangeState(UNIT_STATE.Tracking);
+
+        // 종료
+        yield break;
+
+    }
+
 
     // Attack Interface 리스트안에서 랜덤으로 idx 골라서 attack 실행
     public void F_AttackExcutor( Unit _unit ) 

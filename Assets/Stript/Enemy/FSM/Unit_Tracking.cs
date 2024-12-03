@@ -16,14 +16,11 @@ public class Unit_Tracking : FSM
         Debug.Log("Tracking Enter");
         _unit.Curr_UNITS_TATE = UNIT_STATE.Tracking;
 
-        // 현재 돌고있는 코루틴 스탑
-        _unit.F_StopColoutine();
-
         // Tracking 동작 
         _unit.F_UniTracking(_unit);
 
         // Tracking 애니메이션 실행
-        _unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, true);
+        _unit.F_SetAnimatorBoolByState(UnitAnimationType.Tracking, true);
     }   
 
     public override void FSM_Excute()
@@ -41,6 +38,6 @@ public class Unit_Tracking : FSM
         _unit.Pre_UNITS_TATE = UNIT_STATE.Tracking;
 
         // Tracking 애니메이션 종료
-        _unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, false);
+        _unit.F_SetAnimatorBoolByState(UnitAnimationType.Tracking, false);
     }
 }

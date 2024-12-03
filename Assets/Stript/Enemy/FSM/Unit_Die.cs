@@ -16,8 +16,11 @@ public class Unit_Die : FSM
         Debug.Log("Die Enter");
         _unit.Curr_UNITS_TATE = UNIT_STATE.Die;
 
-        // 끄기 
-        _unit.gameObject.SetActive(false);
+        // Die 애니메이션 끝나고
+        
+        // pool에 넣기 
+    
+
     }
 
     public override void FSM_Excute()
