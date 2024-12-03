@@ -47,10 +47,6 @@ public class RANGES : Unit
     {
         public void Attack(Unit _unit)
         {
-            // Attack 애니메이션 실행
-            _unit.F_ChangeAniParemeter(UnitAnimationType.BasicAttack, true);
-            _unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, false);
-
             Debug.Log("RANGED가 Attack을 합니다");
         }
     }
