@@ -124,23 +124,6 @@ public class Unit : MonoBehaviour
     // Unit 일정시간동안 Traking
     public void F_UniTracking(Unit v_unit) 
     {
-        /*
-        // 1. 플레이어 추적
-        v_unit.gameObject.transform.position
-            = Vector3.MoveTowards(v_unit.gameObject.transform.position,
-                PlayerManager.instance.markerHeadTrasform.position, v_unit.unitSpeed * Time.deltaTime);
-
-        // 2. 감지범위에 marker 가 검출되면
-        Collider[] _coll = Physics.OverlapSphere
-            (v_unit.gameObject.transform.position, v_unit.searchRadious, PlayerManager.instance.markerLayer);
-
-        if (_coll.Length > 0)
-        {
-            // 상태전이
-            v_unit.F_ChangeState( UNIT_STATE.Attack );
-        }
-        */
-
         StartCoroutine(IE_UnitTracking(v_unit));
     }
 

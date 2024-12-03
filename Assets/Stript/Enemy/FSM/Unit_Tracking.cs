@@ -16,9 +16,6 @@ public class Unit_Tracking : FSM
         Debug.Log("Tracking Enter");
         _unit.Curr_UNITS_TATE = UNIT_STATE.Tracking;
 
-        // 현재 돌고있는 코루틴 스탑
-        //_unit.F_StopColoutine();
-
         // Tracking 동작 
         _unit.F_UniTracking(_unit);
 
