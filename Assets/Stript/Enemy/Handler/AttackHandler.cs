@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
+[System.Serializable]
 public class AttackHandler : IAttackHandler
 {
     [Header("===Unit===")]
@@ -36,7 +37,7 @@ public class AttackHandler : IAttackHandler
     }
 
     // Attack Interface 리스트안에서 랜덤으로 idx 골라서 attack 실행
-    public void AttackExcutor()
+    public void AH_AttackExcutor()
     {
         if (_strategyList.Count <= 0)
         {

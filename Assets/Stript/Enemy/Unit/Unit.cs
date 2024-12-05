@@ -10,10 +10,11 @@ public class Unit : MonoBehaviour
     [SerializeField] protected UnitState _unitState;    // 유닛 클래스
     [SerializeField] protected LifeCycle _lifeCycle;    // 생성 유무 체크
 
-    ITrackingHandler _trackingHandler;
-    IAttackHandler _attackHandler;
-    FSMHandler _FSMHandler;
-    UnitAnimationHandler _animHandler;
+    [Header("===Handler===")]
+    [SerializeField] ITrackingHandler       _trackingHandler;
+    [SerializeField] IAttackHandler         _attackHandler;
+    [SerializeField] FSMHandler             _FSMHandler;
+    [SerializeField] UnitAnimationHandler   _animHandler;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -36,30 +37,36 @@ public class Unit : MonoBehaviour
     }
 #endregion
 
-#region FSM HANDLER
+#region FSM HANDLER ->  FSMHandler에 접근
 
-    // Unit State 변경 -> FSMHandler에 접근
+    // Unit State 변경 
     public void F_ChangeState(UNIT_STATE _State)
     {
         _FSMHandler.FH_ChangeState(_State);
     }
 
-    // 현재 상태 진입 -> FSMHandler에 접근
+    // 현재 상태 진입 
     public void F_StateEnter() 
     {
         _FSMHandler.FH_CurrStateEnter();
     }
 
-    // 현재 상태 실행 -> FSMHandler에 접근
+    // 현재 상태 실행 
     public void F_StateExcute() 
     {
         _FSMHandler.FH_CurrStateExcute();
     }
 
-    // 현재 상태 Setting -> FSMHandler에 접근
-    public void F_SettingState(UNIT_STATE _State) 
+    // 현재 상태 Setting ->
+    public void F_SettingCurrState(UNIT_STATE _State) 
     {
-        _FSMHandler.FH_SettingState(_State);
+        _FSMHandler.FH_SettingCurrState(_State);
+    }
+
+    // 이전 상태 Setting 
+    public void F_SettingPreState(UNIT_STATE _state) 
+    {
+        _FSMHandler.FH_SettingPreState(_state);
     }
 
 #endregion
@@ -95,8 +102,17 @@ public class Unit : MonoBehaviour
     // Unit 일정시간동안 Traking
     public void F_UniTracking(Unit v_unit) 
     {
-        // TODO : 돌아가는지 테스트해야함 
         StartCoroutine(_trackingHandler.IE_TrackinCorutine());
+    }
+
+    // Tracking end 시 실행 
+    public void F_StopTrackingCoru() 
+    {
+        StopCoroutine(_trackingHandler.IE_TrackinCorutine());
+    }
+    public void F_UpdateStateByDistacne() 
+    {
+        _trackingHandler.TH_EvaluateStateTransition();
     }
 #endregion
 
@@ -104,6 +120,11 @@ public class Unit : MonoBehaviour
     public void F_AddToAttackStrtegy(IAttackStrategy _attack) 
     {
         _attackHandler.AH_AddAttackList(_attack);
+    }
+
+    public void F_AttackExcutor() 
+    {
+        _attackHandler.AH_AttackExcutor();
     }
 #endregion
 

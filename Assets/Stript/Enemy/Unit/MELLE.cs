@@ -24,7 +24,7 @@ public class MELLE : Unit
         if (_lifeCycle == LifeCycle.ExistingInstance)
         {
             // 현재상태 지정 
-            F_SettingState(UNIT_STATE.Tracking);
+            F_SettingCurrState(UNIT_STATE.Tracking);
 
             // FSM enter 
             F_StateEnter();

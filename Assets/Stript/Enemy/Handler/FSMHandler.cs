@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class FSMHandler 
 {
     [Header("===FSM===")]
@@ -41,10 +42,17 @@ public class FSMHandler
     }
 
     // 현재 상태 Setting
-    public void FH_SettingState(UNIT_STATE _state) 
+    public void FH_SettingCurrState(UNIT_STATE _state) 
     {
         // 현재상태 지정 
         curr_UNITS_TATE = _state;
+    }
+
+    // Pre 상태 Setting
+    public void FH_SettingPreState(UNIT_STATE _state) 
+    {
+        // pre 상태 지정 
+        pre_UNITS_TATE = _state;
     }
 
     // 현재 상태 진입 ( OnEnable에서 실행 )

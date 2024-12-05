@@ -13,12 +13,13 @@ public interface IAttackStrategy
 public interface ITrackingHandler 
 {
     IEnumerator IE_TrackinCorutine();
+    void TH_EvaluateStateTransition();
 }
 
 public interface IAttackHandler 
 {
     void AH_AddAttackList(IAttackStrategy attack);
-    void AttackExcutor();
+    void AH_AttackExcutor();
 }
 
 #endregion
