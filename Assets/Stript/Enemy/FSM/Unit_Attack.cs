@@ -14,16 +14,13 @@ public class Unit_Attack : FSM
     public override void FSM_Enter()
     {
         Debug.Log("Attack Enter");
-        _unit.Curr_UNITS_TATE = UNIT_STATE.Attack;
-
-        // 공격 시 0으로 초기화 
-        _unit.unitTimeStamp = 0f;
+        _unit.F_SettingCurrState(UNIT_STATE.Attack);
 
         // Attack 공격 함수 실행
-        _unit.F_AttackExcutor(_unit);
+        _unit.F_AttackExcutor();
 
         // 공격 애니메이터 검사 
-        _unit.F_UnitAttackAnimationCheck();
+        //_unit.F_UnitAttackAnimationCheck();
     }
 
     public override void FSM_Excute()
@@ -35,7 +32,7 @@ public class Unit_Attack : FSM
     public override void FSM_Exit()
     {
         Debug.Log("Attack exit");
-        _unit.Pre_UNITS_TATE = UNIT_STATE.Attack;
+        _unit.F_SettingPreState(UNIT_STATE.Attack);
     }
 
 

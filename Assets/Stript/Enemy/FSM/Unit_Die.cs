@@ -14,7 +14,7 @@ public class Unit_Die : FSM
     public override void FSM_Enter()
     {
         Debug.Log("Die Enter");
-        _unit.Curr_UNITS_TATE = UNIT_STATE.Die;
+        //_unit.Curr_UNITS_TATE = UNIT_STATE.Die;
 
         // Die 애니메이션 끝나고
         
@@ -31,6 +31,6 @@ public class Unit_Die : FSM
     public override void FSM_Exit()
     {
         Debug.Log("Die Exit");
-        _unit.Curr_UNITS_TATE = UNIT_STATE.Die;
+        //_unit.Curr_UNITS_TATE = UNIT_STATE.Die;
     }
 }
