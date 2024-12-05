@@ -5,9 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class HeadMachine
 {
+    [Header("===Owner==")]
     // machine이 돌아갈 주체
     [SerializeField] private Unit _unit;
 
+    [Header("===State===")]
     [SerializeField] private FSM _currState;     // 현재 상태
     [SerializeField] private FSM _preState;     // 이전 상태  
 

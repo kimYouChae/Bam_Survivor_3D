@@ -2,13 +2,23 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 #region Interface
 public interface IAttackStrategy
 {
     void Attack(Unit _unit);
+}
+
+public interface ITrackingHandler 
+{
+    IEnumerator IE_TrackinCorutine();
+}
+
+public interface IAttackHandler 
+{
+    void AH_AddAttackList(IAttackStrategy attack);
+    void AttackExcutor();
 }
 
 #endregion

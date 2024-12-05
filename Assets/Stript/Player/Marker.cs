@@ -84,7 +84,6 @@ public class Marker : MonoBehaviour
         // max 넘으면 max로 
         if (_markerState.markerHp > _markerState.markerMaxHp)
             _markerState.markerHp = _markerState.markerMaxHp;
-
         
     }
 
