@@ -77,7 +77,7 @@ public class UnitPooling : MonoBehaviour
         // type 별 UnitState 지정해주기 
         try
         {
-            // ##TODO : 여기서 그냥 state 넣으니까 다 공유하고잇어서 factory로 new 해서 스크립트 넣던지 해야함 !
+            // type에 맞는 State를 넣어주기
             _unit.GetComponent<Unit>().unitState
                 = UnitManager.Instance.UnitCsvImporter.F_AnimalTypeToState(_type); 
         }

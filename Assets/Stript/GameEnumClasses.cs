@@ -295,6 +295,22 @@ public class UnitState
 
 
     // »ý¼ºÀÚ
+    public UnitState(UnitState _state) 
+    {
+        this._unitType          = _state.UnitType;
+        this._animalType        = _state.AnimalType;
+        this._unitName          = _state.UnitName;
+        this._unitHp            = _state.UnitHp;
+        this._unitMaxHp         = _state.UnitMaxHp;
+        this._unitSpeed         = _state.UnitSpeed;
+        this._unitAttackTime    = _state.UnitAttackTime;
+        this._unitTimeStamp     = _state.UnitTimeStamp;
+        this._searchRadious     = _state.SearchRadious;
+        this._defencePower      = _state.DefencePower;
+        this._unitDamage        = _state.UnitDamage;
+        
+    }
+
     public UnitState(String[] str) 
     {
         // [0] : unit type
