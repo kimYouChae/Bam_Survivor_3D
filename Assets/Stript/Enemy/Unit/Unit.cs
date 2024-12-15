@@ -11,8 +11,11 @@ public class Unit : MonoBehaviour
     [Header("===Uint State===")]
     [SerializeField] protected UnitState _unitState;    // 유닛 클래스
     [SerializeField] protected LifeCycle _lifeCycle;    // 생성 유무 체크
-    [SerializeField] protected NavMeshAgent _unitAgent;     // 내브매쉬
-    [SerializeField] protected Animator _unitAnimator;
+
+    [Header("===Component")]
+    [SerializeField] protected NavMeshAgent _unitAgent;     
+    [SerializeField] protected Animator _unitAnimator;      
+    [SerializeField] private Transform _hitPosition;        // 히트 위치
 
     [Header("===Handler===")]
     [SerializeField] ITrackingHandler _trackingHandler;
@@ -27,9 +30,11 @@ public class Unit : MonoBehaviour
     public float unitSpeed => _unitState.UnitSpeed;
     public float unitSearchRadious => _unitState.SearchRadious;
     public string unitName => _unitState.UnitName;
+    public float unitDamage => _unitState.UnitDamage;
     public float unitTimeStamp { get => _unitState.UnitTimeStamp; set { _unitState.UnitTimeStamp = value; } }
 
     public NavMeshAgent unitAgent => _unitAgent;
+    public Transform hitPosition => _hitPosition;
 
     #region Init
 
@@ -47,6 +52,9 @@ public class Unit : MonoBehaviour
         _FSMHandler = new FSMHandler(this);
         _attackHandler = new AttackHandler(this);
         _animHandler = new UnitAnimationHandler(this);
+
+        // 히트포지션 -> 하위 첫번째 자식으로 
+        _hitPosition = gameObject.transform.GetChild(0);
     }
     #endregion
 

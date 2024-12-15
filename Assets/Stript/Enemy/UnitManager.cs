@@ -14,11 +14,14 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private UnitPooling _unitPooling;
     [SerializeField] private UnitCsvImporter _unitCsvImporter;
 
+    [Header("===Bullet===")]
+    [SerializeField] private GameObject _unitBullet;
     
     // 프로퍼티
     public UnitGenerator UnitGenerator => _unitGenerator;
     public UnitPooling UnitPooling => _unitPooling;
     public UnitCsvImporter UnitCsvImporter => _unitCsvImporter;
+    public GameObject UnitBullet => _unitBullet;    
 
     protected override void Singleton_Awake()
     {
