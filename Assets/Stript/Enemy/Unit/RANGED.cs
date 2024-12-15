@@ -23,7 +23,7 @@ public class RANGES : Unit
 
     internal class RANGED_Attack : IAttackStrategy
     {
-        public void Attack(Unit _unit)
+        public void IS_Attack(Unit _unit)
         {
             Debug.Log("RANGED가 Attack을 합니다");
         }

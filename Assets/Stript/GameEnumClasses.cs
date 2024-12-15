@@ -7,7 +7,7 @@ using UnityEngine;
 #region Interface
 public interface IAttackStrategy
 {
-    void Attack(Unit _unit);
+    void IS_Attack(Unit _unit);
 }
 
 public interface ITrackingHandler 

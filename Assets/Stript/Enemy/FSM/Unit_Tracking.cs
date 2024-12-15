@@ -16,11 +16,14 @@ public class Unit_Tracking : FSM
         Debug.Log("Tracking Enter");
         _unit.F_SettingCurrState(UNIT_STATE.Tracking);
 
+        // navmesh on
+        _unit.F_NavmeshOnOff(true);
+
         // Tracking 동작 
         _unit.F_UniTracking(_unit);
 
         // Tracking 애니메이션 실행
-        //_unit.F_SetAnimatorBoolByState(UnitAnimationType.Tracking, true);
+        _unit.F_BoolAnimation(UnitAnimationType.Tracking, true);
     }   
 
     public override void FSM_Excute()
@@ -40,7 +43,7 @@ public class Unit_Tracking : FSM
         // tracking 동작 코루틴 종료
         _unit.F_StopTrackingCoru();
 
-        // Tracking 애니메이션 종료
-        //_unit.F_SetAnimatorBoolByState(UnitAnimationType.Tracking, false);
+        // navmesh off 
+        _unit.F_NavmeshOnOff(false);
     }
 }

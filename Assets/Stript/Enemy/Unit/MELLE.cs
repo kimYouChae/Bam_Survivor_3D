@@ -20,19 +20,31 @@ public class MELLE : Unit
     // 켜졌을 때 enter (pool에서 on 될 때 )
     private void OnEnable()
     {
-        // 초기생성x pool에서 꺼낸 후 on 될때만
-        if (_lifeCycle == LifeCycle.ExistingInstance)
+        switch (_lifeCycle) 
         {
-            // 현재상태 지정 
-            F_SettingCurrState(UNIT_STATE.Tracking);
+            // Init일때만
+            case LifeCycle.InitInstance:
+                _lifeCycle = LifeCycle.ExistingInstance;
+                break;
 
-            // FSM enter 
-            F_StateEnter();
+            // 초기생성x pool에서 꺼낸 후 on 될때만
+            case LifeCycle.ExistingInstance:
+                // 현재상태 지정 
+                F_SettingCurrState(UNIT_STATE.Tracking);
+                // FSM enter 
+                F_StateEnter();
+                break;
         }
+    }
 
-        // Init일때만
-        if (_lifeCycle == LifeCycle.InitInstance)
-            _lifeCycle = LifeCycle.ExistingInstance;
+    // 꺼졌을 때 (pool에 들어가서 off 될 때)
+    private void OnDisable()
+    {
+        if (_lifeCycle != LifeCycle.ExistingInstance)
+            return;
+
+        // 이것저것 초기화  
+        F_OnDisable();
     }
 
     private void Update()
@@ -43,11 +55,10 @@ public class MELLE : Unit
 
     internal class MELLE_Attack : IAttackStrategy
     {
-        public void Attack(Unit _unit)
+        public void IS_Attack(Unit _unit)
         {
-            // Attack 애니메이션 실행
-            // _unit.F_SetAnimatorTriggerByState(UnitAnimationType.BasicAttack);
-            //_unit.F_ChangeAniParemeter(UnitAnimationType.Tracking, false);
+            // Attack ( Trigger )애니메이션 실행
+            _unit.F_TriggerAnimation(UnitAnimationType.BasicAttack);
 
             Debug.Log("Melle가 Attack을 합니다");
         }

@@ -23,7 +23,7 @@ public class BOSS : Unit
     internal class Boss_Rush_Attack : IAttackStrategy
     {
         // 보스 돌진 
-        public void Attack(Unit _boss)
+        public void IS_Attack(Unit _boss)
         {
             Debug.Log("BOSS가 RUSH Attack을 합니다");
         }
@@ -34,7 +34,7 @@ public class BOSS : Unit
     {
         // 하늘에서 투사체가 떨어짐 
 
-        public void Attack(Unit _boss)
+        public void IS_Attack(Unit _boss)
         {
             Debug.Log("BOSS가 Projectile Attack을 합니다");
         }
@@ -42,7 +42,7 @@ public class BOSS : Unit
 
     internal class Boss_Basic_Attack : IAttackStrategy
     {
-        public void Attack(Unit _boss)
+        public void IS_Attack(Unit _boss)
         {
             Debug.Log("RANGED가 BASIC Attack 을 합니다");
         }

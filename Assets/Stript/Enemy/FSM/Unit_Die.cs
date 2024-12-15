@@ -14,23 +14,27 @@ public class Unit_Die : FSM
     public override void FSM_Enter()
     {
         Debug.Log("Die Enter");
-        //_unit.Curr_UNITS_TATE = UNIT_STATE.Die;
+        _unit.F_SettingCurrState(UNIT_STATE.Die);
 
-        // Die 애니메이션 끝나고
-        
-        // pool에 넣기 
-    
+        // Die 애니메이션 실행 
+        _unit.F_BoolAnimation(UnitAnimationType.Die , true);
 
+        // 애니메이션 체크
+        _unit.F_UnitAttackAnimationCheck();
     }
 
     public override void FSM_Excute()
     {
-        
+        // 애니메이션 끝나면 idle로 변경 
+        _unit.F_StateByAnimation(UNIT_STATE.Idle);
     }
 
     public override void FSM_Exit()
     {
         Debug.Log("Die Exit");
-        //_unit.Curr_UNITS_TATE = UNIT_STATE.Die;
+        _unit.F_SettingPreState(UNIT_STATE.Die);
+
+        // 유닛 off 
+        _unit.F_OffUnit();
     }
 }

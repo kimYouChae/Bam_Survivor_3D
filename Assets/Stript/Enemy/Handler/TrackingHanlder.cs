@@ -22,21 +22,12 @@ public class TrackingHanlder : ITrackingHandler
     public TrackingHanlder(Unit _unit) 
     {
         this._unit = _unit;
+
+        this._unitAgent = _unit.unitAgent;
     }
 
     public IEnumerator IE_TrackinCorutine()
     {
-
-        if (_unit.gameObject.GetComponent<NavMeshAgent>() == null)
-        {
-            Debug.LogError("Unit의 agent가 null");
-            yield return null;
-        }
-        else
-        {
-            _unitAgent = _unit.gameObject.GetComponent<NavMeshAgent>();
-        }
-
         // update문 효과 
         while (true)
         {
@@ -88,7 +79,7 @@ public class TrackingHanlder : ITrackingHandler
             // 범위오차 : 0.1f
             if (_distanceToMesh < 0.1f)
             {
-                Debug.Log("Agent가 Navmesh위에 있습니다");
+                //Debug.Log("Agent가 Navmesh위에 있습니다");
                 return true;
             }
             else
@@ -99,7 +90,7 @@ public class TrackingHanlder : ITrackingHandler
         }
 
         // 근처에 아얘 없으면 
-        Debug.Log("근처에 Navmesh가 없습니다.");
+        //Debug.Log("근처에 Navmesh가 없습니다.");
         return false;
 
     }
