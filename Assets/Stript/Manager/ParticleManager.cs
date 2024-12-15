@@ -94,7 +94,7 @@ public class ParticleManager : Singleton<ParticleManager>
             // 플레이중이 아니라면 ( = 끝나면 )
             if (!_particle.isPlaying)
             {
-                Debug.Log("파티클이 끝났습니다.");
+                //Debug.Log("파티클이 끝났습니다.");
 
                 // pool로 돌려보내기
                 F_ParticleReturn(_particle , _state);

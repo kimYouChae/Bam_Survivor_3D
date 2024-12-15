@@ -49,7 +49,7 @@ public class AttackHandler : IAttackHandler
         int _randIdx = Random.Range(0, _strategyList.Count);
 
         // 인덱스에 해당하는 인터페이스 함수 실행
-        _strategyList[_randIdx].Attack(_unit);
+        _strategyList[_randIdx].IS_Attack(_unit);
 
         // ##TODO : 지워도됨 인스펙터 창에서 보기위한
         _nowAttack = _strategyList[_randIdx];

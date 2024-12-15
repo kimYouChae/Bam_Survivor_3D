@@ -26,7 +26,9 @@ public class UnitCsvImporter : MonoBehaviour
         if (!DICT_AnimalTypeToUnitState.ContainsKey(_type))
             return null;
 
-        return DICT_AnimalTypeToUnitState[_type];
+        // 생성 후 복사 
+        UnitState _state = new UnitState(DICT_AnimalTypeToUnitState[_type]); 
+        return _state;
     }
 
 

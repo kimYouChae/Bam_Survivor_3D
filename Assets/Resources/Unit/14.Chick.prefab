@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4196936208058593931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6156508868771879275}
+  m_Layer: 8
+  m_Name: HitPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6156508868771879275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196936208058593931}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.46, z: 0.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7465606655834807861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7009452410231693031
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +701,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6156508868771879275}
   - {fileID: 7009452410231456465}
   - {fileID: 7465606655470645009}
   - {fileID: 7465606655398063259}
@@ -799,16 +831,18 @@ MonoBehaviour:
     _defencePower: 0
     _unitDamage: 0
   _lifeCycle: 0
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  curr_UNITS_TATE: 0
-  pre_UNITS_TATE: 0
-  _destiPosition: {x: 0, y: 0, z: 0}
   _unitAgent: {fileID: 0}
-  _playerPos2D: {x: 0, y: 0}
-  _unitPos2D: {x: 0, y: 0}
   _unitAnimator: {fileID: 0}
-  _nowAnimation: 0
+  _hitPosition: {fileID: 0}
+  _FSMHandler:
+    _UnitHeadMachine:
+      _unit: {fileID: 0}
+    curr_UNITS_TATE: 0
+    pre_UNITS_TATE: 0
+  _animHandler:
+    _currAniState: 0
+    _unitAnimator: {fileID: 0}
+    _animationEndFlag: 0
 --- !u!1 &7465606655880892505
 GameObject:
   m_ObjectHideFlags: 0

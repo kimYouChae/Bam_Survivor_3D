@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class UnitPooling : MonoBehaviour
 {
@@ -76,8 +77,9 @@ public class UnitPooling : MonoBehaviour
         // type 별 UnitState 지정해주기 
         try
         {
+            // type에 맞는 State를 넣어주기
             _unit.GetComponent<Unit>().unitState
-                = UnitManager.Instance.UnitCsvImporter.F_AnimalTypeToState(_type);
+                = UnitManager.Instance.UnitCsvImporter.F_AnimalTypeToState(_type); 
         }
         catch (Exception e) 
         {
@@ -90,10 +92,10 @@ public class UnitPooling : MonoBehaviour
     // Get
     public GameObject F_GetUnit(Unit_Animal_Type _type ) 
     {
-        // Effect에 해당하는 오브젝트가 없을떄 
+        // type이 딕셔너리에 없을 때  
         if (!DICT_AnimalTypeToStack.ContainsKey(_type))
         {
-            Debug.LogError(this + " : UNIT DICTIONARY ISNT CONTAIN KEY");
+            Debug.LogError(this + " : UNIT DICTIONARY ISNT CONTAIN KEY <<GET>> ");
             return null;
         }
 
@@ -109,6 +111,27 @@ public class UnitPooling : MonoBehaviour
 
         return _unit;
 
+    }
+
+    // Set
+    public void F_SetUnit(Unit _unit, Unit_Animal_Type _type) 
+    {
+        // type이 딕셔너리에 없을 때 
+        if (!DICT_AnimalTypeToStack.ContainsKey(_type))
+        {
+            Debug.LogError(this + " : UNIT DICTIONARY ISNT CONTAIN KEY <<SET>>");
+            return;
+        }
+
+        // type에 맞게 push
+        DICT_AnimalTypeToStack[_type].Push(_unit.gameObject);
+
+        // 끄기 
+        _unit.gameObject.SetActive(false);
+
+        _unit.gameObject.transform.localPosition = Vector3.zero;
+
+        _unit.gameObject.transform.SetParent(_unitPool[(int)_type].transform);
     }
 
 }

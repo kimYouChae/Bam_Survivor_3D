@@ -84,8 +84,14 @@ public class Marker : MonoBehaviour
         // max 넘으면 max로 
         if (_markerState.markerHp > _markerState.markerMaxHp)
             _markerState.markerHp = _markerState.markerMaxHp;
-        
+        if (_markerState.markerHp <= 0)
+            F_MarkerDie();
+
     }
 
-
+    // marker Die 
+    private void F_MarkerDie() 
+    {
+        Debug.Log(" Marker가 죽었습니다 ");
+    }
 }

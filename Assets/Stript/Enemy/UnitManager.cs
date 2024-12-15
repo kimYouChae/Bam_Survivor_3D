@@ -14,28 +14,27 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] private UnitPooling _unitPooling;
     [SerializeField] private UnitCsvImporter _unitCsvImporter;
 
+    [Header("===Bullet===")]
+    [SerializeField] private GameObject _unitBullet;
     
     // 프로퍼티
     public UnitGenerator UnitGenerator => _unitGenerator;
     public UnitPooling UnitPooling => _unitPooling;
     public UnitCsvImporter UnitCsvImporter => _unitCsvImporter;
+    public GameObject UnitBullet => _unitBullet;    
 
     protected override void Singleton_Awake()
     {
         _spawner = new List<Transform>();
     }
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(IE_Test());
-    }
-
-    IEnumerator IE_Test() 
-    {
-        yield return new WaitForSeconds(1f);
-        //F_EnemyInstanceByStage();
-        GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Pig);
-        F_ObjectOnOffNavmesh(_insUnit, GameManager.Instance._unitTestGeneration);
+        if (Input.GetKeyDown(KeyCode.V)) 
+        {
+            GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Pig);
+            F_ObjectOnOffNavmesh(_insUnit, GameManager.Instance._unitTestGeneration);
+        }
     }
 
     // stage 정보에 맞게 
