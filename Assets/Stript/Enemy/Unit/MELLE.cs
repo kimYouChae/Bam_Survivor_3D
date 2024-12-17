@@ -63,7 +63,7 @@ public class MELLE : Unit
             _unit.F_TriggerAnimation(UnitAnimationType.BasicAttack);
 
             // 근접 공격 
-            Collider[] _coll = Physics.OverlapSphere( _unit.hitPosition.position, 0.6f , LayerManager.Instance.markerLayer);
+            Collider[] _coll = Physics.OverlapSphere( _unit.hitPosition.position, _unit.unitSearchRadious , LayerManager.Instance.markerLayer);
 
             if (_coll.Length <= 0)
                 return;

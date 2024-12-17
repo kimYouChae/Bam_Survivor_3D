@@ -34024,6 +34024,7 @@ MonoBehaviour:
   _unitGenerator: {fileID: 1398733626}
   _unitPooling: {fileID: 1398733628}
   _unitCsvImporter: {fileID: 1398733629}
+  _unitBullet: {fileID: 3726486002714545801, guid: 7e57c7545133b354aa238f20cb50b0ee, type: 3}
 --- !u!114 &1398733628
 MonoBehaviour:
   m_ObjectHideFlags: 0

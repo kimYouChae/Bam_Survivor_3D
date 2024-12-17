@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using static MELLE;
 
 public class RANGES : Unit
 {
+    [SerializeField]
+    private const float BulletForce = 2f;
+
     private void Awake()
     {
         // Awake는 초기1회에만 생성된다
@@ -66,11 +70,19 @@ public class RANGES : Unit
             // ##TODO : pool에서 get 해야함 
             GameObject _obj = Instantiate(UnitManager.Instance.UnitBullet , _unit.hitPosition.position , Quaternion.identity);
 
-            // 방향 : 플레이어-unit방향벡터
-            Collider[] _coll = Physics.OverlapSphere(_unit.hitPosition.position, 0.6f, LayerManager.Instance.markerLayer);
-            
-            //_obj.GetComponent<Rigidbody>().AddForce();
+            // marker 감지 
+            Collider[] _coll = Physics.OverlapSphere(_unit.hitPosition.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
 
+            // 방향 : 플레이어- unit방향벡터
+            Vector3 _dir;
+
+            if (_coll.Length > 0 )
+                _dir = _coll[0].transform.position - _unit.transform.position;
+                        
+            else
+                _dir = PlayerManager.Instance.markerHeadTrasform.position - _unit.transform.position;
+
+            _obj.GetComponent<Rigidbody>().AddForce(_dir * BulletForce, ForceMode.Impulse );
 
         }
     }
