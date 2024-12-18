@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,7 +31,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (Input.GetKeyDown(KeyCode.V)) 
         {
-            GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Chick);
+            GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Pig);
             F_ObjectOnOffNavmesh(_insUnit, GameManager.Instance._unitTestGeneration);
         }
     }

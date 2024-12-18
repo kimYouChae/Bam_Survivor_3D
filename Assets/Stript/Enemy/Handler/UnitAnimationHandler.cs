@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -77,27 +74,43 @@ public class UnitAnimationHandler
     // 애니메이션 끝나면 flag를 true로
     public IEnumerator IE_AnimationPlaying()
     {
-        // ##TODO : Trigger이면 굳이 이렇게 안해도 될듯 다시 생각해보자 !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
         // ex) Pig_BasicAttack 이런식으로 (State 이름)
         string _aniState = _unit.unitName + "_" + _currAniState.ToString();
 
-        //Debug.LogError("=============" + _aniState + "상태 대기중==========");
+        //Debug.Log(_aniState);
 
+        /*
+        while (true) 
+        {
+            // 애니메이션이 실행되고 있으면 
+            if (_unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(_aniState) == true) 
+            {
+                Debug.Log("실행되고 있습니다 : " + _aniState );
+
+                // 플레이타임
+                float _playTime = _unitAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+                // 끝나면 
+                if (_playTime >= 0.9f)
+                    break;
+            }
+
+            // 매프레임 
+            yield return null;
+        }
+        */
+        
         // 현재 animation실행까지 대기
-        //yield return new WaitUntil(() => _unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(_aniState));
-
-        //Debug.Log("============= 현재 애니메이션 실행 : " + _aniState + "============" );
+        yield return new WaitUntil(() => _unitAnimator.GetCurrentAnimatorStateInfo(0).IsName(_aniState));
 
         // 현재 애니메이션의 시간까지 
         float _time = _unitAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(_time);
 
-        /// 애니메이션 끝
-        _animationEndFlag = true;
+        Debug.Log("====애니메이션 끝 : " + _aniState + "=====");
 
-        //Debug.Log("============= 애니메이션 끝 : " + _animationEndFlag );
+        // 애니메이션 끝
+        _animationEndFlag = true;
 
         // 종료
         yield break;

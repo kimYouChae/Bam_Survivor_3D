@@ -18,7 +18,7 @@ public interface ITrackingHandler
 
 public interface IAttackHandler 
 {
-    void AH_AddAttackList(IAttackStrategy attack);
+    void AH_AddAttackList(UnitAnimationType _aniType , IAttackStrategy attack);
     void AH_AttackExcutor();
 }
 
