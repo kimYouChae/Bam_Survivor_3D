@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MELLE : Unit
+public class MELLE : Unit 
 {
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class MELLE : Unit
         _lifeCycle = LifeCycle.InitInstance;
 
         // Attack Interface 저장 
-        F_AddToAttackStrtegy(new MELLE_Attack());
+        F_AddToAttackStrtegy( UnitAnimationType.BasicAttack , new MELLE_Basic_Attack(UnitAnimationType.BasicAttack));
     }
 
     // 켜졌을 때 enter (pool에서 on 될 때 )
@@ -53,33 +53,8 @@ public class MELLE : Unit
         F_StateExcute();
     }
 
-    internal class MELLE_Attack : IAttackStrategy
+    public override UnitAnimationType F_returnAttackType()
     {
-        public void IS_Attack(Unit _unit)
-        {
-            Debug.Log("Melle가 Attack을 합니다");
-
-            // Attack ( Trigger )애니메이션 실행
-            _unit.F_TriggerAnimation(UnitAnimationType.BasicAttack);
-
-            // 근접 공격 
-            Collider[] _coll = Physics.OverlapSphere( _unit.hitPosition.position, _unit.unitSearchRadious , LayerManager.Instance.markerLayer);
-
-            if (_coll.Length <= 0)
-                return;
-
-            // 감지되면
-            foreach(Collider marker in _coll) 
-            {
-                //Debug.Log("MELLE_ATTACK이 실행되고 있습니다 . 타겟 : " + marker.gameObject.name);
-
-                if (marker.GetComponent<Marker>() == null)
-                    return;
-
-                // 데미지 넣기 
-                marker.GetComponent<Marker>().F_UpdateHP(_unit.unitDamage * (-1f));
-            }
-        }
+        return UnitAnimationType.BasicAttack;
     }
-
 }

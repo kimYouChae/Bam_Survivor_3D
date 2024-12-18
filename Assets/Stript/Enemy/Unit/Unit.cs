@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
     [Header("===Uint State===")]
     [SerializeField] protected UnitState _unitState;    // 유닛 클래스
@@ -18,8 +18,8 @@ public class Unit : MonoBehaviour
     [SerializeField] private Transform _hitPosition;        // 히트 위치
 
     [Header("===Handler===")]
-    [SerializeField] ITrackingHandler _trackingHandler;
-    [SerializeField] IAttackHandler _attackHandler;
+    [SerializeField] ITrackingHandler               _trackingHandler;   // tracking 핸들러
+    [SerializeField] IAttackHandler                 _attackHandler;     // 공격 핸들러 
     [SerializeField] FSMHandler _FSMHandler;
     [SerializeField] UnitAnimationHandler _animHandler;
 
@@ -56,6 +56,10 @@ public class Unit : MonoBehaviour
         // 히트포지션 -> 하위 첫번째 자식으로 
         _hitPosition = gameObject.transform.GetChild(0);
     }
+
+    // 공격 animationType을 return 
+    public abstract UnitAnimationType F_returnAttackType();
+
     #endregion
 
     #region NavMesh
@@ -160,9 +164,9 @@ public class Unit : MonoBehaviour
     #endregion
 
     #region ATTACK HANDLER
-    public void F_AddToAttackStrtegy(IAttackStrategy _attack) 
+    public void F_AddToAttackStrtegy(UnitAnimationType _type, IAttackStrategy _attack) 
     {
-        _attackHandler.AH_AddAttackList(_attack);
+        _attackHandler.AH_AddAttackList(_type , _attack);
     }
 
     public void F_AttackExcutor() 

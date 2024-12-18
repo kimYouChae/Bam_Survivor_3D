@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public class BOSS : Unit
@@ -20,31 +21,27 @@ public class BOSS : Unit
        
     }
 
-    internal class Boss_Rush_Attack : IAttackStrategy
+    public override UnitAnimationType F_returnAttackType()
     {
-        // 보스 돌진 
-        public void IS_Attack(Unit _boss)
+        // marker와 unit의 거리가 
+        float _distance = Vector3.Distance(PlayerManager.Instance.markerHeadTrasform.position, this.transform.position);
+
+        // TODO : 임시거리 
+        if (_distance <= 5f)
         {
-            Debug.Log("BOSS가 RUSH Attack을 합니다");
+            // rush
+            return UnitAnimationType.RushAttack;
+        }
+        else if (_distance <= 3f) 
+        {
+            // 투사체
+            return UnitAnimationType.ProjectileAttack;
+        }
+        else 
+        {
+            return UnitAnimationType.BasicAttack;
         }
     }
 
 
-    internal class Boss_Projectile_Attack : IAttackStrategy
-    {
-        // 하늘에서 투사체가 떨어짐 
-
-        public void IS_Attack(Unit _boss)
-        {
-            Debug.Log("BOSS가 Projectile Attack을 합니다");
-        }
-    }
-
-    internal class Boss_Basic_Attack : IAttackStrategy
-    {
-        public void IS_Attack(Unit _boss)
-        {
-            Debug.Log("RANGED가 BASIC Attack 을 합니다");
-        }
-    }
 }
