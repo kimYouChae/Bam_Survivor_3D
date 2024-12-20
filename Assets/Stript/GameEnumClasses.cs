@@ -136,6 +136,13 @@ public enum UnitAnimationType
     Exit
 }
 
+//Unit Bullet Type
+public enum UnitBullet 
+{
+    RedApple,
+    YellowApple
+}
+
 #endregion
 
 #region PropsBuilding
