@@ -15621,6 +15621,7 @@ Transform:
   - {fileID: 83443845}
   - {fileID: 1834207936}
   - {fileID: 230292307}
+  - {fileID: 1637733377}
   - {fileID: 574061363}
   m_Father: {fileID: 1492454876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33963,6 +33964,7 @@ GameObject:
   - component: {fileID: 1398733627}
   - component: {fileID: 1398733626}
   - component: {fileID: 1398733628}
+  - component: {fileID: 1398733630}
   - component: {fileID: 1398733629}
   m_Layer: 0
   m_Name: EnemyManager
@@ -34023,6 +34025,7 @@ MonoBehaviour:
   _spawner: []
   _unitGenerator: {fileID: 1398733626}
   _unitPooling: {fileID: 1398733628}
+  _bulletPooling: {fileID: 1398733630}
   _unitCsvImporter: {fileID: 1398733629}
   _unitBullet: {fileID: 3726486002714545801, guid: 7e57c7545133b354aa238f20cb50b0ee, type: 3}
 --- !u!114 &1398733628
@@ -34052,6 +34055,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d500c05cd19e243a9a828652802d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1398733630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398733624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8feb12fe56473245a9d9c5f45010c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletParnet: {fileID: 1637733377}
+  _bulletPool: []
+  _bullet:
+  - {fileID: 4768507072614205777, guid: 3804ee1eca3fecc4e851ac78fbb7ea37, type: 3}
+  - {fileID: 1038081335822363041, guid: 951f5ac24397aba49a73b108251e163b, type: 3}
 --- !u!1001 &1400385047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39783,6 +39803,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6762074840068550472, guid: fc89906745beda04ab17797fbc7bc6e5, type: 3}
   m_PrefabInstance: {fileID: 1637074221}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1637733376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1637733377}
+  m_Layer: 0
+  m_Name: UnitBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1637733377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637733376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 651533140}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1642518006
 PrefabInstance:
   m_ObjectHideFlags: 0
