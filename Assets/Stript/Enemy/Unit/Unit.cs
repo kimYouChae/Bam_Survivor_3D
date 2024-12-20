@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
+using Random = UnityEngine.Random;
 
 public abstract class Unit : MonoBehaviour
 {
@@ -231,9 +229,39 @@ public abstract class Unit : MonoBehaviour
     #region DIE
     public void F_OffUnit() 
     {
+        // 경험치 생성
+        F_DistrubutionExperience();
+
         // pool에 넣기 
         UnitManager.Instance.UnitPooling.F_SetUnit(this, unitState.AnimalType);
     }
+
+    private void F_DistrubutionExperience() 
+    {
+        // 경험치 갯수
+        // StageIndex ~ StageIndex * 2
+
+        int _currState = StageManager.Instance.currStageIndex;
+        int _exCnt = Random.Range( Math.Max(1, _currState) , _currState * 2 + 1 );
+
+        Debug.Log(":::::::::::::::" + _exCnt);
+
+        float x = 0;
+        float y = 0;
+
+        for (int i = 0; i < _exCnt; i++) 
+        {
+            GameObject _ex = PoolingManager.Instance.experiencePooling.F_GetExperience();
+
+            _ex.gameObject.name = "이거슨경험치";
+
+            x = gameObject.transform.position.x + Random.Range(0f , 1f);
+            y = gameObject.transform.position.z + Random.Range(0f , 1f);
+
+            _ex.transform.position = new Vector3(x, 0.5f ,y);
+        }
+    }
+
     #endregion
 
     #region OnDisable

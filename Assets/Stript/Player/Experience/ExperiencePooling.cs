@@ -50,6 +50,7 @@ public class ExperiencePooling : MonoBehaviour
 
         GameObject _obj = _experienceStack.Pop();
         _obj.SetActive(true);
+
         return _obj;
     }
 

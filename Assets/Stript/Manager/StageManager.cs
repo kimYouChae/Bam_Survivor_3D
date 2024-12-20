@@ -18,6 +18,9 @@ public class StageManager : Singleton<StageManager>
     [SerializeField]
     private List<Stage> _stages;
 
+    // 프로퍼티
+    public int currStageIndex => _currStageIndex;
+
     protected override void Singleton_Awake()
     {
         // 초기화 
