@@ -10,8 +10,8 @@ public class AttackHandler : IAttackHandler
     private Unit _unit;
 
     [Header("===Attack===")]
-    [SerializeField] private Dictionary<UnitAnimationType, IAttackStrategy> DICT_AniTypeByAttackSt;
-    [SerializeField] private IAttackStrategy _nowAttack;
+    [SerializeField] private Dictionary<UnitAnimationType, AttackStrategy> DICT_AniTypeByAttackSt;
+    [SerializeField] private AttackStrategy _nowAttack;
     [SerializeField] private UnitAnimationType _currAnimationType;
 
     // 생성자
@@ -20,10 +20,10 @@ public class AttackHandler : IAttackHandler
         this._unit = _unit;
 
         // attack인터페이스 리스트 초기화
-        DICT_AniTypeByAttackSt = new Dictionary<UnitAnimationType, IAttackStrategy>();
+        DICT_AniTypeByAttackSt = new Dictionary<UnitAnimationType, AttackStrategy>();
     }
 
-    public void AH_AddAttackList(UnitAnimationType _aniType , IAttackStrategy _attack) 
+    public void AH_AddAttackList(UnitAnimationType _aniType , AttackStrategy _attack) 
     {
         // 리스트는 생성자에서 초기화
         try

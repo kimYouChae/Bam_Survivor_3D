@@ -20,8 +20,8 @@ public abstract class Unit : MonoBehaviour
     [Header("===Handler===")]
     [SerializeField] ITrackingHandler               _trackingHandler;   // tracking 핸들러
     [SerializeField] IAttackHandler                 _attackHandler;     // 공격 핸들러 
-    [SerializeField] FSMHandler _FSMHandler;
-    [SerializeField] UnitAnimationHandler _animHandler;
+    [SerializeField] FSMHandler                     _FSMHandler;
+    [SerializeField] UnitAnimationHandler           _animHandler;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -35,6 +35,8 @@ public abstract class Unit : MonoBehaviour
 
     public NavMeshAgent unitAgent => _unitAgent;
     public Transform hitPosition => _hitPosition;
+
+    public virtual void F_BossChangeSpeed() { }
 
     #region Init
 
@@ -80,6 +82,12 @@ public abstract class Unit : MonoBehaviour
         {
             _unitAgent.enabled = _flag;
         }
+    }
+
+    // Destination Set
+    public void F_SetDestinationToHead() 
+    {
+        _unitAgent.SetDestination(PlayerManager.Instance.markerHeadTrasform.position);
     }
 
     #endregion
@@ -164,7 +172,7 @@ public abstract class Unit : MonoBehaviour
     #endregion
 
     #region ATTACK HANDLER
-    public void F_AddToAttackStrtegy(UnitAnimationType _type, IAttackStrategy _attack) 
+    public void F_AddToAttackStrtegy(UnitAnimationType _type, AttackStrategy _attack) 
     {
         _attackHandler.AH_AddAttackList(_type , _attack);
     }
@@ -239,5 +247,11 @@ public abstract class Unit : MonoBehaviour
 
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position , unitSearchRadious);
+    }
 
 }

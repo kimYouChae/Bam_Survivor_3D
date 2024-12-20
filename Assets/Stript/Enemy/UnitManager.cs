@@ -33,7 +33,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (Input.GetKeyDown(KeyCode.V)) 
         {
-            GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.Pig);
+            GameObject _insUnit = _unitPooling.F_GetUnit(Unit_Animal_Type.BuffaloBoss);
             F_ObjectOnOffNavmesh(_insUnit, GameManager.Instance._unitTestGeneration);
         }
     }

@@ -13,7 +13,7 @@ public class UnitBulletPooling : MonoBehaviour
     [SerializeField]
     private List<GameObject> _bullet;       // 쉴드 오브젝트 
     [SerializeField]
-    private Dictionary< UnitBullet, Stack<GameObject>> DICT_shieldEffectToStack;
+    private Dictionary< UnitBullet, Stack<GameObject>> DICT_BulletTypeToStack;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class UnitBulletPooling : MonoBehaviour
 
     private void F_InitShieldPool()
     {
-        DICT_shieldEffectToStack = new Dictionary<UnitBullet, Stack<GameObject>>();
+        DICT_BulletTypeToStack = new Dictionary<UnitBullet, Stack<GameObject>>();
 
         UnitBullet[] _effect = (UnitBullet[])System.Enum.GetValues(typeof(UnitBullet));
 
@@ -47,7 +47,7 @@ public class UnitBulletPooling : MonoBehaviour
                 _stack.Push(F_CreateUnitBullet(_effect[i]));
             }
 
-            DICT_shieldEffectToStack.Add(_effect[i], _stack);
+            DICT_BulletTypeToStack.Add(_effect[i], _stack);
         }
 
     }
@@ -67,19 +67,19 @@ public class UnitBulletPooling : MonoBehaviour
     public GameObject F_UnitBulletGet(UnitBullet _bullet)
     {
         // Effect에 해당하는 오브젝트가 없을떄 
-        if (!DICT_shieldEffectToStack.ContainsKey(_bullet))
+        if (!DICT_BulletTypeToStack.ContainsKey(_bullet))
         {
             Debug.LogError(this + " : SHIELD DICTIONARY ISNT CONTAIN KEY");
             return null;
         }
 
         // 스택이 비어있으면 ? 
-        if (DICT_shieldEffectToStack[_bullet].Count == 0)
+        if (DICT_BulletTypeToStack[_bullet].Count == 0)
         {
-            DICT_shieldEffectToStack[_bullet].Push(F_CreateUnitBullet(_bullet));
+            DICT_BulletTypeToStack[_bullet].Push(F_CreateUnitBullet(_bullet));
         }
 
-        GameObject _shield = DICT_shieldEffectToStack[_bullet].Pop();
+        GameObject _shield = DICT_BulletTypeToStack[_bullet].Pop();
         _shield.SetActive(true);
 
         return _shield;
@@ -91,7 +91,7 @@ public class UnitBulletPooling : MonoBehaviour
         _bullet.SetActive(false);
         _bullet.transform.localPosition = Vector3.zero;
 
-        DICT_shieldEffectToStack[_type].Push(_bullet);
+        DICT_BulletTypeToStack[_type].Push(_bullet);
 
     }
 }
