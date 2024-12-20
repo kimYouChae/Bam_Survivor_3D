@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RANGED_Basic_Attack : IAttackStrategy
+public class RANGED_Basic_Attack : AttackStrategy
 {
     [SerializeField]
     private UnitAnimationType _attackType;
@@ -25,7 +25,7 @@ public class RANGED_Basic_Attack : IAttackStrategy
 
         // 원거리 공격
         // ##TODO : pool에서 get 해야함 
-        //GameObject _obj = Instantiate(UnitManager.Instance.UnitBullet, _unit.hitPosition.position, Quaternion.identity);
+        GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(UnitBullet.YellowApple);
 
         // marker 감지 
         Collider[] _coll = Physics.OverlapSphere(_unit.hitPosition.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
@@ -39,7 +39,7 @@ public class RANGED_Basic_Attack : IAttackStrategy
         else
             _dir = PlayerManager.Instance.markerHeadTrasform.position - _unit.transform.position;
 
-        //_obj.GetComponent<Rigidbody>().AddForce(_dir * BulletForce, ForceMode.Impulse);
+        _obj.GetComponent<Rigidbody>().AddForce(_dir * BulletForce, ForceMode.Impulse);
 
     }
 }
