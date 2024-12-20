@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #region Interface
-public interface IAttackStrategy
+public interface AttackStrategy
 {
     void IS_Attack(Unit _unit);
 }
@@ -18,7 +18,7 @@ public interface ITrackingHandler
 
 public interface IAttackHandler 
 {
-    void AH_AddAttackList(UnitAnimationType _aniType , IAttackStrategy attack);
+    void AH_AddAttackList(UnitAnimationType _aniType , AttackStrategy attack);
     void AH_AttackExcutor();
 }
 
@@ -134,6 +134,13 @@ public enum UnitAnimationType
     ProjectileAttack,
     Die,
     Exit
+}
+
+//Unit Bullet Type
+public enum UnitBullet 
+{
+    RedApple,
+    YellowApple
 }
 
 #endregion

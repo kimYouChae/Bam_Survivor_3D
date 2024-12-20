@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
+using Random = UnityEngine.Random;
 
 public abstract class Unit : MonoBehaviour
 {
@@ -20,8 +18,8 @@ public abstract class Unit : MonoBehaviour
     [Header("===Handler===")]
     [SerializeField] ITrackingHandler               _trackingHandler;   // tracking 핸들러
     [SerializeField] IAttackHandler                 _attackHandler;     // 공격 핸들러 
-    [SerializeField] FSMHandler _FSMHandler;
-    [SerializeField] UnitAnimationHandler _animHandler;
+    [SerializeField] FSMHandler                     _FSMHandler;
+    [SerializeField] UnitAnimationHandler           _animHandler;
 
     // 프로퍼티
     public UnitState unitState { get => _unitState; set { _unitState = value; } }
@@ -35,6 +33,8 @@ public abstract class Unit : MonoBehaviour
 
     public NavMeshAgent unitAgent => _unitAgent;
     public Transform hitPosition => _hitPosition;
+
+    public virtual void F_BossChangeSpeed() { }
 
     #region Init
 
@@ -80,6 +80,12 @@ public abstract class Unit : MonoBehaviour
         {
             _unitAgent.enabled = _flag;
         }
+    }
+
+    // Destination Set
+    public void F_SetDestinationToHead() 
+    {
+        _unitAgent.SetDestination(PlayerManager.Instance.markerHeadTrasform.position);
     }
 
     #endregion
@@ -164,7 +170,7 @@ public abstract class Unit : MonoBehaviour
     #endregion
 
     #region ATTACK HANDLER
-    public void F_AddToAttackStrtegy(UnitAnimationType _type, IAttackStrategy _attack) 
+    public void F_AddToAttackStrtegy(UnitAnimationType _type, AttackStrategy _attack) 
     {
         _attackHandler.AH_AddAttackList(_type , _attack);
     }
@@ -223,9 +229,39 @@ public abstract class Unit : MonoBehaviour
     #region DIE
     public void F_OffUnit() 
     {
+        // 경험치 생성
+        F_DistrubutionExperience();
+
         // pool에 넣기 
         UnitManager.Instance.UnitPooling.F_SetUnit(this, unitState.AnimalType);
     }
+
+    private void F_DistrubutionExperience() 
+    {
+        // 경험치 갯수
+        // StageIndex ~ StageIndex * 2
+
+        int _currState = StageManager.Instance.currStageIndex;
+        int _exCnt = Random.Range( Math.Max(1, _currState) , _currState * 2 + 1 );
+
+        Debug.Log(":::::::::::::::" + _exCnt);
+
+        float x = 0;
+        float y = 0;
+
+        for (int i = 0; i < _exCnt; i++) 
+        {
+            GameObject _ex = PoolingManager.Instance.experiencePooling.F_GetExperience();
+
+            _ex.gameObject.name = "이거슨경험치";
+
+            x = gameObject.transform.position.x + Random.Range(0f , 1f);
+            y = gameObject.transform.position.z + Random.Range(0f , 1f);
+
+            _ex.transform.position = new Vector3(x, 0.5f ,y);
+        }
+    }
+
     #endregion
 
     #region OnDisable
@@ -239,5 +275,11 @@ public abstract class Unit : MonoBehaviour
 
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position , unitSearchRadious);
+    }
 
 }

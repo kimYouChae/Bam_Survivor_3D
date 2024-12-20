@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MELLE_Basic_Attack : IAttackStrategy
+public class MELLE_Basic_Attack : AttackStrategy
 {
     [SerializeField]
     private UnitAnimationType _attackType;

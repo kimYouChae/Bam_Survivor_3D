@@ -37,7 +37,7 @@ public class TrackingHanlder : ITrackingHandler
                 // marker의 첫번째 위치를 목적지고
                 _destiPosition = PlayerManager.Instance.markerHeadTrasform.position;
 
-                Debug.Log(_unit.gameObject.name + "의 도착지 + " + _destiPosition);
+                //Debug.Log(_unit.gameObject.name + "의 도착지 + " + _destiPosition);
 
                 // agent의 도착지 잡아주기 
                 _unitAgent.SetDestination(_destiPosition);
