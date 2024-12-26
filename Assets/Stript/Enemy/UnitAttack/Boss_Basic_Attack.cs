@@ -19,7 +19,7 @@ public class Boss_Basic_Attack : AttackStrategy
         _boss.F_TriggerAnimation(_attackType);
 
         // 근접 공격 
-        Collider[] _coll = Physics.OverlapSphere(_boss.hitPosition.position, _boss.unitSearchRadious, LayerManager.Instance.markerLayer);
+        Collider[] _coll = Physics.OverlapSphere(_boss.hitTransform.position, _boss.unitSearchRadious, LayerManager.Instance.markerLayer);
 
         if (_coll.Length <= 0)
             return;

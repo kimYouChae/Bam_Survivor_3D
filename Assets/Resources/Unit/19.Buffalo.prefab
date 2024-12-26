@@ -221,7 +221,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7065255199407736152}
@@ -353,16 +353,18 @@ MonoBehaviour:
     _defencePower: 0
     _unitDamage: 0
   _lifeCycle: 0
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  curr_UNITS_TATE: 0
-  pre_UNITS_TATE: 0
-  _destiPosition: {x: 0, y: 0, z: 0}
   _unitAgent: {fileID: 0}
-  _playerPos2D: {x: 0, y: 0}
-  _unitPos2D: {x: 0, y: 0}
   _unitAnimator: {fileID: 0}
-  _nowAnimation: 0
+  _hitTransform: {fileID: 0}
+  _FSMHandler:
+    _UnitHeadMachine:
+      _unit: {fileID: 0}
+    curr_UNITS_TATE: 0
+    pre_UNITS_TATE: 0
+  _animHandler:
+    _currAniState: 0
+    _unitAnimator: {fileID: 0}
+    _animationEndFlag: 0
 --- !u!1 &5688514589964983292
 GameObject:
   m_ObjectHideFlags: 0

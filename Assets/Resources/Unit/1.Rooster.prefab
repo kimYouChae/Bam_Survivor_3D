@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 5510196490160580394}
   - component: {fileID: 5510196490160580395}
   - component: {fileID: 3671050622021533840}
-  - component: {fileID: 7672654272493003402}
+  - component: {fileID: 1459411102614994906}
   m_Layer: 8
   m_Name: 1.Rooster
   m_TagString: Unit
@@ -522,7 +522,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7672654272493003402
+--- !u!114 &1459411102614994906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5510196490160580397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa11b48aa847e944b125ab4ed351e94, type: 3}
+  m_Script: {fileID: 11500000, guid: a6e3e3dcff335464f8232e581a39e781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _unitState:
@@ -547,16 +547,18 @@ MonoBehaviour:
     _defencePower: 0
     _unitDamage: 0
   _lifeCycle: 0
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  curr_UNITS_TATE: 0
-  pre_UNITS_TATE: 0
-  _destiPosition: {x: 0, y: 0, z: 0}
   _unitAgent: {fileID: 0}
-  _playerPos2D: {x: 0, y: 0}
-  _unitPos2D: {x: 0, y: 0}
   _unitAnimator: {fileID: 0}
-  _nowAnimation: 0
+  _hitPosition: {fileID: 0}
+  _FSMHandler:
+    _UnitHeadMachine:
+      _unit: {fileID: 0}
+    curr_UNITS_TATE: 0
+    pre_UNITS_TATE: 0
+  _animHandler:
+    _currAniState: 0
+    _unitAnimator: {fileID: 0}
+    _animationEndFlag: 0
 --- !u!1 &8819864896993621664
 GameObject:
   m_ObjectHideFlags: 0

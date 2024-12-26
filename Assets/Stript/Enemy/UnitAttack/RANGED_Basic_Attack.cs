@@ -26,9 +26,11 @@ public class RANGED_Basic_Attack : AttackStrategy
         // 원거리 공격
         // ##TODO : pool에서 get 해야함 
         GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(UnitBullet.YellowApple);
+        // 위치조정 
+        _obj.transform.position = _unit.hitTransform.position;
 
         // marker 감지 
-        Collider[] _coll = Physics.OverlapSphere(_unit.hitPosition.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
+        Collider[] _coll = Physics.OverlapSphere(_unit.hitTransform.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
 
         // 방향 : 플레이어- unit방향벡터
         Vector3 _dir;

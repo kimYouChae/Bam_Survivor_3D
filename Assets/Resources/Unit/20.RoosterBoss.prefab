@@ -415,7 +415,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8819864896993389196}
@@ -466,7 +466,7 @@ Animator:
   m_GameObject: {fileID: 5510196490160580397}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8374733306c3d3c46aa3e956993d7273, type: 3}
-  m_Controller: {fileID: 9100000, guid: a9b14cd5141dca24d88ecf3719d56845, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3447eee7a13995d4fa19e44767874ee7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -547,16 +547,19 @@ MonoBehaviour:
     _defencePower: 0
     _unitDamage: 0
   _lifeCycle: 0
-  _UnitHeadMachine:
-    _unit: {fileID: 0}
-  curr_UNITS_TATE: 0
-  pre_UNITS_TATE: 0
-  _destiPosition: {x: 0, y: 0, z: 0}
   _unitAgent: {fileID: 0}
-  _playerPos2D: {x: 0, y: 0}
-  _unitPos2D: {x: 0, y: 0}
   _unitAnimator: {fileID: 0}
-  _nowAnimation: 0
+  _hitTransform: {fileID: 0}
+  _FSMHandler:
+    _UnitHeadMachine:
+      _unit: {fileID: 0}
+    curr_UNITS_TATE: 0
+    pre_UNITS_TATE: 0
+  _animHandler:
+    _currAniState: 0
+    _unitAnimator: {fileID: 0}
+    _animationEndFlag: 0
+  _attackIndexer: 0
 --- !u!1 &8819864896993621664
 GameObject:
   m_ObjectHideFlags: 0

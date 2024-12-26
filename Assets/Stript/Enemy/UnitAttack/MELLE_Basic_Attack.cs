@@ -21,7 +21,7 @@ public class MELLE_Basic_Attack : AttackStrategy
         _unit.F_TriggerAnimation(_attackType);
 
         // 근접 공격 
-        Collider[] _coll = Physics.OverlapSphere(_unit.hitPosition.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
+        Collider[] _coll = Physics.OverlapSphere(_unit.hitTransform.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
 
         if (_coll.Length <= 0)
             return;
