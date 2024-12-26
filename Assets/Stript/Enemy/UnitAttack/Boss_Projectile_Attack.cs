@@ -29,7 +29,7 @@ public class Boss_Projectile_Attack : AttackStrategy
         GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(UnitBullet.RedApple);
 
         // marker 감지 
-        Collider[] _coll = Physics.OverlapSphere(_boss.hitPosition.position, _boss.unitSearchRadious, LayerManager.Instance.markerLayer);
+        Collider[] _coll = Physics.OverlapSphere(_boss.hitTransform.position, _boss.unitSearchRadious, LayerManager.Instance.markerLayer);
 
         // 방향 : 플레이어- unit방향벡터
         Vector3 _dir;

@@ -1,5 +1,5 @@
 _unityType,_unitAnimalType,_unitName,_unityHp,_uniySpeed,_unityAttackTime,_unitTimeStamp,_searchRadious,_defencePower,_unitDamage
-MELLE,Roster,Roster,5,2,2,0,1,5,1
+MELLE,Rooster,Rooster,5,2,2,0,1,5,1
 MELLE,Pig,Pig,5,2,2,0,1,5,1
 MELLE,Sheep,Sheep,5,2,2,0,1,5,1
 RANGED,Chick,Chick,3,4,2,0,4,3,3
@@ -8,6 +8,6 @@ RANGED,Hen,Hen,3,4,2,0,4,3,3
 MELLE,Donkey,Donkey,10,2,2,0,1,10,2
 MELLE,Cow,Cow,10,2,2,0,1,10,2
 MELLE,Buffalo,Buffalo,10,2,2,0,1,10,2
-BOSS,RosterBoss,RosterBoss,25,2,2,0,3,20,10
+BOSS,RoosterBoss,RoosterBoss,25,2,2,0,3,20,10
 BOSS,SheepBoss,SheepBoss,25,2,2,0,3,20,10
 BOSS,BuffaloBoss,BuffaloBoss,25,2,2,0,3,20,10

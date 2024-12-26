@@ -66,7 +66,7 @@ public enum Unit_Type
 // Animal Type
 public enum Unit_Animal_Type 
 {
-    Roster,
+    Rooster,
     Pig,
     Sheep,
     Chick,
@@ -75,7 +75,7 @@ public enum Unit_Animal_Type
     Donkey,
     Cow,
     Buffalo,
-    RosterBoss,
+    RoosterBoss,
     SheepBoss,
     BuffaloBoss
 }

@@ -13,7 +13,7 @@ public abstract class Unit : MonoBehaviour
     [Header("===Component")]
     [SerializeField] protected NavMeshAgent _unitAgent;     
     [SerializeField] protected Animator _unitAnimator;      
-    [SerializeField] private Transform _hitPosition;        // 히트 위치
+    [SerializeField] private Transform _hitTransform;        // 히트 위치
 
     [Header("===Handler===")]
     [SerializeField] ITrackingHandler               _trackingHandler;   // tracking 핸들러
@@ -32,7 +32,7 @@ public abstract class Unit : MonoBehaviour
     public float unitTimeStamp { get => _unitState.UnitTimeStamp; set { _unitState.UnitTimeStamp = value; } }
 
     public NavMeshAgent unitAgent => _unitAgent;
-    public Transform hitPosition => _hitPosition;
+    public Transform hitTransform => _hitTransform;
 
     public virtual void F_BossChangeSpeed() { }
 
@@ -54,7 +54,7 @@ public abstract class Unit : MonoBehaviour
         _animHandler = new UnitAnimationHandler(this);
 
         // 히트포지션 -> 하위 첫번째 자식으로 
-        _hitPosition = gameObject.transform.GetChild(0);
+        _hitTransform = gameObject.transform.GetChild(0);
     }
 
     // 공격 animationType을 return 
@@ -244,7 +244,7 @@ public abstract class Unit : MonoBehaviour
         int _currState = StageManager.Instance.currStageIndex;
         int _exCnt = Random.Range( Math.Max(1, _currState) , _currState * 2 + 1 );
 
-        Debug.Log(":::::::::::::::" + _exCnt);
+        //Debug.Log(":::::::::::::::" + _exCnt);
 
         float x = 0;
         float y = 0;
