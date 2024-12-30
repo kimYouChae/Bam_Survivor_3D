@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: cad36e03771872b42a3fe872ddad48e2, type: 2}
 --- !u!1001 &6234996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7637,7 +7637,7 @@ GameObject:
   m_Name: Buildling1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &213577558
@@ -8776,7 +8776,7 @@ GameObject:
   m_Name: Boundary4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &252358358
@@ -18044,7 +18044,7 @@ GameObject:
   m_Name: Buildling1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &584874561
@@ -18915,7 +18915,7 @@ GameObject:
   m_Name: Buildling1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &613717810
@@ -25998,7 +25998,6 @@ Transform:
   - {fileID: 1573252192}
   - {fileID: 650229252}
   - {fileID: 621902436497178753}
-  - {fileID: 5915827682385138967}
   - {fileID: 4760306793318231185}
   - {fileID: 590902873}
   - {fileID: 2091886578}
@@ -34587,7 +34586,7 @@ GameObject:
   m_Name: Buildling1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1082403757
@@ -40995,7 +40994,7 @@ GameObject:
   m_Name: Boundary2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1279264344
@@ -44792,7 +44791,7 @@ Transform:
   m_GameObject: {fileID: 1374721029}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49836,6 +49835,7 @@ Transform:
   - {fileID: 1708910490}
   - {fileID: 644990506}
   - {fileID: 608636253519377198}
+  - {fileID: 5915827682385138967}
   - {fileID: 1712664458}
   - {fileID: 1374721030}
   - {fileID: 911064833}
@@ -55502,7 +55502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1708910490
 Transform:
   m_ObjectHideFlags: 0
@@ -56749,7 +56749,7 @@ GameObject:
   m_Name: Boundary3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1732296521
@@ -66523,7 +66523,7 @@ GameObject:
   m_Name: Boundary1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2029657997
@@ -72312,7 +72312,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 800457346}
+    m_TransformParent: {fileID: 1516618455}
     m_Modifications:
     - target: {fileID: 2332822570920839561, guid: 5e1cbb38c3522424dac8509b24a69bdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72357,6 +72357,10 @@ PrefabInstance:
     - target: {fileID: 3018261432665788035, guid: 5e1cbb38c3522424dac8509b24a69bdc, type: 3}
       propertyPath: m_Name
       value: Drinking_bowl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018261432665788035, guid: 5e1cbb38c3522424dac8509b24a69bdc, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -72695,7 +72699,7 @@ GameObject:
   m_Name: Lake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6455188700256245580
