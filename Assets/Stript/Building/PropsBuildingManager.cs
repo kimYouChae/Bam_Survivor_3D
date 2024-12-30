@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using System;
+
+using Random = UnityEngine.Random;
 
 public class PropsBuildingManager : Singleton<PropsBuildingManager>
 {
     [Header("===InGame Props Building===")]
     [SerializeField] private Dictionary<InGamePropState, int> DICT_inGamePropsToCount;     // 인게임내에서 획득한 props To Count
-    [SerializeField]
-    private Transform[] _buildingInitTrs;       // building 생성할 위치 
-    [SerializeField]
-    private GameObject[] _buildingPrepabs;      // building 프리팹
+
+    [Header("===Props Building Init===")]
     [SerializeField]
     private InGamePropState[] _inGamePropsStateList;
+    // [0] : crystal
+    // [1] [2] [3] : 작물
     [SerializeField]
-    private Transform _buildingParnet;          // 생성할 building담아둘 부모 
+    private GameObject[] _buildingPrdfab;       // building 프리팹
+    // [0] Rice [1] Tomato [2] Carrot (enum 순서대로)
+    [SerializeField]
+    private PropsField[] _propsField;           // Field 오브젝트
+    [SerializeField]
+    private List<PropsBuilding> _propsBuilding; // Building 스크립트 
+
 
     [Header("===Sciprt===")]
     [SerializeField]
@@ -47,37 +55,37 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
     private void F_SetUpBuidling() 
     {
-        // 랜덤으로 building 설치 
+        // 랜덤으로 state 섞기
         F_SuffleAlgorithm(ref _inGamePropsStateList);
+        // [0] : crystal
+        // [1] [2] [3] : 작물
 
-        for (int i = 0; i < _inGamePropsStateList.Length; i++) 
+        // 1. 건물생성
+        for (int i = 1; i < _inGamePropsStateList.Length; i++) 
         {
-            int _nowBuildingIdx = (int)_inGamePropsStateList[i];
+            // enum에 해당하는 프리팹 생성
+            GameObject _obj = Instantiate(_buildingPrdfab[ (int)_inGamePropsStateList[i] ] 
+                , _propsField[i-1].buildingTransform);
 
-            // 랜덤으로 섞인 type에 해당하는 프리팹 생성, 위치는 0부터 순서대로
-            GameObject _buil = Instantiate(_buildingPrepabs[_nowBuildingIdx] , _buildingInitTrs[i]);
-            _buil.transform.SetParent(_buildingParnet);
+            // List에 넣기 
+            _propsBuilding.Add(_obj.GetComponent<PropsBuilding>());
+        }
 
-            // PropsBuilding 스크립트 추가
-            if (_buil.GetComponent<PropsBuilding>() == null )
-                _buil.AddComponent<PropsBuilding>();
+        // 2. Building State 넣어주기
+        for(int i = 0; i < _inGamePropsStateList.Length; i++) 
+        {
+            // type 별 클래스 
+            Building _build = _propsCsvImporter.F_StateToBuilding(_inGamePropsStateList[i] );
 
-            // csv Importer에 저장된 Building 클래스 할당하기
-            Building _curBuild = _propsCsvImporter.F_StateToBuilding(_inGamePropsStateList[i]);
-            _buil.GetComponent<PropsBuilding>().F_SetBuildingState(_curBuild);
-
-            // navMesh Obstacle 없으면 추가 
-            if (_buil.GetComponent<NavMeshObstacle>() == null)
-                _buil.AddComponent<NavMeshObstacle>();
-            
-            // curve 체크 
-            _buil.GetComponent<NavMeshObstacle>().carving = true;
+            // build 클래스 넣어주기 
+            _propsBuilding[i].F_SetBuildingState( _build ); 
         }
     }
 
     private void F_SuffleAlgorithm(ref InGamePropState[] _array) 
     {
-        for (int i = 0; i < _array.Length - 1; i++) 
+        // [0]은 crystal , 제외
+        for (int i = 1; i < _array.Length - 1; i++) 
         {
             // 내 뒤로 랜덤인덱스
             int _ranIndex = Random.Range(i, _array.Length);
