@@ -44,24 +44,25 @@ public class PropsBuildingCollider : MonoBehaviour
         }
     }
 
-
-    // player가 enter 했을 때 
-    private void OnCollisionEnter(Collision collision)
-   {
-       // marker가 enter 하면 
-       if (collision.gameObject.layer
-           == LayerManager.Instance.markerLayer) 
-       {
+    private void OnTriggerEnter(Collider other)
+    {
+        // marker가 enter 하면 
+        if (other.gameObject.layer
+            == LayerManager.Instance.markerLayerNum)
+        {
             // 수확할 준비가 되었으면
-            if (_readyToHarvest) 
+            if (_readyToHarvest)
             {
                 // propsState 넣기 
                 PropsBuildingManager.Instance.F_GetProps(_building.PropsType);
 
                 _readyToHarvest = false;
             }
-           
-       }
-   }
-   
+            else
+            {
+                Debug.Log("아직 성장이 덜 되었습니다");
+            }
+
+        }
+    }
 }

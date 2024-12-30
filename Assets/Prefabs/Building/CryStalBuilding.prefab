@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5968768135338309967}
   - component: {fileID: 7974185642913793727}
   - component: {fileID: 4907088006595498618}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BuildingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -238,6 +238,7 @@ MonoBehaviour:
     _generateSecond: 0
     _propsSprite: {fileID: 0}
   _readyToHarvest: 0
+  _currTime: 0
 --- !u!1 &1600593257634086850
 GameObject:
   m_ObjectHideFlags: 0
