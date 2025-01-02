@@ -7422,6 +7422,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639995658}
   m_CullTransparentMesh: 0
+--- !u!1 &641561778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641561779}
+  m_Layer: 0
+  m_Name: PropsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &641561779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641561778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 651533140}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642250489
 GameObject:
   m_ObjectHideFlags: 0
@@ -7931,6 +7962,7 @@ Transform:
   - {fileID: 230292307}
   - {fileID: 1637733377}
   - {fileID: 574061363}
+  - {fileID: 641561779}
   m_Father: {fileID: 1492454876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &652903853
@@ -29580,9 +29612,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2128532646}
   - component: {fileID: 2128532648}
+  - component: {fileID: 2128532649}
   - component: {fileID: 2128532647}
   m_Layer: 0
-  m_Name: BuildingManager
+  m_Name: Crops-BuildingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29640,6 +29673,25 @@ MonoBehaviour:
   _propsBuilding:
   - {fileID: 2051234293}
   _propsCsvImporter: {fileID: 2128532647}
+  _cropsPooling: {fileID: 2128532649}
+--- !u!114 &2128532649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128532645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309e0198b83be24d8df4a456494e005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cropsPoolParent: {fileID: 641561779}
+  _cropsPool: []
+  _cropsPrefab:
+  - {fileID: 6078610078371444970, guid: 8015ada5ff5f6c14e8752417675aff52, type: 3}
+  - {fileID: 6563240544865591967, guid: adff7e74edf0e514eba5a3665defeefc, type: 3}
+  - {fileID: 7053035016782313476, guid: 48976df877d9a33418a64ddc6467a9f1, type: 3}
 --- !u!1001 &2138376945
 PrefabInstance:
   m_ObjectHideFlags: 0
