@@ -124,7 +124,7 @@ public enum CropsType
     Carrot              // ´ç±Ù 
 }
 
-public enum GoodsState 
+public enum GoodsType 
 {
     Crystal,
     Gold
