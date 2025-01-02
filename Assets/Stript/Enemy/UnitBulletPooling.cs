@@ -7,21 +7,21 @@ public class UnitBulletPooling : MonoBehaviour
 {
     [Header("===Pool===")]
     [SerializeField]
-    private Transform _bulletParnet;        // 쉴드 pool 부모 
+    private Transform _bulletParnet;        // bullet pool 부모 
     [SerializeField]
-    private List<GameObject> _bulletPool;   // 쉴드 pool 
+    private List<GameObject> _bulletPool;   // bullet pool 
     [SerializeField]
-    private List<GameObject> _bullet;       // 쉴드 오브젝트 
+    private List<GameObject> _bullet;       // bullet 오브젝트 
     [SerializeField]
     private Dictionary< UnitBullet, Stack<GameObject>> DICT_BulletTypeToStack;
 
     private void Start()
     {
         // pool 초기화 
-        F_InitShieldPool();
+        F_InitBulletPool();
     }
 
-    private void F_InitShieldPool()
+    private void F_InitBulletPool()
     {
         DICT_BulletTypeToStack = new Dictionary<UnitBullet, Stack<GameObject>>();
 
@@ -37,7 +37,7 @@ public class UnitBulletPooling : MonoBehaviour
             _bulletPool.Add(_obj);
         }
 
-        // shield effect enum 만큼 pool 생성  
+        // bullet enum 만큼 pool 생성  
         for (int i = 0; i < _effect.Length; i++)
         {
             Stack<GameObject> _stack = new Stack<GameObject>();
@@ -52,7 +52,7 @@ public class UnitBulletPooling : MonoBehaviour
 
     }
 
-    // effect에 맞는 쉴드 생성  
+    // effect에 맞는 bullet 생성  
     private GameObject F_CreateUnitBullet(UnitBullet _bullet)
     {
         GameObject _obj = Instantiate(this._bullet[(int)_bullet]);
@@ -63,7 +63,7 @@ public class UnitBulletPooling : MonoBehaviour
         return _obj;
     }
 
-    // shield Get
+    // bullet Get
     public GameObject F_UnitBulletGet(UnitBullet _bullet)
     {
         // Effect에 해당하는 오브젝트가 없을떄 
@@ -85,7 +85,7 @@ public class UnitBulletPooling : MonoBehaviour
         return _shield;
     }
 
-    // shiled Set
+    // bullet Set
     public void F_UnitBulletSet(GameObject _bullet, UnitBullet _type)
     {
         _bullet.SetActive(false);
