@@ -11,14 +11,14 @@ public class PropsCsvImporter : MonoBehaviour
 
     [Header("===Container===")]
     [SerializeField]
-    private Dictionary<InGamePropState, Building> DICT_proptsTOBuilding;
+    private Dictionary<CropsType, Building> DICT_proptsTOBuilding;
     
     // state에 맞는 building 
-    public Building F_StateToBuilding(InGamePropState _state) => DICT_proptsTOBuilding[_state];
+    public Building F_StateToBuilding(CropsType _state) => DICT_proptsTOBuilding[_state];
 
     private void Start()
     {
-        DICT_proptsTOBuilding = new Dictionary<InGamePropState, Building>();
+        DICT_proptsTOBuilding = new Dictionary<CropsType, Building>();
 
         F_InitUnit();
     }
@@ -32,7 +32,7 @@ public class PropsCsvImporter : MonoBehaviour
         // 행별로 자르기
         string[] lines = Regex.Split(_textAsset.text, LINE_SPLIT_RE);
 
-        InGamePropState[] _type = (InGamePropState[])System.Enum.GetValues(typeof(InGamePropState));
+        CropsType[] _type = (CropsType[])System.Enum.GetValues(typeof(CropsType));
 
         for (int i = 1; i < lines.Length; i++) 
         {
@@ -46,7 +46,7 @@ public class PropsCsvImporter : MonoBehaviour
         }
     }
 
-    private void F_PropsAddToDict(InGamePropState _state , Building _build) 
+    private void F_PropsAddToDict(CropsType _state , Building _build) 
     {
         if (!DICT_proptsTOBuilding.ContainsKey(_state))
         {

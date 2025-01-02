@@ -117,12 +117,17 @@ public enum LifeCycle
 }
 
 // 인게임 작물
-public enum InGamePropState 
+public enum CropsType 
 {
-    Crystal,            // 크리스탈 
     Rice,               // 벼
     Tomato,             // 토마토
     Carrot              // 당근 
+}
+
+public enum GoodsState 
+{
+    Crystal,
+    Gold
 }
 
 // Unit 애니메이션
@@ -149,12 +154,12 @@ public enum UnitBullet
 [System.Serializable]
 public class Building 
 {
-    [SerializeField] private InGamePropState _propsType;
+    [SerializeField] private CropsType _propsType;
     [SerializeField] private string _buildingName;
     [SerializeField] private float _generateSecond;
     [SerializeField] private Sprite _propsSprite;
 
-    public InGamePropState PropsType { get => _propsType; set => _propsType = value; }
+    public CropsType PropsType { get => _propsType; set => _propsType = value; }
     public string BuildingName { get => _buildingName; set => _buildingName = value; }
     public float GenerateSecond { get => _generateSecond; set => _generateSecond = value; }
     public Sprite PropsSprite { get => _propsSprite; set => _propsSprite = value; }
@@ -166,7 +171,7 @@ public class Building
         // [2] : generateSecond
         // [3] : Sprite
 
-        this._propsType = (InGamePropState)Enum.Parse(typeof(InGamePropState), value[0]);
+        this._propsType = (CropsType)Enum.Parse(typeof(CropsType), value[0]);
         this._buildingName = value[1];
         this._generateSecond = float.Parse(value[2]);
         this._propsSprite = ResourceManager.Instance.propsSprite(_propsType);

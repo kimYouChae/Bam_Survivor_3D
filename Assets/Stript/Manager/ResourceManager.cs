@@ -42,7 +42,7 @@ public class ResourceManager : Singleton<ResourceManager>
     // 카드 별 icon return
     public Sprite cardStarSprite => _cardStartSprite;
     // props 에 해당하는 스프라이트 return
-    public Sprite propsSprite(InGamePropState _pro) => _propsSprite[(int)_pro]; 
+    public Sprite propsSprite(CropsType _pro) => _propsSprite[(int)_pro]; 
 
     protected override void Singleton_Awake()
     {

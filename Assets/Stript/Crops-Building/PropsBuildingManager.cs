@@ -8,11 +8,11 @@ using Random = UnityEngine.Random;
 public class PropsBuildingManager : Singleton<PropsBuildingManager>
 {
     [Header("===InGame Props Building===")]
-    [SerializeField] private Dictionary<InGamePropState, int> DICT_inGamePropsToCount;     // 인게임내에서 획득한 props To Count
+    [SerializeField] private Dictionary<CropsType, int> DICT_inGamePropsToCount;     // 인게임내에서 획득한 props To Count
 
     [Header("===Props Building Init===")]
     [SerializeField]
-    private InGamePropState[] _inGamePropsStateList;
+    private CropsType[] _inGamePropsStateList;
     // [0] : crystal
     // [1] [2] [3] : 작물
     [SerializeField]
@@ -27,12 +27,17 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     [Header("===Sciprt===")]
     [SerializeField]
     private PropsCsvImporter _propsCsvImporter;
+    [SerializeField]
+    private CropsPooling _cropsPooling;
+
+    // 프로퍼티
+    public CropsPooling CropsPooling { get => _cropsPooling; }
 
     protected override void Singleton_Awake()
     {
-        DICT_inGamePropsToCount = new Dictionary<InGamePropState, int>();
+        DICT_inGamePropsToCount = new Dictionary<CropsType, int>();
 
-        _inGamePropsStateList = (InGamePropState[])System.Enum.GetValues(typeof(InGamePropState));
+        _inGamePropsStateList = (CropsType[])System.Enum.GetValues(typeof(CropsType));
     }
 
     private void Start()
@@ -42,7 +47,7 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     }
 
     // 인게임 내에서 획득한 props
-    public void F_GetProps(InGamePropState _state)
+    public void F_GetProps(CropsType _state)
     {
         if (!DICT_inGamePropsToCount.ContainsKey(_state))
         {
@@ -61,11 +66,13 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
         // [1] [2] [3] : 작물
 
         // 1. 건물생성
-        for (int i = 1; i < _inGamePropsStateList.Length; i++) 
+        for (int i = 0; i < _inGamePropsStateList.Length; i++) 
         {
+            int enumIdx = (int)_inGamePropsStateList[i];
+
             // enum에 해당하는 프리팹 생성
-            GameObject _obj = Instantiate(_buildingPrdfab[ (int)_inGamePropsStateList[i] ] 
-                , _propsField[i-1].buildingTransform);
+            GameObject _obj = Instantiate(_buildingPrdfab[enumIdx] 
+                , _propsField[enumIdx].buildingTransform);
 
             // List에 넣기 
             _propsBuilding.Add(_obj.GetComponent<PropsBuilding>());
@@ -82,16 +89,15 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
         }
     }
 
-    private void F_SuffleAlgorithm(ref InGamePropState[] _array) 
+    private void F_SuffleAlgorithm(ref CropsType[] _array) 
     {
-        // [0]은 crystal , 제외
-        for (int i = 1; i < _array.Length - 1; i++) 
+        for (int i = 0; i < _array.Length - 1; i++) 
         {
             // 내 뒤로 랜덤인덱스
             int _ranIndex = Random.Range(i, _array.Length);
 
             // 현재 위치와 랜덤하게 섞인 위치 교환
-            InGamePropState _state = _array[i];
+            CropsType _state = _array[i];
             _array[i] = _array[_ranIndex];
             _array[_ranIndex] = _state;
         }
