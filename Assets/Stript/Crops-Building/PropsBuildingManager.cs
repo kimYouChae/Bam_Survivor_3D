@@ -25,8 +25,10 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
 
     [Header("===Sciprt===")]
+    /*
     [SerializeField]
     private PropsCsvImporter _propsCsvImporter;
+    */
     [SerializeField]
     private CropsPooling _cropsPooling;
 
