@@ -29611,9 +29611,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128532646}
-  - component: {fileID: 2128532648}
   - component: {fileID: 2128532649}
-  - component: {fileID: 2128532647}
+  - component: {fileID: 2128532648}
   m_Layer: 0
   m_Name: Crops-BuildingManager
   m_TagString: Untagged
@@ -29636,18 +29635,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 321937798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2128532647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128532645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7df487646cec97246b78a471b1c7053c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2128532648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29662,7 +29649,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inGamePropsStateList: 
   _buildingPrdfab:
-  - {fileID: 3169148605313148159, guid: fc9cc5b8c880b104f8436626c1e0f1f7, type: 3}
   - {fileID: 5977411137487005449, guid: 43a22ed6d82a8d348b51a9a658222ed1, type: 3}
   - {fileID: 6520030768439949821, guid: 51d2d1bd95a387d479bcae86e163891d, type: 3}
   - {fileID: 7235259207906931144, guid: 35437c9620d7f844bbb08f0a880c48c2, type: 3}
@@ -29672,8 +29658,10 @@ MonoBehaviour:
   - {fileID: 1690319673}
   _propsBuilding:
   - {fileID: 2051234293}
-  _propsCsvImporter: {fileID: 2128532647}
-  _cropsPooling: {fileID: 2128532649}
+  _cropsPrefab:
+  - {fileID: 6078610078371444970, guid: 8015ada5ff5f6c14e8752417675aff52, type: 3}
+  - {fileID: 6563240544865591967, guid: adff7e74edf0e514eba5a3665defeefc, type: 3}
+  - {fileID: 7053035016782313476, guid: 48976df877d9a33418a64ddc6467a9f1, type: 3}
 --- !u!114 &2128532649
 MonoBehaviour:
   m_ObjectHideFlags: 0
