@@ -286,78 +286,6 @@ Transform:
   - {fileID: 5399090762640293155}
   m_Father: {fileID: 2443302006474031534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5365481846817794285
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 809247504465447337}
-  - component: {fileID: 5765969246454951833}
-  - component: {fileID: 7852105371050724357}
-  m_Layer: 16
-  m_Name: BuildingCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &809247504465447337
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5365481846817794285}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15999997, y: 1.28, z: -0.63}
-  m_LocalScale: {x: 6, y: 3, z: 6}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2443302006474031534}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5765969246454951833
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5365481846817794285}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7852105371050724357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5365481846817794285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d68c271e3d9494abc7aef38fb744eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _readyToHarvest: 0
-  _currTime: 0
-  _CropsData: {fileID: 0}
-  _GoodsData: {fileID: 0}
-  _buildingGenerateTime: 0
-  _buildingSprite: {fileID: 0}
 --- !u!1 &5367341562036149164
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +462,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2443302006474031534}
   - component: {fileID: -4360320890929747744}
-  m_Layer: 0
+  - component: {fileID: 202922503266964316}
+  m_Layer: 16
   m_Name: TomatoBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +483,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 809247504465447337}
   - {fileID: 3787532060766476670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -570,9 +498,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0952cbd063cc0468e75d32c3aaffd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingColliderObj: {fileID: 7852105371050724357}
   _CropsData: {fileID: 11400000, guid: f7fc6ee889b4e1843afcef56d179734e, type: 2}
   _GoodsData: {fileID: 0}
+  _readyToHarvest: 0
+  _currTime: 0
+  _buildingGenerateTime: 0
+  _buildingSprite: {fileID: 0}
+--- !u!65 &202922503266964316
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6520030768439949821}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 4}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &7126214733203049566
 GameObject:
   m_ObjectHideFlags: 0
