@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Crops_Rice_Building
   m_EditorClassIdentifier: Assembly-CSharp::CropsBuildingData
   _propsType: 0
-  _buildingName: 
-  _generateSecond: 0
+  _buildingName: RiceBuilding
+  _generateSecond: 60
   _propsSprite: {fileID: 0}

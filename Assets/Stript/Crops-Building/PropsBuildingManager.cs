@@ -44,8 +44,11 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
     private void Start()
     {
-        // 초기화 
+        // building 초기화 
         F_SetUpBuidling();
+
+        // Field 초기화
+        F_SetUpField();
     }
 
     // 인게임 내에서 획득한 props
@@ -60,12 +63,20 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
         DICT_inGamePropsToCount[_state]++;
     }
 
+    private void F_SetUpField() 
+    {
+        for (int i = 0; i < _inGamePropsStateList.Length; i++) 
+        {
+            // Field에 enum 넣어 주기 
+            _propsField[i].F_PlantProps(_inGamePropsStateList[i]);
+        }
+    }
+
     private void F_SetUpBuidling() 
     {
         // 랜덤으로 state 섞기
         F_SuffleAlgorithm(ref _inGamePropsStateList);
-        // [0] : crystal
-        // [1] [2] [3] : 작물
+        // [0] [1] [2] : 작물
 
         // 1. 건물생성
         for (int i = 0; i < _inGamePropsStateList.Length; i++) 
@@ -74,21 +85,12 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
             // enum에 해당하는 프리팹 생성
             GameObject _obj = Instantiate(_buildingPrdfab[enumIdx] 
-                , _propsField[enumIdx].buildingTransform);
+                , _propsField[i].buildingTransform);
 
             // List에 넣기 
             _propsBuilding.Add(_obj.GetComponent<PropsBuilding>());
         }
 
-        // 2. Building State 넣어주기
-        for(int i = 0; i < _inGamePropsStateList.Length; i++) 
-        {
-            // type 별 클래스 
-            Building _build = _propsCsvImporter.F_StateToBuilding(_inGamePropsStateList[i] );
-
-            // build 클래스 넣어주기 
-            _propsBuilding[i].F_SetBuildingState( _build ); 
-        }
     }
 
     private void F_SuffleAlgorithm(ref CropsType[] _array) 

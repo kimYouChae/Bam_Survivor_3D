@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Goods_CrystalBuilding
   m_EditorClassIdentifier: Assembly-CSharp::GoodsBuilidngData
   _propsType: 0
-  _buildingName: 
-  _generateSecond: 0
+  _buildingName: CrystalBuilding
+  _generateSecond: 120
   _propsSprite: {fileID: 0}

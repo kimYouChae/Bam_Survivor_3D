@@ -535,6 +535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingColliderObj: {fileID: 4907088006595498618}
+  _CropsData: {fileID: 0}
+  _GoodsData: {fileID: 11400000, guid: 32a2f2a92612a964ca86c3d23089b4e8, type: 2}
 --- !u!1 &4355315371247422817
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,21 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PropsBuilding : MonoBehaviour
 {
     [Header("===State===")]
     [SerializeField]
-    private PropsBuildingCollider _buildingColliderObj;    // 충돌 감지하는 collider
+    private PropsBuildingCollider _buildingColliderObj;    // 충돌 감지하는 collider 오브젝트 
+    [SerializeField]
+    private BuildingData<CropsType> _CropsData;
+    [SerializeField]
+    private BuildingData<GoodsType> _GoodsData;
 
-    // Building 할당
-    public void F_SetBuildingState(Building _buil) 
+    private void Start()
     {
-        // PropsBuilidngCollider에 값 넣기
-        _buildingColliderObj.F_SetBuilding(_buil);
-        
+        _buildingColliderObj.F_SettingBuildingData(_CropsData , _GoodsData);
+
     }
 
-   
+
 }

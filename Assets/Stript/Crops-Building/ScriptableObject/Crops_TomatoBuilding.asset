@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Crops_TomatoBuilding
   m_EditorClassIdentifier: Assembly-CSharp::CropsBuildingData
-  _propsType: 0
-  _buildingName: 
-  _generateSecond: 0
+  _propsType: 1
+  _buildingName: TomatoBuilding
+  _generateSecond: 30
   _propsSprite: {fileID: 0}

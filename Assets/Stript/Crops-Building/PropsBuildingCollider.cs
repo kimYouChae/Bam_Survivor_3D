@@ -4,21 +4,49 @@ using UnityEngine;
 
 public class PropsBuildingCollider : MonoBehaviour
 {
-    [SerializeField]
-    private Building _building;
+    [Header("State")]
     [SerializeField]
     private bool _readyToHarvest;       // 수확이 되는지
-
     [SerializeField]
     private float _currTime = 0;
 
-    public void F_SetBuilding(Building _build) 
-    {
-        this._building = _build;      
+    [Header("BuildingData")]
+    [SerializeField]
+    private BuildingData<CropsType> _CropsData;
+    [SerializeField]
+    private BuildingData<GoodsType> _GoodsData;
+
+    [SerializeField]
+    private float _buildingGenerateTime;
+    [SerializeField]
+    private Sprite _buildingSprite;
+
+    private void Start()
+    { 
 
         _readyToHarvest = false;
 
         StartCoroutine(IE_PropsGrowth());
+
+    }
+
+    public void F_SettingBuildingData(BuildingData<CropsType> _crops, BuildingData<GoodsType> _goods) 
+    {
+        this._CropsData = _crops;
+        this._GoodsData = _goods;
+
+        if (_CropsData != null && _GoodsData == null)
+        {
+            _buildingGenerateTime = _CropsData.GenerateSecond;
+            _buildingSprite = _CropsData.PropsSprite;
+        }
+        // goods일때
+        if (_CropsData == null && _GoodsData != null)
+        {
+            _buildingGenerateTime = _GoodsData.GenerateSecond;
+            _buildingSprite = _GoodsData.PropsSprite;
+        }
+
     }
 
     IEnumerator IE_PropsGrowth() 
@@ -30,7 +58,7 @@ public class PropsBuildingCollider : MonoBehaviour
             yield return new WaitUntil(() => _readyToHarvest == false);
 
             // 수확할 시간이 됐다면
-            if(_currTime >= _building.GenerateSecond) 
+            if(_currTime >= _buildingGenerateTime) 
             { 
                 _readyToHarvest = true;
                 _currTime = 0;
@@ -54,7 +82,16 @@ public class PropsBuildingCollider : MonoBehaviour
             if (_readyToHarvest)
             {
                 // propsState 넣기 
-                PropsBuildingManager.Instance.F_GetProps(_building.PropsType);
+                // crops일떄
+                if (_CropsData != null && _GoodsData == null)
+                {
+                    F_CropsAddCount();
+                }
+                // goods일때
+                if (_CropsData == null && _GoodsData == null)
+                {
+                    F_GoodsAddCount();
+                }
 
                 _readyToHarvest = false;
             }
@@ -65,4 +102,19 @@ public class PropsBuildingCollider : MonoBehaviour
 
         }
     }
+
+
+    public void F_CropsAddCount()
+    {
+        // PropsBuilidngManager의 함수 실행 
+        PropsBuildingManager.Instance.F_GetProps(_CropsData.PropsType);
+    }
+
+    public void F_GoodsAddCount()
+    {
+        // GoodManager의 함수 실행
+        GoodsManager.Instance.F_GetGoods(_GoodsData.PropsType);
+    }
+
+
 }

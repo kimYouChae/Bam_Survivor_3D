@@ -9,7 +9,6 @@ public class PropsField : MonoBehaviour
 
     [SerializeField]
     private Transform _buildingTrs;
-
     // 프로퍼티 
     public Transform buildingTransform => _buildingTrs;
 
@@ -26,6 +25,9 @@ public class PropsField : MonoBehaviour
 
             // type 지정해주기
             _obj.GetComponent<Props>().cropsType = _type;
+
+            // index지정해주기 
+            _obj.GetComponent<Props>().cropsIndex = i;
         }
     }
 

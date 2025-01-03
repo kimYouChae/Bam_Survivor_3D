@@ -352,13 +352,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d68c271e3d9494abc7aef38fb744eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _building:
-    _propsType: 0
-    _buildingName: 
-    _generateSecond: 0
-    _propsSprite: {fileID: 0}
   _readyToHarvest: 0
   _currTime: 0
+  _CropsData: {fileID: 0}
+  _GoodsData: {fileID: 0}
+  _buildingGenerateTime: 0
+  _buildingSprite: {fileID: 0}
 --- !u!1 &5367341562036149164
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +571,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingColliderObj: {fileID: 7852105371050724357}
+  _CropsData: {fileID: 11400000, guid: f7fc6ee889b4e1843afcef56d179734e, type: 2}
+  _GoodsData: {fileID: 0}
 --- !u!1 &7126214733203049566
 GameObject:
   m_ObjectHideFlags: 0
