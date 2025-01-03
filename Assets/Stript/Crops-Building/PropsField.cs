@@ -10,6 +10,8 @@ public class PropsField : MonoBehaviour
     private Transform[] _propsPlantTrs;
     [SerializeField]
     private Transform _buildingTrs;
+    [SerializeField]
+    private Transform _cropsParnet;
 
     [Header("BuildingData")]
     [SerializeField]
@@ -39,22 +41,17 @@ public class PropsField : MonoBehaviour
         
     }
 
-    public void F_PlantProps(CropsType _type) 
+    public void F_PlantProps(CropsType _type , GameObject _crops) 
     {
         // TODO : type에 따른 오브젝트 가져와서 심기
         for(int i = 0; i < _propsPlantTrs.Length; i++) 
         {
             // type에 맞는 오브젝트 
-            GameObject _obj = PropsBuildingManager.Instance.CropsPooling.F_UnitCropsGet(_type); 
-
-            // 위치설정 
-            _obj.transform.position = _propsPlantTrs[i].transform.position;
-
-            // type 지정해주기
-            _obj.GetComponent<Props>().cropsType = _type;
-
-            // index지정해주기 
-            _obj.GetComponent<Props>().cropsIndex = i;
+            GameObject _obj = Instantiate(_crops , _propsPlantTrs[i].position , Quaternion.identity);
+            _obj.transform.parent = _cropsParnet;
+            
+            _obj.GetComponent<Props>().F_CropsStartToGrowth
+                (cropsType : _type, index : i , generateTime : _CropsData.GenerateSecond , sprite:_CropsData.PropsSprite);
         }
     }
 

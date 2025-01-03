@@ -31,7 +31,7 @@ public class PropsBuilding : MonoBehaviour
             _buildingGenerateTime = _CropsData.GenerateSecond;
             _buildingSprite = _CropsData.PropsSprite;
         }
-        // goods???
+        // goods
         if (_CropsData == null && _GoodsData != null)
         {
             _buildingGenerateTime = _GoodsData.GenerateSecond;
@@ -41,7 +41,6 @@ public class PropsBuilding : MonoBehaviour
         StartCoroutine(IE_PropsGrowth());
 
     }
-
 
     public IEnumerator IE_PropsGrowth()
     {
