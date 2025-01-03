@@ -761,6 +761,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5791699115419829840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3521292423307797249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1773603900015503691}
+  m_Layer: 0
+  m_Name: CropsParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1773603900015503691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521292423307797249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2837127545833764817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3548084575749615421
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1030,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7512717881600948927}
+  - {fileID: 1773603900015503691}
   - {fileID: 5791699115419829840}
   - {fileID: 7783554249520482647}
   m_Father: {fileID: 0}
@@ -1049,6 +1081,10 @@ MonoBehaviour:
   - {fileID: 1656307505706366360}
   - {fileID: 8576972289784443287}
   _buildingTrs: {fileID: 7512717881600948927}
+  _cropsParnet: {fileID: 1773603900015503691}
+  _CropsData: {fileID: 0}
+  _GoodsData: {fileID: 0}
+  _building: {fileID: 0}
 --- !u!1 &5062807846019171325
 GameObject:
   m_ObjectHideFlags: 0

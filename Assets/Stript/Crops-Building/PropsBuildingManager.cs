@@ -11,27 +11,21 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     [SerializeField] private Dictionary<CropsType, int> DICT_inGamePropsToCount;     // 인게임내에서 획득한 props To Count
 
     [Header("===Props Building Init===")]
-    [SerializeField]
+    [SerializeField] // [0] Rice [1] Tomato [2] Carrot (enum 순서대로)
     private CropsType[] _inGamePropsStateList;
-    // [0] : crystal
-    // [1] [2] [3] : 작물
-    [SerializeField]
+
+    [SerializeField] // [0] Rice [1] Tomato [2] Carrot (enum 순서대로)
     private GameObject[] _buildingPrdfab;       // building 프리팹
-    // [0] Rice [1] Tomato [2] Carrot (enum 순서대로)
+    
     [SerializeField]
     private PropsField[] _propsField;           // Field 오브젝트
+
     [SerializeField]
     private List<PropsBuilding> _propsBuilding; // Building 스크립트 
 
+    [SerializeField] // [0] Rice [1] Tomato [2] Carrot (enum 순서대로)
+    private List<GameObject> _cropsPrefab;      // 작물 prefab
 
-    [Header("===Sciprt===")]
-    [SerializeField]
-    private PropsCsvImporter _propsCsvImporter;
-    [SerializeField]
-    private CropsPooling _cropsPooling;
-
-    // 프로퍼티
-    public CropsPooling CropsPooling { get => _cropsPooling; }
 
     protected override void Singleton_Awake()
     {
@@ -42,8 +36,11 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
     private void Start()
     {
-        // 초기화 
+        // building 초기화 
         F_SetUpBuidling();
+
+        // Field 초기화
+        F_SetUpField();
     }
 
     // 인게임 내에서 획득한 props
@@ -58,12 +55,27 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
         DICT_inGamePropsToCount[_state]++;
     }
 
+    private void F_SetUpField() 
+    {
+        for (int i = 0; i < _inGamePropsStateList.Length; i++) 
+        {
+            int idx = (int)_inGamePropsStateList[i];
+
+            // 1. Field에 PropsBuilding 스크립트 넣기 
+            PropsBuilding _building = _propsBuilding[i+1];
+            _propsField[i].F_SetUpBuilding(_building);
+
+            // 2. Field에 enum 과 오브젝트 넘겨주기 
+            _propsField[i].F_PlantProps(_inGamePropsStateList[i] , _cropsPrefab[idx]);
+
+        }
+    }
+
     private void F_SetUpBuidling() 
     {
         // 랜덤으로 state 섞기
         F_SuffleAlgorithm(ref _inGamePropsStateList);
-        // [0] : crystal
-        // [1] [2] [3] : 작물
+        // [0] [1] [2] : 작물
 
         // 1. 건물생성
         for (int i = 0; i < _inGamePropsStateList.Length; i++) 
@@ -72,21 +84,12 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
 
             // enum에 해당하는 프리팹 생성
             GameObject _obj = Instantiate(_buildingPrdfab[enumIdx] 
-                , _propsField[enumIdx].buildingTransform);
+                , _propsField[i].buildingTransform);
 
             // List에 넣기 
             _propsBuilding.Add(_obj.GetComponent<PropsBuilding>());
         }
 
-        // 2. Building State 넣어주기
-        for(int i = 0; i < _inGamePropsStateList.Length; i++) 
-        {
-            // type 별 클래스 
-            Building _build = _propsCsvImporter.F_StateToBuilding(_inGamePropsStateList[i] );
-
-            // build 클래스 넣어주기 
-            _propsBuilding[i].F_SetBuildingState( _build ); 
-        }
     }
 
     private void F_SuffleAlgorithm(ref CropsType[] _array) 

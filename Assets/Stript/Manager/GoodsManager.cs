@@ -26,5 +26,10 @@ public class GoodsManager : Singleton<GoodsManager>
         Crystal = 0;
     }
 
+    // grystal È¹µæ
+    public void F_GetGoods(GoodsType _Type) 
+    {
+        // ##TODO : È¹µæ
+    }
     
 }

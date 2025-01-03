@@ -150,35 +150,6 @@ public enum UnitBullet
 
 #endregion
 
-#region PropsBuilding
-[System.Serializable]
-public class Building 
-{
-    [SerializeField] private CropsType _propsType;
-    [SerializeField] private string _buildingName;
-    [SerializeField] private float _generateSecond;
-    [SerializeField] private Sprite _propsSprite;
-
-    public CropsType PropsType { get => _propsType; set => _propsType = value; }
-    public string BuildingName { get => _buildingName; set => _buildingName = value; }
-    public float GenerateSecond { get => _generateSecond; set => _generateSecond = value; }
-    public Sprite PropsSprite { get => _propsSprite; set => _propsSprite = value; }
-
-    public Building(string[] value) 
-    {
-        // [0] : propsType
-        // [1] : buildingName
-        // [2] : generateSecond
-        // [3] : Sprite
-
-        this._propsType = (CropsType)Enum.Parse(typeof(CropsType), value[0]);
-        this._buildingName = value[1];
-        this._generateSecond = float.Parse(value[2]);
-        this._propsSprite = ResourceManager.Instance.propsSprite(_propsType);
-    }
-}
-
-#endregion
 
 #region Stage
 [System.Serializable]
