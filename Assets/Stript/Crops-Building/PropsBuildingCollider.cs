@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class PropsBuildingCollider : MonoBehaviour
     private bool _readyToHarvest;       // 수확이 되는지
     [SerializeField]
     private float _currTime = 0;
+    [SerializeField]
+    private float _buildingGenerateTime;
+    [SerializeField]
+    private Sprite _buildingSprite;
 
     [Header("BuildingData")]
     [SerializeField]
@@ -16,31 +21,23 @@ public class PropsBuildingCollider : MonoBehaviour
     [SerializeField]
     private BuildingData<GoodsType> _GoodsData;
 
-    [SerializeField]
-    private float _buildingGenerateTime;
-    [SerializeField]
-    private Sprite _buildingSprite;
 
     private void Start()
     { 
-
         _readyToHarvest = false;
 
         StartCoroutine(IE_PropsGrowth());
 
     }
 
-    public void F_SettingBuildingData(BuildingData<CropsType> _crops, BuildingData<GoodsType> _goods) 
+    public void F_SettingBuildingData(BuildingData<CropsType> cropsData, BuildingData<GoodsType> goodsData)
     {
-        this._CropsData = _crops;
-        this._GoodsData = _goods;
-
         if (_CropsData != null && _GoodsData == null)
         {
             _buildingGenerateTime = _CropsData.GenerateSecond;
             _buildingSprite = _CropsData.PropsSprite;
         }
-        // goods일때
+        // goods???
         if (_CropsData == null && _GoodsData != null)
         {
             _buildingGenerateTime = _GoodsData.GenerateSecond;
@@ -103,7 +100,6 @@ public class PropsBuildingCollider : MonoBehaviour
         }
     }
 
-
     public void F_CropsAddCount()
     {
         // PropsBuilidngManager의 함수 실행 
@@ -115,6 +111,5 @@ public class PropsBuildingCollider : MonoBehaviour
         // GoodManager의 함수 실행
         GoodsManager.Instance.F_GetGoods(_GoodsData.PropsType);
     }
-
 
 }

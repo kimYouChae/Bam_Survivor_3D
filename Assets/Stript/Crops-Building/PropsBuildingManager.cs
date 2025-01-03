@@ -23,7 +23,6 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     [SerializeField]
     private List<PropsBuilding> _propsBuilding; // Building 스크립트 
 
-
     [Header("===Sciprt===")]
     /*
     [SerializeField]
@@ -67,8 +66,12 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     {
         for (int i = 0; i < _inGamePropsStateList.Length; i++) 
         {
-            // Field에 enum 넣어 주기 
+            // 1. Field에 enum 넣어 주기 
             _propsField[i].F_PlantProps(_inGamePropsStateList[i]);
+
+            // 2. Field에 PropsBuilding 스크립트 넣기 
+            PropsBuilding _building = _propsBuilding[i+1];
+            _propsField[i].F_SetUpBuilding(_building);
         }
     }
 
