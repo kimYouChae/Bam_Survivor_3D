@@ -868,7 +868,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52772246}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be87805d83b141240b8af8f9920e1f1c, type: 3}
   m_Name: 
@@ -18820,16 +18820,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0f421ae83a77c489d9f1c2bb739431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPointTrs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _spawner: []
+  _xOffset: 18
+  _yOffset: 11
+  _currState:
+    _stageIndex: 0
+    _stageMinites: 0
+    _generateCount: 0
+    _generateUnitList: 
 --- !u!114 &1398733627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18842,7 +18839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd44b6f0cff7604097f65d57ea1d9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: []
   _unitGenerator: {fileID: 1398733626}
   _unitPooling: {fileID: 1398733628}
   _bulletPooling: {fileID: 1398733630}
@@ -29611,7 +29607,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128532646}
-  - component: {fileID: 2128532649}
   - component: {fileID: 2128532648}
   m_Layer: 0
   m_Name: Crops-BuildingManager
@@ -29658,24 +29653,6 @@ MonoBehaviour:
   - {fileID: 1690319673}
   _propsBuilding:
   - {fileID: 2051234293}
-  _cropsPrefab:
-  - {fileID: 6078610078371444970, guid: 8015ada5ff5f6c14e8752417675aff52, type: 3}
-  - {fileID: 6563240544865591967, guid: adff7e74edf0e514eba5a3665defeefc, type: 3}
-  - {fileID: 7053035016782313476, guid: 48976df877d9a33418a64ddc6467a9f1, type: 3}
---- !u!114 &2128532649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128532645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309e0198b83be24d8df4a456494e005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cropsPoolParent: {fileID: 641561779}
-  _cropsPool: []
   _cropsPrefab:
   - {fileID: 6078610078371444970, guid: 8015ada5ff5f6c14e8752417675aff52, type: 3}
   - {fileID: 6563240544865591967, guid: adff7e74edf0e514eba5a3665defeefc, type: 3}
