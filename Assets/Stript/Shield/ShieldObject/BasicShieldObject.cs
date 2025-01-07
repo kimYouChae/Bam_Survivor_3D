@@ -14,7 +14,7 @@ public class BasicShieldObject : ShieldObject
     protected override void F_EndShiled()
     {
         // 쉴드 끝 particle 실행
-        ParticleManager.Instance.F_PlayerParticle(ParticleState.ShieldEndVFX, gameObject.transform.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleType.ShieldEndVFX, gameObject.transform.position);
 
         // 쉴드 pool로 되돌리기
         ShieldManager.Instance.shieldPooling.F_ShieldSet(gameObject, Shield_Effect.Default);

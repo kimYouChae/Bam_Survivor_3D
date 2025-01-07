@@ -8,40 +8,36 @@ using Random = UnityEngine.Random;
 public class UnitGenerator : MonoBehaviour
 {
     [Header("===Spawn Point===")]
-    [SerializeField]
-    private float _xOffset = 15f;
-    [SerializeField]
-    private float _yOffset = 9f;
+    [SerializeField] private float _xOffset = 12f;
+    [SerializeField] private float _yOffset = 6f;
+    private float _markerX;
+    private float _markerY;
 
     [Header("===Stage===")]
-    [SerializeField]
-    private Stage _currState;
+    [SerializeField] private Stage _currState;
 
     [Header("===Navmesh===")]
-    [SerializeField]
-    private NavMeshHit _hit;
+    [SerializeField] private NavMeshHit _hit;
 
     private void Start()
     {
         _currState = StageManager.Instance.F_CurrentStage();
 
+        // 초기화는 start에서 하도록 생활화 합시다 하하하하하하하 
+        _xOffset = 12;
+        _yOffset = 6f;
+        _markerX = 0;
+        _markerY = 0;
+
         StartCoroutine(IE_Test());
+
     }
 
    private IEnumerator IE_Test() 
     {
         yield return new WaitForSeconds(1f);
         // 테스트
-        for (int i = 0; i < 3; i++)
-        {
-            Tuple<float, float> tu = F_RandomPotision();
-
-            Debug.Log("?!!!!!!!!!!!!!" + tu.Item1 + " / " + tu.Item2);
-
-            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
-            _obj.transform.position = new Vector3(tu.Item1, 0, tu.Item2);
-            _obj.name = i + "번째대충오브젝트~!!!!!!~!";
-        }
+        F_EnemyInstanceByStage();
     }
 
     // stage 정보에 맞게 
@@ -56,8 +52,33 @@ public class UnitGenerator : MonoBehaviour
 
         for (int i = 0; i < _unitTypeCount.Count; i++)
         {
-            Tuple<float, float> _randPosition = F_RandomPotision();
+            Tuple<float, float> _randPosition = new Tuple<float, float>(0, 0);
 
+            // 기준 marker 위치
+            Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
+
+            _markerX = _markerTrs.position.x;
+            _markerY = _markerTrs.position.z;
+
+            // boudary범위안에있으면 다시 구해야함 N번
+            for (int j = 0; j < 10; j++) 
+            {
+                _randPosition = F_RandomPotision();
+
+                // 범위 안에 있으면 true
+                bool flag = F_isInBoundary(_markerX , _markerY , _randPosition.Item1 , _randPosition.Item2);
+
+                if (flag)
+                {
+                    continue;
+                }
+                else
+                    break;
+            }
+
+            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
+            _obj.transform.position = new Vector3(_randPosition.Item1, 0, _randPosition.Item2);
+            
             for (int j = 0; j < _unitInstanceCount; j++)
             {
                 // type에 맞는 오브젝트 get
@@ -66,20 +87,31 @@ public class UnitGenerator : MonoBehaviour
                 // 위치 설정해주기
                 F_ObjectOnOffNavmesh(_insUnit , _randPosition);
             }
+            
         }
     }
 
-    // 랜덤 위치 return
-    private Tuple<float, float> F_RandomPotision() 
+    // boundray안에 있는지 
+    private bool F_isInBoundary(float mx, float my, float randomX, float randomY) 
     {
-        // 기준 marker 위치
-        Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
+        Vector3 boundaryUpRight = new Vector3(mx + _xOffset - 1, 0 , my + _yOffset - 1);
+        Vector3 boundaryDownLeft = new Vector3(mx - _xOffset + 1, 0 , my - _yOffset + 1);
 
-        float _markerX = _markerTrs.position.x;
-        float _markerY = _markerTrs.position.z;
+        // 안에있으면 true 
+        bool flag = randomX <= boundaryUpRight.x
+            && randomX >= boundaryDownLeft.x
+            && randomY <= boundaryUpRight.z
+            && randomY >= boundaryDownLeft.z;
 
+        return flag;
+    }
+
+
+    // 랜덤 위치 return
+    private Tuple<float, float> F_RandomPotision()
+    {
         // 랜덤위치를 구하기 위한 
-        int _boundaryDir = Random.Range(0,4);
+        int _boundaryDir = Random.Range(0, 4);
 
         float _randRanX = 0;
         float _randRanY = 0;
@@ -109,7 +141,9 @@ public class UnitGenerator : MonoBehaviour
                 break;
         }
 
-        Debug.Log("방향" + _boundaryDir);
+        // 0을 넘거나 max를 넘으면 안됨
+        _randRanX = Math.Clamp(_randRanX , 0 , GameManager.Instance.MAP_SIZE);
+        _randRanY = Math.Clamp(_randRanY , 0 , GameManager.Instance.MAP_SIZE);
 
         return F_NavMeshSample(_randRanX,_randRanY);
     }

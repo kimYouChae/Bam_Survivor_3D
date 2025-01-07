@@ -13,7 +13,7 @@ public class UnitBulletPooling : MonoBehaviour
     [SerializeField]
     private List<GameObject> _bullet;       // bullet 오브젝트 
     [SerializeField]
-    private Dictionary< UnitBullet, Stack<GameObject>> DICT_BulletTypeToStack;
+    private Dictionary< UnitBulletType, Stack<GameObject>> DICT_BulletTypeToStack;
 
     private void Start()
     {
@@ -23,9 +23,9 @@ public class UnitBulletPooling : MonoBehaviour
 
     private void F_InitBulletPool()
     {
-        DICT_BulletTypeToStack = new Dictionary<UnitBullet, Stack<GameObject>>();
+        DICT_BulletTypeToStack = new Dictionary<UnitBulletType, Stack<GameObject>>();
 
-        UnitBullet[] _effect = (UnitBullet[])System.Enum.GetValues(typeof(UnitBullet));
+        UnitBulletType[] _effect = (UnitBulletType[])System.Enum.GetValues(typeof(UnitBulletType));
 
         // pool 오브젝트 생성
         for (int i = 0; i < _effect.Length; i++)
@@ -53,7 +53,7 @@ public class UnitBulletPooling : MonoBehaviour
     }
 
     // effect에 맞는 bullet 생성  
-    private GameObject F_CreateUnitBullet(UnitBullet _bullet)
+    private GameObject F_CreateUnitBullet(UnitBulletType _bullet)
     {
         GameObject _obj = Instantiate(this._bullet[(int)_bullet]);
         _obj.SetActive(false);
@@ -64,7 +64,7 @@ public class UnitBulletPooling : MonoBehaviour
     }
 
     // bullet Get
-    public GameObject F_UnitBulletGet(UnitBullet _bullet)
+    public GameObject F_UnitBulletGet(UnitBulletType _bullet)
     {
         // Effect에 해당하는 오브젝트가 없을떄 
         if (!DICT_BulletTypeToStack.ContainsKey(_bullet))
@@ -86,7 +86,7 @@ public class UnitBulletPooling : MonoBehaviour
     }
 
     // bullet Set
-    public void F_UnitBulletSet(GameObject _bullet, UnitBullet _type)
+    public void F_UnitBulletSet(GameObject _bullet, UnitBulletType _type)
     {
         _bullet.SetActive(false);
         _bullet.transform.localPosition = Vector3.zero;

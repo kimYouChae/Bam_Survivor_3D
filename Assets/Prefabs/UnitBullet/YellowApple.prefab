@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 7697468240498729685}
   - component: {fileID: 5826377671541132924}
   - component: {fileID: 4124787690752127688}
-  m_Layer: 0
+  - component: {fileID: -3693041851282336195}
+  m_Layer: 18
   m_Name: YellowApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,3 +134,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.11
   m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!114 &-3693041851282336195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038081335822363041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b114caf0329c042b16c4998ef139b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitBulletType: 0
+  _unitBulletDamage: 0

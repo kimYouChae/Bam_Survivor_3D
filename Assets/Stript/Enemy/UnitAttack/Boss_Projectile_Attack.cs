@@ -26,7 +26,7 @@ public class Boss_Projectile_Attack : AttackStrategy
 
         // 원거리 공격
         // ##TODO : pool에서 get 해야함 
-        GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(UnitBullet.RedApple);
+        GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(UnitBulletType.RedApple);
 
         // marker 감지 
         Collider[] _coll = Physics.OverlapSphere(_boss.hitTransform.position, _boss.unitSearchRadious, LayerManager.Instance.markerLayer);

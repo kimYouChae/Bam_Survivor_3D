@@ -98,7 +98,7 @@ public enum Explosion_Effect
 }
 
 // ÃÑ¾Ë Æø¹ß ½Ã Particle System ½ÇÇà
-public enum ParticleState
+public enum ParticleType
 {
     BasicExposionVFX,           // ±âº» Æø¹ß vfx
     BasicPoisonVFX,             // ±âº» µ¶ vfx
@@ -142,7 +142,7 @@ public enum UnitAnimationType
 }
 
 //Unit Bullet Type
-public enum UnitBullet 
+public enum UnitBulletType 
 {
     RedApple,
     YellowApple

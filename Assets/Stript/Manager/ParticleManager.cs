@@ -15,7 +15,7 @@ public class ParticleManager : Singleton<ParticleManager>
     private List<GameObject> _effectPool;   // effect 담을 pool  
     
     [SerializeField]
-    private Dictionary<ParticleState, Stack<GameObject>> DICT_stateToParticle;
+    private Dictionary<ParticleType, Stack<GameObject>> DICT_stateToParticle;
 
     // 프로퍼티
     public List<GameObject> effectList => _effectList;
@@ -31,11 +31,11 @@ public class ParticleManager : Singleton<ParticleManager>
         _effectPool = new List<GameObject>();
 
         // pool Parent 하위에 pool 만들기 
-        for (int i = 0; i < System.Enum.GetValues(typeof(ParticleState)).Length; i++) 
+        for (int i = 0; i < System.Enum.GetValues(typeof(ParticleType)).Length; i++) 
         {
             GameObject _obj = Instantiate( GameManager.Instance.emptyObject, Vector3.zero , Quaternion.identity);
 
-            _obj.name = System.Enum.GetName(typeof(ParticleState), i );
+            _obj.name = System.Enum.GetName(typeof(ParticleType), i );
 
             _obj.gameObject.transform.parent = _PoolParent.transform;
 
@@ -50,9 +50,9 @@ public class ParticleManager : Singleton<ParticleManager>
     private void F_InitEffectDictionary() 
     {
         // 초기화
-        DICT_stateToParticle = new Dictionary<ParticleState, Stack<GameObject>>();
+        DICT_stateToParticle = new Dictionary<ParticleType, Stack<GameObject>>();
 
-        ParticleState[] _state = (ParticleState[])System.Enum.GetValues(typeof(ParticleState));
+        ParticleType[] _state = (ParticleType[])System.Enum.GetValues(typeof(ParticleType));
         for (int i = 0; i < _state.Length; i++)
         {
             // stack 초기화
@@ -70,7 +70,7 @@ public class ParticleManager : Singleton<ParticleManager>
     }
 
     // particle 플레이
-    public void F_PlayerParticle( ParticleState _state , Vector3 _playTrs) 
+    public void F_PlayerParticle( ParticleType _state , Vector3 _playTrs) 
     {
         // particle state에 맞는 particle 실행     
         GameObject _partiObj = F_ParticleGet( _state );
@@ -87,7 +87,7 @@ public class ParticleManager : Singleton<ParticleManager>
         
     }
 
-    private IEnumerator IE_CheckParticleAlive(ParticleSystem _particle , ParticleState _state) 
+    private IEnumerator IE_CheckParticleAlive(ParticleSystem _particle , ParticleType _state) 
     {
         while (true) 
         {
@@ -107,7 +107,7 @@ public class ParticleManager : Singleton<ParticleManager>
         }
     }
 
-    private void F_ParticleReturn( ParticleSystem _particle , ParticleState _state ) 
+    private void F_ParticleReturn( ParticleSystem _particle , ParticleType _state ) 
     {
         // 위치 zero
         _particle.gameObject.SetActive( false );
@@ -118,7 +118,7 @@ public class ParticleManager : Singleton<ParticleManager>
     }
 
     // particle Get
-    private GameObject F_ParticleGet( ParticleState _state ) 
+    private GameObject F_ParticleGet( ParticleType _state ) 
     {
         if (!DICT_stateToParticle.ContainsKey(_state))
         {
@@ -142,7 +142,7 @@ public class ParticleManager : Singleton<ParticleManager>
 
     }
 
-    private GameObject F_CreateParticle(ParticleState _state) 
+    private GameObject F_CreateParticle(ParticleType _state) 
     {
         // particle 인스턴스화
         GameObject _parti = Instantiate(_effectList[ (int)_state ]);

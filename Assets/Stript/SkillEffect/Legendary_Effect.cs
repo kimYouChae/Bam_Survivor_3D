@@ -12,7 +12,7 @@ public class Legend_HealingField : SkillCard
         ShieldManager.Instance.F_GetBloodShieldToPool(Shield_Effect.Legend_HealingField, _marker);
 
         // particle 가져오기 , 위치는 marker 위치로 
-        ParticleManager.Instance.F_PlayerParticle(ParticleState.HealingEndVFX, _marker.transform.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleType.HealingEndVFX, _marker.transform.position);
 
 
     }
@@ -28,7 +28,7 @@ public class Legend_Supernova : SkillCard
         ShieldManager.Instance.F_GetBloodShieldToPool(Shield_Effect.Legend_Supernova, _marker);
 
         // particle 가져오기 , 위치는 marker 위치로 
-        ParticleManager.Instance.F_PlayerParticle(ParticleState.SupernovaVFX, _marker.transform.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleType.SupernovaVFX, _marker.transform.position);
 
     }
 }

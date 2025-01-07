@@ -33,7 +33,7 @@ public class Epic_BloodSiphon : SkillCard
         ShieldManager.Instance.F_GetBloodShieldToPool( Shield_Effect.Epic_BloodSiphon, _marker);
 
         // particle 가져오기 , 위치는 marker 위치로 
-        ParticleManager.Instance.F_PlayerParticle(ParticleState.ShieldEndVFX, _marker.transform.position);
+        ParticleManager.Instance.F_PlayerParticle(ParticleType.ShieldEndVFX, _marker.transform.position);
 
     }
 }
