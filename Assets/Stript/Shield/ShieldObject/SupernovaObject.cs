@@ -70,7 +70,7 @@ public class SupernovaObject : ShieldObject
             // supernova pool에서 가져오기
             GameObject _supernova = ShieldManager.Instance.shieldPooling.F_ShieldGet(Shield_Effect.Legend_Supernova);
             // 파티클 pool에서 가져오기
-            ParticleManager.Instance.F_PlayerParticle(ParticleState.SupernovaVFX, new Vector3(nx, 0, ny));
+            ParticleManager.Instance.F_PlayerParticle(ParticleType.SupernovaVFX, new Vector3(nx, 0, ny));
 
             _supernova.transform.position = new Vector3(nx, 0, ny);
 
