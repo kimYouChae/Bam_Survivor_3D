@@ -9,9 +9,9 @@ public class UnitGenerator : MonoBehaviour
 {
     [Header("===Spawn Point===")]
     [SerializeField]
-    private float _xOffset = 15f;
+    private float _xOffset = 12f;
     [SerializeField]
-    private float _yOffset = 9f;
+    private float _yOffset = 6f;
 
     [Header("===Stage===")]
     [SerializeField]
@@ -25,6 +25,10 @@ public class UnitGenerator : MonoBehaviour
     {
         _currState = StageManager.Instance.F_CurrentStage();
 
+        // 초기화는 start에서 하도록 생활화 합시다 하하하하하하하 
+        _xOffset = 12;
+        _yOffset = 6f;
+
         StartCoroutine(IE_Test());
     }
 
@@ -36,11 +40,6 @@ public class UnitGenerator : MonoBehaviour
         {
             Tuple<float, float> tu = F_RandomPotision();
 
-            Debug.Log("?!!!!!!!!!!!!!" + tu.Item1 + " / " + tu.Item2);
-
-            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
-            _obj.transform.position = new Vector3(tu.Item1, 0, tu.Item2);
-            _obj.name = i + "번째대충오브젝트~!!!!!!~!";
         }
     }
 
@@ -70,7 +69,7 @@ public class UnitGenerator : MonoBehaviour
     }
 
     // 랜덤 위치 return
-    private Tuple<float, float> F_RandomPotision() 
+    private Tuple<float, float> F_RandomPotision()
     {
         // 기준 marker 위치
         Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
@@ -79,7 +78,7 @@ public class UnitGenerator : MonoBehaviour
         float _markerY = _markerTrs.position.z;
 
         // 랜덤위치를 구하기 위한 
-        int _boundaryDir = Random.Range(0,4);
+        int _boundaryDir = Random.Range(0, 4);
 
         float _randRanX = 0;
         float _randRanY = 0;
@@ -91,6 +90,7 @@ public class UnitGenerator : MonoBehaviour
             case 0:
                 _randRanX = Random.Range(_markerX - _xOffset, _markerX + _xOffset);
                 _randRanY = _markerY + _yOffset;
+                Debug.Log($"{_randRanX} / {_randRanY}");
                 break;
             // 오른
             case 1:
@@ -109,7 +109,16 @@ public class UnitGenerator : MonoBehaviour
                 break;
         }
 
-        Debug.Log("방향" + _boundaryDir);
+        // 0을 넘거나 max를 넘으면 안됨
+        //_randRanX = Math.Clamp(_randRanX , 0 , GameManager.Instance.MAP_SIZE);
+        //_randRanY = Math.Clamp(_randRanY , 0 , GameManager.Instance.MAP_SIZE);
+
+        Debug.Log("boundaty" + _boundaryDir);
+        Debug.Log($"{_randRanX} / {_randRanY}");        
+        
+        GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
+        _obj.transform.position = new Vector3(_randRanX, 0, _randRanY);
+        _obj.gameObject.name = "test";
 
         return F_NavMeshSample(_randRanX,_randRanY);
     }
