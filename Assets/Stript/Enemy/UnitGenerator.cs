@@ -30,6 +30,7 @@ public class UnitGenerator : MonoBehaviour
         _markerY = 0;
 
         StartCoroutine(IE_Test());
+
     }
 
    private IEnumerator IE_Test() 
@@ -49,16 +50,35 @@ public class UnitGenerator : MonoBehaviour
         List<Unit_Animal_Type> _unitTypeCount       = _currState.GenerateUnitList;
         int _unitInstanceCount                      = _currState.GenerateCount / _unitTypeCount.Count;
 
-        // 기준 marker 위치
-        Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
-
-        _markerX = _markerTrs.position.x;
-        _markerY = _markerTrs.position.z;
-
         for (int i = 0; i < _unitTypeCount.Count; i++)
         {
-            Tuple<float, float> _randPosition = F_RandomPotision();
+            Tuple<float, float> _randPosition = new Tuple<float, float>(0, 0);
 
+            // 기준 marker 위치
+            Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
+
+            _markerX = _markerTrs.position.x;
+            _markerY = _markerTrs.position.z;
+
+            // boudary범위안에있으면 다시 구해야함 N번
+            for (int j = 0; j < 10; j++) 
+            {
+                _randPosition = F_RandomPotision();
+
+                // 범위 안에 있으면 true
+                bool flag = F_isInBoundary(_markerX , _markerY , _randPosition.Item1 , _randPosition.Item2);
+
+                if (flag)
+                {
+                    continue;
+                }
+                else
+                    break;
+            }
+
+            GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
+            _obj.transform.position = new Vector3(_randPosition.Item1, 0, _randPosition.Item2);
+            
             for (int j = 0; j < _unitInstanceCount; j++)
             {
                 // type에 맞는 오브젝트 get
@@ -67,8 +87,25 @@ public class UnitGenerator : MonoBehaviour
                 // 위치 설정해주기
                 F_ObjectOnOffNavmesh(_insUnit , _randPosition);
             }
+            
         }
     }
+
+    // boundray안에 있는지 
+    private bool F_isInBoundary(float mx, float my, float randomX, float randomY) 
+    {
+        Vector3 boundaryUpRight = new Vector3(mx + _xOffset - 1, 0 , my + _yOffset - 1);
+        Vector3 boundaryDownLeft = new Vector3(mx - _xOffset + 1, 0 , my - _yOffset + 1);
+
+        // 안에있으면 true 
+        bool flag = randomX <= boundaryUpRight.x
+            && randomX >= boundaryDownLeft.x
+            && randomY <= boundaryUpRight.z
+            && randomY >= boundaryDownLeft.z;
+
+        return flag;
+    }
+
 
     // 랜덤 위치 return
     private Tuple<float, float> F_RandomPotision()
@@ -86,7 +123,6 @@ public class UnitGenerator : MonoBehaviour
             case 0:
                 _randRanX = Random.Range(_markerX - _xOffset, _markerX + _xOffset);
                 _randRanY = _markerY + _yOffset;
-                Debug.Log($"{_randRanX} / {_randRanY}");
                 break;
             // 오른
             case 1:
@@ -106,8 +142,8 @@ public class UnitGenerator : MonoBehaviour
         }
 
         // 0을 넘거나 max를 넘으면 안됨
-        //_randRanX = Math.Clamp(_randRanX , 0 , GameManager.Instance.MAP_SIZE);
-        //_randRanY = Math.Clamp(_randRanY , 0 , GameManager.Instance.MAP_SIZE);
+        _randRanX = Math.Clamp(_randRanX , 0 , GameManager.Instance.MAP_SIZE);
+        _randRanY = Math.Clamp(_randRanY , 0 , GameManager.Instance.MAP_SIZE);
 
         return F_NavMeshSample(_randRanX,_randRanY);
     }
