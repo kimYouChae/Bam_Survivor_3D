@@ -8,18 +8,16 @@ using Random = UnityEngine.Random;
 public class UnitGenerator : MonoBehaviour
 {
     [Header("===Spawn Point===")]
-    [SerializeField]
-    private float _xOffset = 12f;
-    [SerializeField]
-    private float _yOffset = 6f;
+    [SerializeField] private float _xOffset = 12f;
+    [SerializeField] private float _yOffset = 6f;
+    private float _markerX;
+    private float _markerY;
 
     [Header("===Stage===")]
-    [SerializeField]
-    private Stage _currState;
+    [SerializeField] private Stage _currState;
 
     [Header("===Navmesh===")]
-    [SerializeField]
-    private NavMeshHit _hit;
+    [SerializeField] private NavMeshHit _hit;
 
     private void Start()
     {
@@ -28,6 +26,8 @@ public class UnitGenerator : MonoBehaviour
         // 초기화는 start에서 하도록 생활화 합시다 하하하하하하하 
         _xOffset = 12;
         _yOffset = 6f;
+        _markerX = 0;
+        _markerY = 0;
 
         StartCoroutine(IE_Test());
     }
@@ -36,11 +36,7 @@ public class UnitGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         // 테스트
-        for (int i = 0; i < 3; i++)
-        {
-            Tuple<float, float> tu = F_RandomPotision();
-
-        }
+        F_EnemyInstanceByStage();
     }
 
     // stage 정보에 맞게 
@@ -52,6 +48,12 @@ public class UnitGenerator : MonoBehaviour
         // animal type 갯수
         List<Unit_Animal_Type> _unitTypeCount       = _currState.GenerateUnitList;
         int _unitInstanceCount                      = _currState.GenerateCount / _unitTypeCount.Count;
+
+        // 기준 marker 위치
+        Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
+
+        _markerX = _markerTrs.position.x;
+        _markerY = _markerTrs.position.z;
 
         for (int i = 0; i < _unitTypeCount.Count; i++)
         {
@@ -71,12 +73,6 @@ public class UnitGenerator : MonoBehaviour
     // 랜덤 위치 return
     private Tuple<float, float> F_RandomPotision()
     {
-        // 기준 marker 위치
-        Transform _markerTrs = PlayerManager.Instance.markerHeadTrasform;
-
-        float _markerX = _markerTrs.position.x;
-        float _markerY = _markerTrs.position.z;
-
         // 랜덤위치를 구하기 위한 
         int _boundaryDir = Random.Range(0, 4);
 
@@ -112,13 +108,6 @@ public class UnitGenerator : MonoBehaviour
         // 0을 넘거나 max를 넘으면 안됨
         //_randRanX = Math.Clamp(_randRanX , 0 , GameManager.Instance.MAP_SIZE);
         //_randRanY = Math.Clamp(_randRanY , 0 , GameManager.Instance.MAP_SIZE);
-
-        Debug.Log("boundaty" + _boundaryDir);
-        Debug.Log($"{_randRanX} / {_randRanY}");        
-        
-        GameObject _obj = Instantiate(GameManager.Instance.emptyObject);
-        _obj.transform.position = new Vector3(_randRanX, 0, _randRanY);
-        _obj.gameObject.name = "test";
 
         return F_NavMeshSample(_randRanX,_randRanY);
     }
