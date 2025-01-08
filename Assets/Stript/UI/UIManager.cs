@@ -63,11 +63,11 @@ public class UIManager : Singleton<UIManager>
     public void F_UpdateMarkerStateText() 
     {
         _stateText.text
-            = "max hp : " + PlayerManager.Instance.markers[0].markerState.markerMaxHp + '\n'
-            + "move speed: " + PlayerManager.Instance.markers[0].markerState.markerMoveSpeed + '\n'
-            + "shield cool Time: " + PlayerManager.Instance.markers[0].markerState.markerShieldCoolTime + '\n'
-            + "shoot cool Time:" + PlayerManager.Instance.markers[0].markerState.markerBulletShootCoolTime + '\n'
-            + "searRadious" + PlayerManager.Instance.markers[0].markerState.markerSearchRadious;
+            = "max hp : " + PlayerManager.Instance.markers.markerState.markerMaxHp + '\n'
+            + "move speed: " + PlayerManager.Instance.markers.markerState.markerMoveSpeed + '\n'
+            + "shield cool Time: " + PlayerManager.Instance.markers.markerState.markerShieldCoolTime + '\n'
+            + "shoot cool Time:" + PlayerManager.Instance.markers.markerState.markerBulletShootCoolTime + '\n'
+            + "searRadious" + PlayerManager.Instance.markers.markerState.markerSearchRadious;
     }
 
 

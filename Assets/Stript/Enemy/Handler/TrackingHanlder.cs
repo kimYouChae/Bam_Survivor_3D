@@ -51,8 +51,8 @@ public class TrackingHanlder : ITrackingHandler
     // marker(플레이어)가 범위안에 들어오면 changeState
     public void TH_EvaluateStateTransition()
     {
-        _playerPos2D.x = PlayerManager.Instance.markers[0].transform.position.x;
-        _playerPos2D.y = PlayerManager.Instance.markers[0].transform.position.z;
+        _playerPos2D.x = PlayerManager.Instance.markers.transform.position.x;
+        _playerPos2D.y = PlayerManager.Instance.markers.transform.position.z;
 
         _unitPos2D.x = _unit.transform.position.x;
         _unitPos2D.y = _unit.transform.position.z;
