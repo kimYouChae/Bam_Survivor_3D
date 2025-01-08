@@ -22,6 +22,10 @@ public class UnitBullet : MonoBehaviour
         }
         // 1. wall이랑 충돌
         // 3. building이랑 충돌        
+        
+        // addForce한거 초기화
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
         // => pooling으로 되돌리기 
         UnitManager.Instance.UnitBulletPooling.F_UnitBulletSet(gameObject, _unitBulletType);
     }

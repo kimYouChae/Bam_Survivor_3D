@@ -107,7 +107,7 @@ public class UnitAnimationHandler
         float _time = _unitAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(_time);
 
-        Debug.Log("====局聪皋捞记 场 : " + _aniState + "=====");
+        //Debug.Log("====局聪皋捞记 场 : " + _aniState + "=====");
 
         // 局聪皋捞记 场
         _animationEndFlag = true;
