@@ -23,26 +23,21 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private MarkerExplosionConteroller _markerExplosionConteroller;        // 총알 폭발시 컨트롤러
 
     [Header("===Marker===")]
-    [SerializeField] List<Marker> _markers;                         // Marker 클래스 리스트에 저장
-    [SerializeField] List<Slider> _markerHpBar;                     // Marker의 hp바 
+    [SerializeField] Marker          _markers;                         // Player marker 클래스
+    [SerializeField] List<Slider>    _markerHpBar;                     // Marker의 hp바 
 
     [Header("===Transform===")]
     [SerializeField] private Transform _markerHeadTrasform;         // marker head의 transform
-
-    [Header("===Prefab===")]
-    [SerializeField] private GameObject _boundaryToScreenObj;       // 스크린 기준 boundary
-    [SerializeField] private Transform  _boudaryParent;             // boundary 부모 
 
     // 프로퍼티
     public MarkerMovement markerMovement => _markerMovement;
     public MarkerBulletController markerBulletController => _markerBulletController;
     public MarkerExplosionConteroller markerExplosionConteroller => _markerExplosionConteroller;
     public Transform markerHeadTrasform => _markerHeadTrasform;
-    public List<Marker> markers => _markers;
+    public Marker markers => _markers;
     public List<Slider> markerHpBar => _markerHpBar;
 
-    // marker count return 
-    public int F_MarkerListCount() => _markers.Count;
+    public float markerSpeed => _markers.markerState.markerMoveSpeed;
 
     protected override void Singleton_Awake()
     {
@@ -53,8 +48,6 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         // state 초기화 
         F_InitMarkerState();
-
-        _markerHeadTrasform = _markers[0].transform;
 
         // exp 
         _PLAYERLEVEL    = 1;
@@ -107,27 +100,24 @@ public class PlayerManager : Singleton<PlayerManager>
     }
 
     // marker State 초기화 
-    private void F_InitMarkerState() 
+    private void F_InitMarkerState()
     {
         // ## TODO : player에 따라 수정해야함 ( 추후 시작 player 종류가 많아지면 )
 
-        for(int i = 0; i < _markers.Count; i++) 
-        {
-            _markers[i].markerState.F_SetMarkerState(
-                _name       : "귀여운비버" , 
-                _hp         : 10f , 
-                _maxHp      : 10f ,
-                _speed      : 3f , 
-                _defence    : 0f , 
-                _search     : 5f , 
-                _magnet     : 1f, 
-                _sCoolTime  : 2f, 
-                _bCoolTime  : 2f, 
-                _recovery   : 1f, 
-                _rCoolTime  : 10f );
-
-            // hp , maxhp , speed , 방어력  , 탐색범위 , 자석 범위 , 쉴드쿨타임 , 총알 쿨타임 , 회복량 , 회복쿨타임
-        }
+        _markers.markerState.F_SetMarkerState(
+                _name: "귀여운비버",
+                _hp: 10f,
+                _maxHp: 10f,
+                _speed: 3f,
+                _defence: 0f,
+                _search: 5f,
+                _magnet: 1f,
+                _sCoolTime: 2f,
+                _bCoolTime: 2f,
+                _recovery: 1f,
+                _rCoolTime: 10f);
+    
+        // hp , maxhp , speed , 방어력  , 탐색범위 , 자석 범위 , 쉴드쿨타임 , 총알 쿨타임 , 회복량 , 회복쿨타임
     }
 
     // skillcard의 효과 적용
@@ -146,21 +136,17 @@ public class PlayerManager : Singleton<PlayerManager>
         float SearchRadiousPercent = 0 , float MagnetPercent = 0 , float ShieldCoolTimePercent = 0 , float BulletCoolTimePercent = 0,
         float RecoveryIncrease = 0 , float RecoveryCoolTimeDecrease = 0 ) 
     {
-        for(int i = 0; i < _markers.Count; i++) 
-        {
-            MarkerState state = _markers[i].markerState;
+        MarkerState state = _markers.markerState;
 
-            state.markerMaxHp               += state.markerMaxHp * MaxHpPercent;
-            state.markerMoveSpeed           += state.markerMoveSpeed * SpeedPercent;
-            state.defence                   += state.defence * DefencePercent;
-            state.markerSearchRadious       += state.markerSearchRadious * SearchRadiousPercent;
-            state.magnetSearchRadious       += state.magnetSearchRadious * MagnetPercent;
-            state.markerShieldCoolTime      -= state.markerShieldCoolTime * ShieldCoolTimePercent;
-            state.markerBulletShootCoolTime -= state.markerBulletShootCoolTime * BulletCoolTimePercent;
-            state.naturalRecoery            += RecoveryIncrease;
-            state.recoveryCoolTime          -= RecoveryCoolTimeDecrease;
-
-        }
+        state.markerMaxHp += state.markerMaxHp * MaxHpPercent;
+        state.markerMoveSpeed += state.markerMoveSpeed * SpeedPercent;
+        state.defence += state.defence * DefencePercent;
+        state.markerSearchRadious += state.markerSearchRadious * SearchRadiousPercent;
+        state.magnetSearchRadious += state.magnetSearchRadious * MagnetPercent;
+        state.markerShieldCoolTime -= state.markerShieldCoolTime * ShieldCoolTimePercent;
+        state.markerBulletShootCoolTime -= state.markerBulletShootCoolTime * BulletCoolTimePercent;
+        state.naturalRecoery += RecoveryIncrease;
+        state.recoveryCoolTime -= RecoveryCoolTimeDecrease;
     }
 
     // 추가 state 업데이트 

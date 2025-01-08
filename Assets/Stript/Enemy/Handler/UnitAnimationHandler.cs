@@ -77,7 +77,7 @@ public class UnitAnimationHandler
         // ex) Pig_BasicAttack 이런식으로 (State 이름)
         string _aniState = _unit.unitName + "_" + _currAniState.ToString();
 
-        Debug.Log(_aniState);
+        //Debug.Log(_aniState);
 
         /*
         while (true) 
@@ -107,7 +107,7 @@ public class UnitAnimationHandler
         float _time = _unitAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(_time);
 
-        Debug.Log("====애니메이션 끝 : " + _aniState + "=====");
+        //Debug.Log("====애니메이션 끝 : " + _aniState + "=====");
 
         // 애니메이션 끝
         _animationEndFlag = true;

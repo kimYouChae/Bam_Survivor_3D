@@ -10,7 +10,7 @@ public class RANGED_Basic_Attack : AttackStrategy
     private UnitBulletType _bulletType;
 
     [SerializeField]
-    private const float BulletForce = 2f;
+    private const float BulletForce = 5f;
 
     // 생성자
     public RANGED_Basic_Attack(UnitAnimationType _type)
@@ -27,13 +27,13 @@ public class RANGED_Basic_Attack : AttackStrategy
         _unit.F_TriggerAnimation(_attackType);
 
         // 원거리 공격
-        // ##TODO : pool에서 get 해야함 
         GameObject _obj = UnitManager.Instance.UnitBulletPooling.F_UnitBulletGet(_bulletType);
         // 위치조정 
         _obj.transform.position = _unit.hitTransform.position;
 
         // marker 감지 
-        Collider[] _coll = Physics.OverlapSphere(_unit.hitTransform.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
+        Collider[] _coll = 
+            Physics.OverlapSphere(_unit.hitTransform.position, _unit.unitSearchRadious, LayerManager.Instance.markerLayer);
 
         // 방향 : 플레이어- unit방향벡터
         Vector3 _dir;
@@ -45,7 +45,8 @@ public class RANGED_Basic_Attack : AttackStrategy
             _dir = PlayerManager.Instance.markerHeadTrasform.position - _unit.transform.position;
 
         // add force
-        _obj.GetComponent<Rigidbody>().AddForce(new Vector3(_dir.x , 0 , _dir.z) * BulletForce, ForceMode.Impulse);
+        Vector3 _normal = _dir.normalized;
+        _obj.GetComponent<Rigidbody>().AddForce(new Vector3(_normal.x , 0 , _normal.z) * BulletForce, ForceMode.Impulse);
         // 스크립트에 넣기 
         _obj.GetComponent<UnitBullet>().BulletType = _bulletType;
         _obj.GetComponent<UnitBullet>().Damage = _unit.unitDamage;
