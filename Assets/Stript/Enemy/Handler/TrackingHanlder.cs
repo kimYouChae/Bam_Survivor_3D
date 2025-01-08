@@ -31,17 +31,15 @@ public class TrackingHanlder : ITrackingHandler
         // update문 효과 
         while (true)
         {
-            // 근처에 navMesh가 있을때만
-            if (TH_CheckIsOnNavMesh())
-            {
-                // marker의 첫번째 위치를 목적지고
-                _destiPosition = PlayerManager.Instance.markerHeadTrasform.position;
 
-                //Debug.Log(_unit.gameObject.name + "의 도착지 + " + _destiPosition);
+            // marker의 첫번째 위치를 목적지고
+            _destiPosition = PlayerManager.Instance.markerHeadTrasform.position;
 
-                // agent의 도착지 잡아주기 
-                _unitAgent.SetDestination(_destiPosition);
-            }
+            //Debug.Log(_unit.gameObject.name + "의 도착지 + " + _destiPosition);
+
+            // agent의 도착지 잡아주기 
+            _unitAgent.SetDestination(_destiPosition);
+            
 
             yield return new WaitForSeconds(_navActionCoolDown);
         }

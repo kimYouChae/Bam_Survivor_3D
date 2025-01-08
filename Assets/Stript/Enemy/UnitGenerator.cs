@@ -29,7 +29,13 @@ public class UnitGenerator : MonoBehaviour
         _markerX = 0;
         _markerY = 0;
 
-        StartCoroutine(IE_Test());
+        //StartCoroutine(IE_Test());
+
+        // type에 맞는 오브젝트 get
+        GameObject _insUnit = UnitManager.Instance.UnitPooling.F_GetUnit(Unit_Animal_Type.Chick);
+
+        // 위치 설정해주기
+        F_ObjectOnOffNavmesh(_insUnit, new Tuple<float,float>(12f, 47f));
 
     }
 
