@@ -68,8 +68,8 @@ public class ShieldPooling : MonoBehaviour
             _obj.GetComponent<ShieldObject>().F_SettingShiledObject
                 (
                     _effect,
-                    ShieldCSVImporter.instance.ShieldMin(_effect),
-                    ShieldCSVImporter.instance.ShieldMax(_effect)
+                    ShieldManager.Instance.shieldCSVImporter.ShieldMin(_effect),
+                    ShieldManager.Instance.shieldCSVImporter.ShieldMax(_effect)
                 ); 
         }
         catch (Exception e) 

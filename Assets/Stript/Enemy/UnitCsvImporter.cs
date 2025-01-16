@@ -3,22 +3,11 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class UnitCsvImporter : MonoBehaviour
+public class UnitCsvImporter : CSVManager
 {
-    // csv 파싱 정규식 
-    string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
-
     [Header("===Container===")]
     [SerializeField]
     private Dictionary<Unit_Animal_Type, UnitState> DICT_AnimalTypeToUnitState;
-
-    void Start()
-    {
-        DICT_AnimalTypeToUnitState = new Dictionary<Unit_Animal_Type, UnitState>();
-
-        F_InitUnit();
-    }
 
     // type 별 state return
     public UnitState F_AnimalTypeToState(Unit_Animal_Type _type)
@@ -31,28 +20,23 @@ public class UnitCsvImporter : MonoBehaviour
         return _state;
     }
 
-
-    private void F_InitUnit() 
+    protected override void F_InitContainer()
     {
-        // 유닛 텍스트 에셋 가져오기
-        TextAsset _textAsset = Resources.Load("Unit") as TextAsset;
+        //파일명 초기화 
+        FileName = "Unit";
 
-        // 행별로 자르기
-        string[] lines = Regex.Split(_textAsset.text, LINE_SPLIT_RE);
-
-        // 첫번쨰 행 자르기 
-        string[] header = Regex.Split(lines[0], SPLIT_RE);
-
-        for (int i = 1; i < lines.Length; i++)
-        {
-            string[] values = Regex.Split(lines[i], SPLIT_RE);
-            
-            // state 생성 
-            UnitState _unitState = new UnitState(values);
-
-            // DICT에 넣기 
-            DICT_AnimalTypeToUnitState.Add( _unitState.AnimalType , _unitState );
-        }
-
+        // 컨테이너 초기화 
+        DICT_AnimalTypeToUnitState = new Dictionary<Unit_Animal_Type, UnitState>();
     }
+
+    protected override void F_ProcessData(string[] _data)
+    {
+        // state 생성 
+        UnitState _unitState = new UnitState(_data);
+
+        // DICT에 넣기 
+        DICT_AnimalTypeToUnitState.Add(_unitState.AnimalType, _unitState);
+    }
+
+
 }
