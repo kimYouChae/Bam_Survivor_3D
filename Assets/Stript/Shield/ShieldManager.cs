@@ -7,6 +7,7 @@ public class ShieldManager : Singleton<ShieldManager>
 {
     [Header("===Script===")]
     [SerializeField] private ShieldPooling _shieldPooling;
+    [SerializeField] private ShieldCSVImporter _shieldCSVImporter;
 
     [Header("===중복 검사 Dictionary===")]
     private Dictionary<Shield_Effect, int> DICT_ShieldTOCount;
@@ -22,6 +23,9 @@ public class ShieldManager : Singleton<ShieldManager>
 
     // deligate 선언
     public del_ShieldCreate del_shieldCreate;
+
+    // 프로퍼티
+    public ShieldCSVImporter shieldCSVImporter => _shieldCSVImporter;
 
     // effect에 해당하는 count를 return
     public int F_ReturnCountToDic(Shield_Effect _effect)

@@ -16949,6 +16949,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb693a49d1fc3614c8c42ff3db1d3bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SPLIT_RE: ',(?=(?:[^"]*"[^"]*")*(?![^"]*"))'
+  LINE_SPLIT_RE: \r\n|\n\r|\n|\r
+  FileName: 
+  headerArray: []
 --- !u!114 &1285673148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16962,6 +16966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shieldPooling: {fileID: 1285673146}
+  _shieldCSVImporter: {fileID: 1285673147}
 --- !u!1 &1290114174
 GameObject:
   m_ObjectHideFlags: 0
@@ -18833,6 +18838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d500c05cd19e243a9a828652802d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SPLIT_RE: ',(?=(?:[^"]*"[^"]*")*(?![^"]*"))'
+  LINE_SPLIT_RE: \r\n|\n\r|\n|\r
+  FileName: 
+  headerArray: []
 --- !u!114 &1398733630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28660,6 +28669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c678f84d8325d7341818d60e514cb9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SPLIT_RE: ',(?=(?:[^"]*"[^"]*")*(?![^"]*"))'
+  LINE_SPLIT_RE: \r\n|\n\r|\n|\r
+  FileName: 
+  headerArray: []
 --- !u!1 &2075922701
 GameObject:
   m_ObjectHideFlags: 0
