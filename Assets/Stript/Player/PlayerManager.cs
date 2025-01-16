@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-
     [Header("===Player Level===")]
     [SerializeField] private int _PLAYERLEVEL;        // 현재 레벨
     [SerializeField] private float _CURREXP;          // 현재 경험치
