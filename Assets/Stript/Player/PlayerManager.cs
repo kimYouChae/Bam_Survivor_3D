@@ -135,7 +135,7 @@ public class PlayerManager : Singleton<PlayerManager>
         float SearchRadiousPercent = 0 , float MagnetPercent = 0 , float ShieldCoolTimePercent = 0 , float BulletCoolTimePercent = 0,
         float RecoveryIncrease = 0 , float RecoveryCoolTimeDecrease = 0 ) 
     {
-        MarkerState state = _markers.markerState;
+        PlayerAnimalState state = _markers.markerState;
 
         state.markerMaxHp += state.markerMaxHp * MaxHpPercent;
         state.markerMoveSpeed += state.markerMoveSpeed * SpeedPercent;
