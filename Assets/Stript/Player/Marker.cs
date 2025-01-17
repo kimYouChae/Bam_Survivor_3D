@@ -11,7 +11,7 @@ public class Marker : MonoBehaviour
 
     [Header("===State===")]
     [SerializeField]
-    private MarkerState _markerState;
+    private PlayerAnimalState _markerState;
 
     [Header("===HP Bar===")]
     [SerializeField]
@@ -22,7 +22,7 @@ public class Marker : MonoBehaviour
     private Transform _markerMuzzleTrs;
 
     // 프로퍼티
-    public MarkerState markerState => _markerState;
+    public PlayerAnimalState markerState => _markerState;
     public Slider markerHpBar => _markerHpBar;
     public Transform markerMuzzleTrs => _markerMuzzleTrs;
 

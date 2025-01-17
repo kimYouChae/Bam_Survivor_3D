@@ -148,7 +148,7 @@ public enum UnitBulletType
     YellowApple
 }
 
-public enum PlayerType 
+public enum AnimalType 
 {
     Beaver,
     Kingfisher,
@@ -348,10 +348,10 @@ public class UnitState
 #region Player
 
 [System.Serializable]
-public class MarkerState
+public class PlayerAnimalState
 {
     // 스탯
-    [SerializeField] private PlayerType _type;              // player 타입
+    [SerializeField] private AnimalType _type;              // player 타입
     [SerializeField] private string _name;                  // name
     [SerializeField] private float _hp;                     // marker Hp
     [SerializeField] private float _maxHp;                  // marker max hp
@@ -375,7 +375,7 @@ public class MarkerState
     [SerializeField] private float _luck;                       // 운
 
     #region 프로퍼티
-    public PlayerType markerPlayerType { get => _type; }
+    public AnimalType markerPlayerType { get => _type; }
     public string markerName { get => _name; }
     public float markerHp { get => _hp; set { _hp = value; } }
     public float markerMaxHp { get => _maxHp; set { _maxHp = value; } }
@@ -390,9 +390,9 @@ public class MarkerState
     #endregion
 
     // 생성자
-    public MarkerState(string[] _value) 
+    public PlayerAnimalState(string[] _value) 
     {
-        this._type                  = (PlayerType)Enum.Parse(typeof(PlayerType), _value[0]);
+        this._type                  = (AnimalType)Enum.Parse(typeof(AnimalType), _value[0]);
         this._name                  = _value[1];
         this._hp                    = float.Parse(_value[2]);
         this._maxHp                 = float.Parse(_value[3]);

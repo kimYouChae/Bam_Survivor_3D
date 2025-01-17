@@ -281,6 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 26442417}
+  - component: {fileID: 26442418}
   m_Layer: 0
   m_Name: PlayerSelectUI
   m_TagString: Untagged
@@ -303,6 +304,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2090867533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &26442418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26442416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f375a992d822643acf2f34ec091b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animalProfileObj: []
+  _selectAnimalNameText: {fileID: 0}
+  _HpText: {fileID: 0}
+  _SpeedText: {fileID: 0}
+  _DamageText: {fileID: 0}
+  _DefenceText: {fileID: 0}
+  _RecoveryText: {fileID: 0}
+  _moreAbilityText: {fileID: 0}
+  _playerAnimalStateList: []
+  _animalPriceData:
+  - {fileID: 11400000, guid: 37e07964f9f36da419bdffe2182e6450, type: 2}
+  - {fileID: 11400000, guid: ce2bd6659f5334b4d889f341a5df0d69, type: 2}
+  - {fileID: 11400000, guid: fb6d3a8cd6ce4ca4a85d559aca26a667, type: 2}
+  - {fileID: 11400000, guid: 7a3680236ce15bf46b0ccada60db1809, type: 2}
+  - {fileID: 11400000, guid: 5f5ed011ca7939740a8aa85a4ba991ae, type: 2}
+  _currMarkerState:
+    _type: 0
+    _name: 
+    _hp: 0
+    _maxHp: 0
+    _moveSpeed: 0
+    _damage: 0
+    _defence: 0
+    _naturalRecovery: 0
+    _searchRadious: 0
+    _magnetSearchRadious: 0
+    _shieldCoolTime: 0
+    _shootCoolTime: 0
+    _recoveryCoolTime: 0
+    _revivalCount: 0
+    _bonusExperience: 0
+    _luck: 0
 --- !u!1 &29803556
 GameObject:
   m_ObjectHideFlags: 0
@@ -8961,6 +9006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efec679228f03fc41b93111543e4fc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _csvImporter: {fileID: 1443374937}
 --- !u!114 &1443374937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35382,7 +35428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3308754553566221257, guid: f7c82a7403429ec4eb5b9dbad70194de, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9060531894119418156, guid: f7c82a7403429ec4eb5b9dbad70194de, type: 3}
       propertyPath: m_Pivot.x
