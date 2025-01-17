@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
+using System;
 
 public class UnitCsvImporter : CSVManager
 {
@@ -35,8 +35,14 @@ public class UnitCsvImporter : CSVManager
         UnitState _unitState = new UnitState(_data);
 
         // DICT¿¡ ³Ö±â 
-        DICT_AnimalTypeToUnitState.Add(_unitState.AnimalType, _unitState);
+        try
+        {
+            DICT_AnimalTypeToUnitState.Add(_unitState.AnimalType, _unitState);
+        }
+        catch (Exception e) 
+        {
+            Debug.Log(e);
+        }
     }
-
 
 }

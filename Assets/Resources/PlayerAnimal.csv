@@ -1,0 +1,6 @@
+_Playertype,_markerName,_markerHp,_markerMaxHp,_markerMoveSpeed,_damage,_defence,_markerSearchRadious,_magnetSearchRadious,_markerShieldCoolTime,_markerShootCoolTime,_naturalRecovery,_recoveryCoolTime,_revivalCount,_bonusExperience,_luck
+Beaver,비버,200,200,3,30,10,5,2,10,3,10,10,0,0,20
+Kingfisher,물총새,100,100,5,100,5,10,2,7,3,20,10,0,10,40
+SnappingTurtle,늑대거북,250,250,1,40,15,3,2,10,3,9,10,0,20,50
+Swan,백조,150,150,5,80,7,10,2,7,3,15,10,0,15,60
+Crocodile,악어,350,350,1,20,20,3,2,15,3,5,10,0,10,30

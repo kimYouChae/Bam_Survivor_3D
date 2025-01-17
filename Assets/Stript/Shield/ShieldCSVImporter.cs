@@ -37,7 +37,14 @@ public class ShieldCSVImporter : CSVManager
         Vector3 _maxVec = new Vector3(float.Parse(maxList[0]), float.Parse(maxList[1]), float.Parse(maxList[2]));
 
         // Dictionary¿¡ ³Ö±â 
-        DIC_effectByMinMaxSize.Add(_effect, new Tuple<Vector3, Vector3>(_minVec, _maxVec));
+        try 
+        {
+            DIC_effectByMinMaxSize.Add(_effect, new Tuple<Vector3, Vector3>(_minVec, _maxVec));
+        }
+        catch(Exception e) 
+        {
+            Debug.Log(e);
+        }
     }
 
 }

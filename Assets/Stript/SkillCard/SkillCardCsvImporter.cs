@@ -43,24 +43,12 @@ public class SkillCardCsvImporter : CSVManager
 
             // 3. dictonary에 넣기
             tierBySkillCard[_card.cardTier].Add(_card);
-
-            // ##TODO : 4. card의 effect를 검사해서 , 각 스크립트의 딕셔너리에 저장해두기 
-            /*
-            switch (_card.cardAbility)
-            {
-                case CardAbility.BulletExplosion:
-                    PlayerManager.instance.markerExplosionConteroller.F_DictionaryInt(_card);
-                    break;
-                case CardAbility.Shield:
-                    PlayerManager.instance.markerShieldController.F_DictionaryInt(_card);
-                    break;
-            }
-            */
         }
         catch (Exception ex)
         {
             Debug.LogError(ex);
         }
+
         // 딕셔너리 출력해보기
         /*
         for (int i = 0; i < _tierBySkillCard.Count; i++) 

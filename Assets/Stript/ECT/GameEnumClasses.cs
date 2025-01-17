@@ -148,8 +148,16 @@ public enum UnitBulletType
     YellowApple
 }
 
-#endregion
+public enum PlayerType 
+{
+    Beaver,
+    Kingfisher,
+    SnappingTurtle,
+    Swan,
+    Crocodile
+}
 
+#endregion
 
 #region Stage
 [System.Serializable]
@@ -262,7 +270,8 @@ public class UnitState
     [SerializeField] private float _defencePower;                   // 방어력
     [SerializeField] private float _unitDamage;                     // 데미지 
 
-    // 프로퍼티 
+    #region 프로퍼티
+    
     public Unit_Type UnitType { get => _unitType; set => _unitType = value; }
     public Unit_Animal_Type AnimalType { get => _animalType; set => _animalType = value; }
     public string UnitName { get => _unitName; set => _unitName = value; }
@@ -275,7 +284,7 @@ public class UnitState
     public float SearchRadious { get => _searchRadious; set => _searchRadious = value; }
     public float DefencePower { get => _defencePower; set => _defencePower = value; }
     public float UnitDamage { get => _unitDamage; set => _unitDamage = value; }
-
+    #endregion
 
     // 생성자
     public UnitState(UnitState _state) 
@@ -342,46 +351,77 @@ public class UnitState
 public class MarkerState
 {
     // 스탯
-    [SerializeField] private string _markerName;                // name
-    [SerializeField] private float _markerHp;                   // marker Hp
-    [SerializeField] private float _markerMaxHp;                // marker max hp
-    [SerializeField] private float _markerMoveSpeed;            // marker speed
-    [SerializeField] private float _defence;                    // 방어력
-    [SerializeField] private float _naturalRecovery;            // 자연 회복량
+    [SerializeField] private PlayerType _type;              // player 타입
+    [SerializeField] private string _name;                  // name
+    [SerializeField] private float _hp;                     // marker Hp
+    [SerializeField] private float _maxHp;                  // marker max hp
+    [SerializeField] private float _moveSpeed;              // marker speed
+    [SerializeField] private float _damage;                 // 데미지 
+    [SerializeField] private float _defence;                // 방어력
+    [SerializeField] private float _naturalRecovery;        // 자연 회복량
 
     // 범위
-    [SerializeField] private float _markerSearchRadious;        // unit 탐색 범위
-    [SerializeField] private float _magnetSearchRadious;        // 자석 범위 
+    [SerializeField] private float _searchRadious;          // unit 탐색 범위
+    [SerializeField] private float _magnetSearchRadious;    // 자석 범위 
     
     // 쿨타임
-    [SerializeField] private float _markerShieldCoolTime;       // marker 쉴드 쿨타임 
-    [SerializeField] private float _markerBulletShootCoolTime;  // 총알 발사 쿨타임 
+    [SerializeField] private float _shieldCoolTime;             // marker 쉴드 쿨타임 
+    [SerializeField] private float _shootCoolTime;              // 총알 발사 쿨타임 
     [SerializeField] private float _recoveryCoolTime;           // 자연 회복량 쿨타임
 
-    // 프로퍼티
-    public float markerHp { get => _markerHp; set { _markerHp = value; } }
-    public float markerMaxHp { get => _markerMaxHp; set { _markerMaxHp = value; } }
-    public float markerMoveSpeed { get => _markerMoveSpeed; set { _markerMoveSpeed = value; } }
+    // 추가 스탯
+    [SerializeField] private int _revivalCount;                 // 부활 횟수
+    [SerializeField] private float _bonusExperience;            // 경험치 배율 
+    [SerializeField] private float _luck;                       // 운
+
+    #region 프로퍼티
+    public PlayerType markerPlayerType { get => _type; }
+    public string markerName { get => _name; }
+    public float markerHp { get => _hp; set { _hp = value; } }
+    public float markerMaxHp { get => _maxHp; set { _maxHp = value; } }
+    public float markerMoveSpeed { get => _moveSpeed; set { _moveSpeed = value; } }
     public float defence { get => _defence; set { _defence = value; } }
-    public float markerShieldCoolTime { get => _markerShieldCoolTime; set { _markerShieldCoolTime = value; } }
-    public float markerBulletShootCoolTime { get => _markerBulletShootCoolTime; set { _markerBulletShootCoolTime = value; } }
-    public float markerSearchRadious { get => _markerSearchRadious; set { _markerSearchRadious = value; } }
+    public float markerShieldCoolTime { get => _shieldCoolTime; set { _shieldCoolTime = value; } }
+    public float markerBulletShootCoolTime { get => _shootCoolTime; set { _shootCoolTime = value; } }
+    public float markerSearchRadious { get => _searchRadious; set { _searchRadious = value; } }
     public float naturalRecoery { get => _naturalRecovery; set { _naturalRecovery = value; } }
     public float recoveryCoolTime { get => _recoveryCoolTime; set { _recoveryCoolTime = value; } }
     public float magnetSearchRadious { get => _magnetSearchRadious; set { _magnetSearchRadious = value; } }
+    #endregion
 
-    // 생성자 
+    // 생성자
+    public MarkerState(string[] _value) 
+    {
+        this._type                  = (PlayerType)Enum.Parse(typeof(PlayerType), _value[0]);
+        this._name                  = _value[1];
+        this._hp                    = float.Parse(_value[2]);
+        this._maxHp                 = float.Parse(_value[3]);
+        this._moveSpeed             = float.Parse(_value[4]);
+        this._damage                = float.Parse(_value[5]);
+        this._defence               = float.Parse(_value[6]);
+        this._searchRadious         = float.Parse(_value[7]);
+        this._magnetSearchRadious   = float.Parse(_value[8]);
+        this._shieldCoolTime        = float.Parse(_value[9]);
+        this._shootCoolTime         = float.Parse(_value[10]);
+        this._naturalRecovery       = float.Parse(_value[11]);
+        this._recoveryCoolTime      = float.Parse(_value[12]);
+        this._revivalCount          = int.Parse(_value[13]);
+        this._bonusExperience       = float.Parse(_value[14]);
+        this._luck                  = float.Parse(_value[15]);
+    }
+
+    // ##TODO : csv importer하고 지워야함 !
     public void F_SetMarkerState(string _name, float _hp, float _maxHp, float _speed, float _defence , float _search , float _magnet
         , float _sCoolTime, float _bCoolTime, float _recovery , float _rCoolTime)
     {
-        this._markerName            = _name;
-        this._markerHp              = _hp;
-        this._markerMaxHp           = _maxHp;
-        this._markerMoveSpeed       = _speed;
+        this._name            = _name;
+        this._hp              = _hp;
+        this._maxHp           = _maxHp;
+        this._moveSpeed       = _speed;
         this._defence               = _defence;
-        this._markerSearchRadious   = _search;
-        this._markerShieldCoolTime  = _sCoolTime;
-        this._markerBulletShootCoolTime   = _bCoolTime;
+        this._searchRadious   = _search;
+        this._shieldCoolTime  = _sCoolTime;
+        this._shootCoolTime   = _bCoolTime;
         this._naturalRecovery       = _recovery;
         this._recoveryCoolTime      = _rCoolTime;
     }
