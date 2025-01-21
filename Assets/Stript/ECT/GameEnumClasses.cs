@@ -380,13 +380,17 @@ public class PlayerAnimalState
     public float markerHp { get => _hp; set { _hp = value; } }
     public float markerMaxHp { get => _maxHp; set { _maxHp = value; } }
     public float markerMoveSpeed { get => _moveSpeed; set { _moveSpeed = value; } }
-    public float defence { get => _defence; set { _defence = value; } }
+    public float markerDamage { get => _damage; }
+    public float markerDefence { get => _defence; set { _defence = value; } }
     public float markerShieldCoolTime { get => _shieldCoolTime; set { _shieldCoolTime = value; } }
     public float markerBulletShootCoolTime { get => _shootCoolTime; set { _shootCoolTime = value; } }
     public float markerSearchRadious { get => _searchRadious; set { _searchRadious = value; } }
-    public float naturalRecoery { get => _naturalRecovery; set { _naturalRecovery = value; } }
-    public float recoveryCoolTime { get => _recoveryCoolTime; set { _recoveryCoolTime = value; } }
+    public float markerNaturalRecoery { get => _naturalRecovery; set { _naturalRecovery = value; } }
+    public float markerRecoveryCoolTime { get => _recoveryCoolTime; set { _recoveryCoolTime = value; } }
     public float magnetSearchRadious { get => _magnetSearchRadious; set { _magnetSearchRadious = value; } }
+    public int markerRevivalCount => _revivalCount;
+    public float markerBonusExperience => _bonusExperience;
+    public float markerLuck => _luck; 
     #endregion
 
     // »ı¼ºÀÚ

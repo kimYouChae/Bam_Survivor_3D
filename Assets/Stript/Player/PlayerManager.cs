@@ -139,13 +139,13 @@ public class PlayerManager : Singleton<PlayerManager>
 
         state.markerMaxHp += state.markerMaxHp * MaxHpPercent;
         state.markerMoveSpeed += state.markerMoveSpeed * SpeedPercent;
-        state.defence += state.defence * DefencePercent;
+        state.markerDefence += state.markerDefence * DefencePercent;
         state.markerSearchRadious += state.markerSearchRadious * SearchRadiousPercent;
         state.magnetSearchRadious += state.magnetSearchRadious * MagnetPercent;
         state.markerShieldCoolTime -= state.markerShieldCoolTime * ShieldCoolTimePercent;
         state.markerBulletShootCoolTime -= state.markerBulletShootCoolTime * BulletCoolTimePercent;
-        state.naturalRecoery += RecoveryIncrease;
-        state.recoveryCoolTime -= RecoveryCoolTimeDecrease;
+        state.markerNaturalRecoery += RecoveryIncrease;
+        state.markerRecoveryCoolTime -= RecoveryCoolTimeDecrease;
     }
 
     // 추가 state 업데이트 
