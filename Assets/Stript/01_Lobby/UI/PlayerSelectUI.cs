@@ -1,19 +1,26 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayerSelectUI : MonoBehaviour
 {
     [Header("===Animal Select===")]
-    [SerializeField] List<GameObject> _animalProfileObj;
-    [SerializeField] TextMeshProUGUI _selectAnimalNameText;
+    [SerializeField] List<GameObject> _animalProfileObj;            // 프로필 리스트
+    [SerializeField] TextMeshProUGUI _selectAnimalNameText;         // 선택한 동물 이름
 
     [Header("===Arrow===")]
-    [SerializeField] Image _leftArrow;
-    [SerializeField] Image _rightArrow;
+    [SerializeField] GameObject _leftArrow;
+    [SerializeField] GameObject _rightArrow;
+    private Button _leftArrowButton;
+    private Button _rightArrowButton;
+
+    [Header("===Button===")]
+    [SerializeField] GameObject _acquireImage;              // 획득 이미지 
+    [SerializeField] GameObject _buyButton;                 // buy 버튼
+    [SerializeField] GameObject _selectButton;              // 선택버튼
+    [SerializeField] TextMeshProUGUI _priceText;            // 가격 텍스트
 
     [Header("===Ability===")]
     [SerializeField] TextMeshProUGUI _HpText;
@@ -21,52 +28,96 @@ public class PlayerSelectUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _DamageText;
     [SerializeField] TextMeshProUGUI _DefenceText;
     [SerializeField] TextMeshProUGUI _RecoveryText;
-
-    [Header("===Add Ability===")]
     [SerializeField] TextMeshProUGUI _moreAbilityText;
 
     [Header("===Animal Unlock===")]
-    [SerializeField] List<PlayerAnimalState> _playerAnimalStateList;
-    [SerializeField] Dictionary<AnimalType, bool> _obtainAnimal;
+    [SerializeField] List<PlayerAnimalState> _playerAnimalStateList;        // enum 순서대로 리스트에서 저장 
+    [SerializeField] Dictionary<AnimalType, bool> DICT_obtainAnimal;        // type별 획득 여부
+    [SerializeField] AnimalType[] _animalTypeList;
 
     [Header("===Price===")]
     [SerializeField] AnimalPriceData[] _animalPriceData;
     // [0]beaver... enum 순서대로 들어가있음
 
     [Header("===Now Animal State===")]
-    [SerializeField] PlayerAnimalState _currMarkerState;
+    [SerializeField] PlayerAnimalState _currMarkerState;                    // 현재 player 클래스 
+    [SerializeField] int _currIndex = 0;                                    // 현재 index
+
+    [Header("===Animals OnOFf===")]
+    [SerializeField] private AnimalsOnOff _animalsOnOff;
+
+    //[Header("===Delegate===")]
+    [SerializeField] private delegate void Del_UiUpdate(int idx);
+    private Del_UiUpdate del_UiUpdate;
+
+    private void Awake()
+    {
+        // 최초 1회 , OnEnable보다 일찍 시작 해야한다 
+        // AnimalType enum을 리스트로 저장 
+        _animalTypeList = (AnimalType[])Enum.GetValues(typeof(AnimalType));
+
+        // 딕셔너리 초기화 
+        F_InitDictionary();
+
+        // 델리게이션이 함수추가 .
+        del_UiUpdate += F_ChangeNameText;
+        del_UiUpdate += F_ChangeButton;
+        del_UiUpdate += F_UpdateAnimalState;
+        del_UiUpdate += F_UpdatePrice;
+        del_UiUpdate += _animalsOnOff.F_OnOFfAnimalsByIndex;
+
+    }
 
     private void Start()
     {
-        // 딕셔너리 초기화 
-        F_InitDictionary();
+        _currIndex = 0;
+
+        // 버튼에 이벤트 초기화
+        _leftArrowButton = _leftArrow.GetComponent<Button>();
+        _rightArrowButton = _rightArrow.GetComponent<Button>();
+        _leftArrowButton.onClick.AddListener(F_ClickLeftArrow);
+        _rightArrowButton.onClick.AddListener(F_ClickRightArrow);
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) 
+        {
+            DICT_obtainAnimal[AnimalType.SnappingTurtle] = true;
+            F_InitPlayerSelectUI(); 
+
+        }
+    }
+
+    private void OnEnable()
+    {
+        // Ui 초기화 
+        F_InitPlayerSelectUI();
     }
 
     public void F_InitDictionary() 
     {
         // 1. 얻은지 판별하는 딕셔너리 초기화
-        _obtainAnimal = new Dictionary<AnimalType, bool>();
+        DICT_obtainAnimal = new Dictionary<AnimalType, bool>();
         _playerAnimalStateList = new List<PlayerAnimalState>();
 
-        AnimalType[] _type = (AnimalType[])Enum.GetValues(typeof(AnimalType));
-
-        // [0] 비버는 기본 획득으로 
+        // [0] 비버는 기본 획득으로 ( true )
         try
         {
-            _obtainAnimal.Add(_type[0] , true );
-           
+            DICT_obtainAnimal.Add(_animalTypeList[0] , true );
         }
         catch (Exception e) 
         {
             Debug.Log(e);
         }
 
-        // [1] ~ 나머지 획득 
-        for(int i = 1; i < _type.Length; i++)
+        // [1] ~ 나머지 획득 ( false )
+        for(int i = 1; i < _animalTypeList.Length; i++)
         {
             try
             {
-                _obtainAnimal.Add(_type[i] , false);
+                DICT_obtainAnimal.Add(_animalTypeList[i] , false);
             }
             catch (Exception e) 
             {
@@ -75,12 +126,119 @@ public class PlayerSelectUI : MonoBehaviour
         }
 
         // 2. 리스트 초기화
-        for (int i = 0; i < _type.Length; i++) 
+        for (int i = 0; i < _animalTypeList.Length; i++) 
         {
             _playerAnimalStateList.Add
-                        (PlayerManager_Lobby.Instance.F_AnimaTypeToState(_type[i]));
+                        (PlayerManager_Lobby.Instance.F_AnimaTypeToState(_animalTypeList[i]));
         }
     }
 
+    // 이 ui 들어올 때마다 맨 처음 화면 (비버는 잠금해제된 상태) 초기화 
+    // 다른 UI Panel에서 플레이어를 살 수 도 있으니까 
+    private void F_InitPlayerSelectUI() 
+    {
+        // panel 돌면서 잠금 표시 onoff
+        for (int i = 0; i < _animalTypeList.Length; i++) 
+        {
+            // 획득이 true이면  
+            if (DICT_obtainAnimal[_animalTypeList[i]]) 
+            {
+                // 자물쇠 끄기 
+                _animalProfileObj[i].transform.GetChild(2).gameObject.SetActive(false);
+            }
+        }
+
+        // ui 업데이트 
+        del_UiUpdate(_currIndex);
+    }
+
+    private void F_ClickRightArrow() 
+    {
+        _currIndex++;
+        if (_currIndex >= _playerAnimalStateList.Count - 1) 
+        {
+            // max값으로 
+            _currIndex = _playerAnimalStateList.Count - 1;
+
+            // arrow 숨기기 
+            _rightArrow.SetActive(false);
+        }
+        else
+        {
+            _rightArrow.SetActive(true);
+            _leftArrow.SetActive(true);
+        }
+
+        // ui 업데이트 
+        del_UiUpdate(_currIndex);
+
+    }
+    private void F_ClickLeftArrow() 
+    {
+        _currIndex--;
+        if (_currIndex <= 0 ) 
+        {
+            // min 값으로 
+            _currIndex = 0;
+
+            // arrow 숨기기
+            _leftArrow.SetActive(false);
+        }
+        else
+        {
+            _rightArrow.SetActive(true);
+            _leftArrow.SetActive(true);
+        }
+
+        // ui 업데이트 
+        del_UiUpdate(_currIndex);
+    }
+
+    // arrow 누를때 
+    // 1. 이름변경 
+    private void F_ChangeNameText(int _idx) 
+    {
+        _selectAnimalNameText.text = _playerAnimalStateList[_idx].markerName;
+    }
+
+    // 2. buy, select 버튼 on off 
+    private void F_ChangeButton(int _idx) 
+    {
+        // 획득했는지 아닌지 검사해야함 
+        bool flag = DICT_obtainAnimal[(AnimalType)_idx];
+
+        // 획득 이미지 on
+        _acquireImage.SetActive(flag);
+
+        // buy 버튼 off
+        _buyButton.SetActive(!flag);
+    }
+
+    // 3. 오른쪽 스탯 변경 
+    private void F_UpdateAnimalState(int _idx) 
+    {
+        PlayerAnimalState _state = _playerAnimalStateList[_idx];
+
+        // 기본 state 변경 
+        _HpText.text        = _state.markerHp.ToString();
+        _SpeedText.text     = _state.markerMoveSpeed.ToString();
+        _DamageText.text    = _state.markerDamage.ToString();
+        _DefenceText.text   = _state.markerDefence.ToString();
+        _RecoveryText.text  = _state.markerNaturalRecoery.ToString();
+
+        // 추가 state 변경 
+        _moreAbilityText.text = "탐색범위 : " + _state.magnetSearchRadious + "   "
+                                + "경험치 배율 : " + _state.markerLuck + '\n'
+                                + "쉴드 쿨타임 : " + _state.markerShieldCoolTime + " "
+                                + "운 : " + _state.markerLuck;
+
+    }
+
+    // 4. 가격 업데이트 
+    private void F_UpdatePrice(int _idx) 
+    {
+        _priceText.text = _animalPriceData[_idx].AnimalPrice.ToString();
+    }
+    
 
 }

@@ -15,7 +15,7 @@ public abstract class CSVManager : MonoBehaviour
     [SerializeField]
     protected string[] headerArray; // Skillcard Importer에서 사용함 
 
-    private void Start()
+    private void Awake()
     {
         // 하위에서 각자 컨테이너 초기화
         F_InitContainer();
