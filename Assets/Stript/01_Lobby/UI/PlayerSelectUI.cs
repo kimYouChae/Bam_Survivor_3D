@@ -13,8 +13,6 @@ public class PlayerSelectUI : MonoBehaviour
     [Header("===Arrow===")]
     [SerializeField] GameObject _leftArrow;
     [SerializeField] GameObject _rightArrow;
-    private Button _leftArrowButton;
-    private Button _rightArrowButton;
 
     [Header("===Button===")]
     [SerializeField] GameObject _acquireImage;              // 획득 이미지 
@@ -43,7 +41,7 @@ public class PlayerSelectUI : MonoBehaviour
     [SerializeField] PlayerAnimalState _currMarkerState;                    // 현재 player 클래스 
     [SerializeField] int _currIndex = 0;                                    // 현재 index
 
-    [Header("===Animals OnOFf===")]
+    [Header("===Script===")]
     [SerializeField] private AnimalsOnOff _animalsOnOff;
 
     //[Header("===Delegate===")]
@@ -73,11 +71,13 @@ public class PlayerSelectUI : MonoBehaviour
         _currIndex = 0;
 
         // 버튼에 이벤트 초기화
-        _leftArrowButton = _leftArrow.GetComponent<Button>();
-        _rightArrowButton = _rightArrow.GetComponent<Button>();
-        _leftArrowButton.onClick.AddListener(F_ClickLeftArrow);
-        _rightArrowButton.onClick.AddListener(F_ClickRightArrow);
+        _leftArrow.GetComponent<Button>().onClick.AddListener(F_ClickLeftArrow);
+        _rightArrow.GetComponent<Button>().onClick.AddListener(F_ClickRightArrow); ;
 
+        // buy 버튼 조기화 
+        _buyButton.GetComponent<Button>().onClick.AddListener(F_BuyAnimal);
+        // select 버튼 초기화
+        _selectButton.GetComponent<Button>().onClick.AddListener(F_SelectAnimal);
     }
 
     private void Update()
@@ -144,7 +144,8 @@ public class PlayerSelectUI : MonoBehaviour
             if (DICT_obtainAnimal[_animalTypeList[i]]) 
             {
                 // 자물쇠 끄기 
-                _animalProfileObj[i].transform.GetChild(2).gameObject.SetActive(false);
+                F_LockerOff(i);
+                
             }
         }
 
@@ -240,5 +241,40 @@ public class PlayerSelectUI : MonoBehaviour
         _priceText.text = _animalPriceData[_idx].AnimalPrice.ToString();
     }
     
+    // 동물 구매
+    public void F_BuyAnimal() 
+    {
+        // 골드가 충분히 없으면 return
+        if (!GoodsManager.Instance.F_HaveEnoughMoney(GoodsType.Gold, _animalPriceData[_currIndex].AnimalPrice))
+            return;
 
+        // 골드가 있으면 1. 골드 사용
+        GoodsManager.Instance.F_UpdateGoods(GoodsType.Gold , -1 * (_animalPriceData[_currIndex].AnimalPrice));
+
+        // 2. 획득
+        F_GainAnimal(_animalTypeList[_currIndex]);
+        // 2-1. 자물쇠 업데이트
+        F_LockerOff(_currIndex);
+
+        // 3. Goods ui 업데이트 
+        GoodsManager.Instance.goodsUi.F_UpdateGoodsText(GoodsType.Gold);
+    }
+
+    // 동물 획득 // ##TODO : 상점 페이지에서 사용할수도 
+    public void F_GainAnimal(AnimalType _type) 
+    {
+        DICT_obtainAnimal[_type] = true;
+    }
+
+    // 자물쇠 off
+    private void F_LockerOff(int _idx) 
+    {
+        _animalProfileObj[_idx].transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    // 동물 선택 
+    private void F_SelectAnimal() 
+    {
+        // ##TODO : 게임씬으로 넘겨야함 _currIndex에 맞는 PlayerAnimalState
+    }
 }
