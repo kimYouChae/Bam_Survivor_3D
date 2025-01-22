@@ -16,3 +16,4 @@ MonoBehaviour:
   _buildingName: CarrotBuilding
   _generateSecond: 10
   _propsSprite: {fileID: 21300000, guid: 540bc0b5676fc4bde832bb968441a3b3, type: 3}
+  _gainAmount: 20

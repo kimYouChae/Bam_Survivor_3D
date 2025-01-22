@@ -16,3 +16,4 @@ MonoBehaviour:
   _buildingName: RiceBuilding
   _generateSecond: 60
   _propsSprite: {fileID: 21300000, guid: f906e57fb43bb4c48b8705c36ff4bafa, type: 3}
+  _gainAmount: 5

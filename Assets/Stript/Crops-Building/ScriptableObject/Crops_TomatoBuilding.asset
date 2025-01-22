@@ -16,3 +16,4 @@ MonoBehaviour:
   _buildingName: TomatoBuilding
   _generateSecond: 30
   _propsSprite: {fileID: 21300000, guid: 7dfd1cc2b84b24ff4a7ac0d3412df080, type: 3}
+  _gainAmount: 10
