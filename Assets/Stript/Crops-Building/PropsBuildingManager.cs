@@ -44,15 +44,15 @@ public class PropsBuildingManager : Singleton<PropsBuildingManager>
     }
 
     // ¿Œ∞‘¿” ≥ªø°º≠ »πµÊ«— props
-    public void F_GetProps(CropsType _state)
+    public void F_GetProps(CropsType _state , int _amount)
     {
         if (!DICT_inGamePropsToCount.ContainsKey(_state))
         {
-            DICT_inGamePropsToCount.Add(_state, 0);
+            DICT_inGamePropsToCount.Add(_state, _amount);
         }
 
         // »πµÊ count ++ 
-        DICT_inGamePropsToCount[_state]++;
+        DICT_inGamePropsToCount[_state] += _amount;
     }
 
     private void F_SetUpField() 

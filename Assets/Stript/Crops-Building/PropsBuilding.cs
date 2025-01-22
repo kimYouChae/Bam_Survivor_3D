@@ -99,13 +99,13 @@ public class PropsBuilding : MonoBehaviour
     public void F_CropsAddCount()
     {
         // PropsBuilidngManager의 함수 실행 
-        PropsBuildingManager.Instance.F_GetProps(_CropsData.PropsType);
+        PropsBuildingManager.Instance.F_GetProps(_CropsData.PropsType , _CropsData.GainAmount);
     }
 
     public void F_GoodsAddCount()
     {
         // GoodManager의 함수 실행
-        GoodsManager.Instance.F_GetGoods(_GoodsData.PropsType);
+        GoodsManager.Instance.F_UpdateGoods(_GoodsData.PropsType , _GoodsData.GainAmount);
     }
 
 

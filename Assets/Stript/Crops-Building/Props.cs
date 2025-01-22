@@ -19,7 +19,9 @@ public class Props : MonoBehaviour
     private float _buildingGenerateTime;
     [SerializeField]
     private Sprite _buildingSprite;
-
+    [SerializeField]
+    private int _onesGainAmount = 1;
+    
     [Header("===Component===")]
     private MeshRenderer _buildingRenderer;
 
@@ -79,7 +81,7 @@ public class Props : MonoBehaviour
             if (_readyToHarvest)
             {
                 // crops »πµÊ 
-                PropsBuildingManager.Instance.F_GetProps(_type);
+                PropsBuildingManager.Instance.F_GetProps(_type , _onesGainAmount);
 
                 // æ»∫∏¿Ã∞‘
                 F_MeshOnOff(false);
