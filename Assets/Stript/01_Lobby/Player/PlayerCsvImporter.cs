@@ -13,7 +13,7 @@ public class PlayerCsvImporter : CSVManager
     // type¿¡ µû¸¥ state return
     public PlayerAnimalState F_AnimalTypeToState(AnimalType _type) 
     {
-        Debug.Log(DICT_AnimalToMarkerState[_type].markerName);
+        //Debug.Log(DICT_AnimalToMarkerState[_type].markerName);
 
         if (DICT_AnimalToMarkerState.ContainsKey(_type))
             return DICT_AnimalToMarkerState[_type];

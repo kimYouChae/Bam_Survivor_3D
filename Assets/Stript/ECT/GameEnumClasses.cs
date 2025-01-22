@@ -126,8 +126,9 @@ public enum CropsType
 
 public enum GoodsType 
 {
-    Crystal,
-    Gold
+    Energy,
+    Gold,
+    Crystal
 }
 
 // Unit 애니메이션
